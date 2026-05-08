@@ -1,0 +1,38 @@
+{
+  "_comment": "Curated MCP server recipes. All entries are disabled by default. Move servers from `_disabled` into `mcpServers` to opt in. See plugins/mcp-pack/docs/ for per-server notes (auth, scopes, last-verified date).",
+  "mcpServers": {},
+  "_disabled": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}" },
+      "_doc": "plugins/mcp-pack/docs/github.md"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "_doc": "plugins/mcp-pack/docs/playwright.md"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "_doc": "plugins/mcp-pack/docs/context7.md"
+    },
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena-mcp-server"],
+      "_doc": "plugins/mcp-pack/docs/serena.md"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "_doc": "plugins/mcp-pack/docs/sequential-thinking.md"
+    },
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server@latest"],
+      "env": { "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}" },
+      "_doc": "plugins/mcp-pack/docs/sentry.md"
+    }
+  }
+}

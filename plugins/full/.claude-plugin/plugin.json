@@ -1,0 +1,22 @@
+{
+  "name": "full",
+  "version": "0.1.0",
+  "description": "Umbrella plugin pulling in safety, verification, review, tdd, pr-guardian, long-running, and mcp packs.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/full/",
+  "license": "MIT",
+  "keywords": ["umbrella", "claude-harnesses"],
+  "components": {},
+  "dependsOn": [
+    "safety-pack",
+    "verification-pack",
+    "review-pack",
+    "tdd-pack",
+    "pr-guardian-pack",
+    "long-running-pack",
+    "mcp-pack"
+  ]
+}

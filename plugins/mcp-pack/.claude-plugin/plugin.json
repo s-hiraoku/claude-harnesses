@@ -1,0 +1,13 @@
+{
+  "name": "mcp-pack",
+  "version": "0.1.0",
+  "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry. All servers ship disabled; opt in per project.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/mcp-pack/",
+  "license": "MIT",
+  "keywords": ["mcp", "playwright", "github", "serena", "context7"],
+  "components": {}
+}
