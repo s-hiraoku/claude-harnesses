@@ -2,48 +2,115 @@
 
 `claude-harnesses` supports four installation methods. Pick the one that matches how you usually adopt tooling.
 
-## 1. Plugin marketplace (recommended)
+## 1. Anthropic plugin marketplace (recommended)
 
-Add the repository as a Claude Code plugin marketplace, then install the packs you want.
+Use Claude Code's built-in plugin system. Add this repository as a marketplace, then install the pack you want from inside a Claude Code session.
 
-```sh
-claude /plugin marketplace add s-hiraoku/claude-harnesses
-claude /plugin install full@claude-harnesses
+```text
+/plugin marketplace add s-hiraoku/claude-harnesses
+/plugin install full@claude-harnesses
 ```
 
-To install just one pack:
+Use `/plugin` (no arguments) to browse the marketplace interactively, or install a specific pack:
+
+```text
+/plugin install safety-pack@claude-harnesses
+/plugin install verification-pack@claude-harnesses
+/plugin install review-pack@claude-harnesses
+/plugin install tdd-pack@claude-harnesses
+/plugin install pr-guardian-pack@claude-harnesses
+/plugin install long-running-pack@claude-harnesses
+/plugin install mcp-pack@claude-harnesses
+```
+
+You can run the same flow non-interactively from the shell:
 
 ```sh
-claude /plugin install pr-guardian-pack@claude-harnesses
+claude plugin marketplace add s-hiraoku/claude-harnesses
+claude plugin install pr-guardian-pack@claude-harnesses
 ```
+
+Add `--scope project` to commit the install to `.claude/`, or `--scope local` to keep it private to your machine.
 
 Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `full`.
 
-## 2. `gh skill install`
+Useful follow-ups:
 
-For installing individual skills without the full plugin machinery.
+- `/plugin marketplace list` — see registered marketplaces
+- `/plugin marketplace remove claude-harnesses` (or `rm`) — remove the marketplace
+- `/plugin update claude-harnesses` — pull the latest
+
+## 2. APM — Agent Package Manager
+
+[APM](https://github.com/microsoft/apm) is a cross-agent dependency manager (like `package.json` for AI agents). It works with Claude Code, Cursor, Copilot, and others, and reproduces the same setup across machines.
+
+Install one pack directly:
+
+```sh
+apm install s-hiraoku/claude-harnesses/safety-pack
+apm install s-hiraoku/claude-harnesses/pr-guardian-pack
+```
+
+Pin to a tag or branch:
+
+```sh
+apm install s-hiraoku/claude-harnesses/tdd-pack#v0.1.0
+```
+
+Or declare the dependencies in `apm.yml` and run `apm install` to reproduce the setup:
+
+```yaml
+# apm.yml
+plugins:
+  - s-hiraoku/claude-harnesses/safety-pack
+  - s-hiraoku/claude-harnesses/verification-pack
+  - s-hiraoku/claude-harnesses/pr-guardian-pack
+  - s-hiraoku/claude-harnesses/long-running-pack
+```
+
+```sh
+apm install
+```
+
+APM resolves the plugin manifests under `plugins/<name>/.claude-plugin/plugin.json` and wires the components into your client's expected layout.
+
+## 3. `gh skill install` — single skill at a time
+
+For installing individual skills without the full plugin machinery. Skills are picked up by Claude Code (and other agents that follow the universal `SKILL.md` format).
 
 ```sh
 gh skill install s-hiraoku/claude-harnesses tdd --scope project
 gh skill install s-hiraoku/claude-harnesses review --scope user
 ```
 
-Skills land in `.claude/skills/<name>/SKILL.md` (project scope) or `~/.claude/skills/<name>/` (user scope).
+Pin to a tag or branch:
 
-## 3. `npx skills add`
+```sh
+gh skill install s-hiraoku/claude-harnesses tdd@v0.1.0 --scope project
+```
 
-Same effect, different CLI.
+| Scope | Lands in | Shared with team |
+|---|---|---|
+| `--scope project` | `.claude/skills/<name>/` | Yes (commit it) |
+| `--scope user` | `~/.claude/skills/<name>/` | No |
+
+Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`.
+
+## 4. `npx skills add` — single skill or all of them
+
+Same idea as `gh skill install`, different CLI. Works without GitHub CLI installed.
 
 ```sh
 npx skills add s-hiraoku/claude-harnesses --skill review
+npx skills add s-hiraoku/claude-harnesses --skill tdd --skill security-review
 npx skills add s-hiraoku/claude-harnesses --all
 ```
 
-Use `--global` for user-wide install.
+Use `--global` to install user-wide instead of project-local.
 
-## 4. `scripts/install.sh`
+## Optional: vendor with `scripts/install.sh`
 
-For projects that prefer to vendor harness files into the repository directly.
+When you want to commit the harness files directly into your repo (no plugin runtime, no per-skill CLI), clone this repo and run:
 
 ```sh
 git clone https://github.com/s-hiraoku/claude-harnesses /tmp/claude-harnesses
@@ -54,8 +121,6 @@ bash /tmp/claude-harnesses/scripts/install.sh \
   --ledger
 ```
 
-Options:
-
 | Flag | Purpose |
 |---|---|
 | `--target DIR` | Project directory (default: cwd). |
@@ -63,17 +128,17 @@ Options:
 | `--claude-md NAME` | Install `templates/claude-md/<NAME>/CLAUDE.md` as `./CLAUDE.md`. |
 | `--settings NAME` | Install `settings/<NAME>.json` as `.claude/settings.json`. |
 | `--skills LIST` | Install comma-separated skills, or `all`. |
-| `--hooks LIST` | Install comma-separated hooks, or `all`. |
 | `--ledger` | Install ledger templates. |
 | `--mcp` | Install `plugins/mcp-pack/.mcp.json` template. |
+| `--no-verify` | Skip installing `scripts/verify.sh` (installed by default). |
 | `--force` | Overwrite existing files. |
 | `--dry-run` | Print actions only. |
 
-## Comparing the methods
+## Comparing the four methods
 
-| Method | Best for | Granularity | Updates |
-|---|---|---|---|
-| Plugin marketplace | Most users | Pack-level | Auto via `/plugin update` |
-| `gh skill install` | Single-skill adoption | Skill-level | Manual re-install |
-| `npx skills add` | Cross-agent shared toolkit | Skill or all | Manual re-install |
-| `scripts/install.sh` | Vendoring into repo | File-level | Manual re-run |
+| Method | Best for | Granularity | Updates | Cross-agent |
+|---|---|---|---|---|
+| Plugin marketplace | Most Claude Code users | Pack-level | `/plugin update` | Claude Code only |
+| APM | Reproducible cross-agent setups (CI, dotfiles) | Pack-level via `apm.yml` | `apm install` re-run | Yes (Claude Code, Cursor, Copilot, etc.) |
+| `gh skill install` | One specific skill | Skill-level | Manual re-install | Multi-agent (universal SKILL.md) |
+| `npx skills add` | Same as gh skill, no GitHub CLI required | Skill-level or all | Manual re-install | Multi-agent (universal SKILL.md) |

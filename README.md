@@ -13,46 +13,59 @@ The user guide is published at **[s-hiraoku.github.io/claude-harnesses](https://
 
 Pick whichever fits how you usually adopt tooling.
 
-### 1) Plugin marketplace (recommended)
+### 1) Anthropic plugin marketplace (recommended)
 
-```sh
-claude /plugin marketplace add s-hiraoku/claude-harnesses
-claude /plugin install full@claude-harnesses
+From inside a Claude Code session:
+
+```text
+/plugin marketplace add s-hiraoku/claude-harnesses
+/plugin install full@claude-harnesses
 ```
 
 Or install just the pack you need:
 
+```text
+/plugin install pr-guardian-pack@claude-harnesses
+/plugin install safety-pack@claude-harnesses
+/plugin install tdd-pack@claude-harnesses
+```
+
+The same flow works non-interactively from the shell:
+
 ```sh
-claude /plugin install pr-guardian-pack@claude-harnesses
-claude /plugin install safety-pack@claude-harnesses
-claude /plugin install tdd-pack@claude-harnesses
+claude plugin marketplace add s-hiraoku/claude-harnesses
+claude plugin install full@claude-harnesses
 ```
 
 Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `full`.
 
-### 2) `gh skill install`
+### 2) APM (Agent Package Manager)
+
+[APM](https://github.com/microsoft/apm) is a cross-agent dependency manager that works with Claude Code, Cursor, Copilot, and others.
+
+```sh
+apm install s-hiraoku/claude-harnesses/full
+# or pin to a tag
+apm install s-hiraoku/claude-harnesses/tdd-pack#v0.1.0
+```
+
+Or declare the dependencies in `apm.yml` and run `apm install` to reproduce the same setup across machines.
+
+### 3) `gh skill install`
 
 ```sh
 gh skill install s-hiraoku/claude-harnesses tdd --scope project
 gh skill install s-hiraoku/claude-harnesses review --scope user
 ```
 
-### 3) `npx skills add`
+### 4) `npx skills add`
 
 ```sh
 npx skills add s-hiraoku/claude-harnesses --skill review
 npx skills add s-hiraoku/claude-harnesses --all
 ```
 
-### 4) `scripts/install.sh`
-
-```sh
-git clone https://github.com/s-hiraoku/claude-harnesses /tmp/claude-harnesses
-bash /tmp/claude-harnesses/scripts/install.sh \
-  --target /path/to/project \
-  --pack pr-guardian --pack safety --pack verification \
-  --claude-md strict --settings default --ledger
-```
+For vendoring harness files directly into your repo without a plugin runtime, see [`scripts/install.sh`](docs/installation.md#optional-vendor-with-scriptsinstallsh).
 
 See [docs/installation.md](docs/installation.md) for the full comparison.
 
