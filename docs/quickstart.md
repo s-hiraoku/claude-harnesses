@@ -2,36 +2,67 @@
 
 Five-minute setup for a typical project. Pick **one** of the four installation methods below; they all reach the same end state.
 
-## Option A — plugin marketplace (recommended)
+## Option A — Anthropic plugin marketplace (recommended)
+
+From inside a Claude Code session:
+
+```text
+/plugin marketplace add s-hiraoku/claude-harnesses
+/plugin install full@claude-harnesses
+```
+
+Or from the shell:
 
 ```sh
-claude /plugin marketplace add s-hiraoku/claude-harnesses
-claude /plugin install full@claude-harnesses
+claude plugin marketplace add s-hiraoku/claude-harnesses
+claude plugin install full@claude-harnesses
 ```
 
 After installation, run a session and try:
 
-```
+```text
 /checkpoint           # write a ledger entry
 /verify               # run scripts/verify.sh
 /review               # review the current branch
 ```
 
-## Option B — `gh skill install` (per skill)
+## Option B — APM (Agent Package Manager)
+
+```sh
+apm install s-hiraoku/claude-harnesses/full
+```
+
+Or declare it once in `apm.yml` and check it into the repo:
+
+```yaml
+plugins:
+  - s-hiraoku/claude-harnesses/safety-pack
+  - s-hiraoku/claude-harnesses/verification-pack
+  - s-hiraoku/claude-harnesses/pr-guardian-pack
+  - s-hiraoku/claude-harnesses/long-running-pack
+```
+
+```sh
+apm install
+```
+
+## Option C — `gh skill install` (single skill)
 
 ```sh
 gh skill install s-hiraoku/claude-harnesses tdd --scope project
 gh skill install s-hiraoku/claude-harnesses review --scope project
 ```
 
-## Option C — `npx skills add` (per skill or all)
+## Option D — `npx skills add` (single skill or all)
 
 ```sh
 npx skills add s-hiraoku/claude-harnesses --skill review
 npx skills add s-hiraoku/claude-harnesses --all
 ```
 
-## Option D — `scripts/install.sh` (vendor into the repo)
+## Optional: vendor with `scripts/install.sh`
+
+When you want to commit the harness files into your repo without a plugin runtime:
 
 ```sh
 git clone https://github.com/s-hiraoku/claude-harnesses /tmp/claude-harnesses
