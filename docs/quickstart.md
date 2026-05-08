@@ -90,4 +90,4 @@ You should see `PreToolUse`, `PostToolUse`, and `Stop` (depending on which packs
 3. Try a deliberate `git push --force origin main`. It should be denied by `branch-protection-guard` (or by `permissions.deny` if you used the strict preset).
 4. Set `CLAUDE_HARNESSES_DISABLE=1` and confirm hooks short-circuit. Unset to re-enable.
 
-You're done. Continue to the [Adoption Checklist](adoption-checklist.md) for tightening.
+You're done. Continue to the [Adoption Checklist](adoption-checklist.md) for tightening, or to [Skill Evaluation](skill-evaluation.md) when you start authoring or revising your own skills and want to keep their quality high.

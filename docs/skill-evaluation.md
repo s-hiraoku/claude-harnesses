@@ -1,118 +1,172 @@
 # Skill Evaluation
 
-`claude-harnesses` keeps skill quality high by treating every skill as a prompt that must be **empirically tuned** before release. The flow is borrowed from [mizchi/skills/empirical-prompt-tuning](https://github.com/mizchi/skills/tree/main/empirical-prompt-tuning); the canonical method lives in our own [`empirical-prompt-tuning` skill](skills/empirical-prompt-tuning.md).
+Every skill in this repository is treated as a prompt that must be **empirically tuned** before release. This page is the practical how-to. The method itself lives in the [`empirical-prompt-tuning`](skills/empirical-prompt-tuning.md) skill, adapted from [mizchi/skills/empirical-prompt-tuning](https://github.com/mizchi/skills/tree/main/empirical-prompt-tuning).
 
-## Why
+## Why bother
 
 The author of a skill cannot judge its quality. Re-reading your own draft from "the same head" cannot detect the ambiguities that will trip up a fresh agent. The only reliable test is to dispatch a bias-free executor, score against a frozen requirements checklist, and iterate until improvements plateau.
 
-## Flow
+## When to run an evaluation
 
-```
-authored / revised SKILL.md
-        │
-        ▼
- evals/<skill>/scenarios.yaml   ← freeze 2–3 scenarios + checklists
-        │
-        ▼
- dispatch fresh subagent via Task tool, one per scenario
-        │
-        ▼
- fill evals/<skill>/runs/<timestamp>.md   ← two-sided scoring
-        │
-        ▼
- minimum fix to SKILL.md, one theme per iteration
-        │
-        ▼
- loop with a NEW subagent until 2 consecutive plateau iterations
-        │
-        ▼
- append passing entry to evals/<skill>/ledger.md
-        │
-        ▼
- PR's eval-quality-gate.yml verifies the ledger entry
-```
+- After authoring a new skill.
+- After substantially revising a skill's body or `description`.
+- Before promoting a skill from draft to published (i.e. before merging to main).
+- When a user reports unexpected behavior and you suspect instruction-side ambiguity.
 
-## Step-by-step
+Skip evaluation only for typo / link / formatting fixes — and use `[skip-eval]` in the PR description so CI knows.
 
-### 1. Scaffold
+## End-to-end example: evaluating the `review` skill
+
+Concrete walkthrough of one full iteration. Every other skill follows the same shape.
+
+### Step 1 — scaffold the eval directory
 
 ```sh
-bash scripts/eval-skill.sh init <skill-name>
+bash scripts/eval-skill.sh init review
 ```
 
-Creates `evals/<skill>/scenarios.yaml`, `evals/<skill>/runs/`, and `evals/<skill>/ledger.md` from `evals/_template/`.
+Creates:
 
-### 2. Define scenarios
+```
+evals/review/
+├── scenarios.yaml      # to be filled
+├── runs/               # timestamped run notes will land here
+└── ledger.md           # dated iteration summaries
+```
 
-Edit `evals/<skill>/scenarios.yaml`. Pick **2–3** scenarios (1 typical + 1 edge minimum). For each scenario, list **3–7 requirements**, with at least one tagged `[critical]`. Once a run has been recorded, **do not edit checklists retroactively** — that turns the eval into a vibes check.
+### Step 2 — write `evals/review/scenarios.yaml`
 
-### 3. Start a run
+Pick **2–3 scenarios** (1 typical + 1 edge minimum). For each, list **3–7 requirements**, with **at least one tagged `[critical]`**. Once a run records against this file, **do not edit checklists retroactively** — that turns the eval into a vibes check.
+
+```yaml
+skill: review
+
+scenarios:
+  - id: typical-pr
+    kind: typical
+    prompt: |
+      Review the current branch as if it were a PR adding rate limiting
+      to src/api/auth.ts. The branch adds a new middleware, modifies
+      src/api/server.ts to wire it in, and adds 2 tests. Produce a
+      severity-ranked review.
+    requirements:
+      - text: Findings are listed in severity order (Critical → Info).
+        critical: true
+      - text: Each finding cites a file:line.
+        critical: true
+      - text: A one-line verdict (Ready to Merge / Needs Attention / Needs Work) is included.
+        critical: true
+      - text: Style nits are not raised unless they obscure correctness.
+        critical: false
+
+  - id: empty-diff
+    kind: edge
+    prompt: |
+      Review the current branch. The branch has zero commits relative to main.
+    requirements:
+      - text: The skill recognizes the empty diff and reports it explicitly.
+        critical: true
+      - text: No invented findings.
+        critical: true
+```
+
+### Step 3 — create a run note
 
 ```sh
-bash scripts/eval-skill.sh new-run <skill-name>
+bash scripts/eval-skill.sh new-run review
 ```
 
-Creates a timestamped run file under `evals/<skill>/runs/`.
+This creates `evals/review/runs/<timestamp>.md` from the template, pre-filled with the current skill commit hash and iteration number.
 
-### 4. Dispatch fresh subagents
+### Step 4 — ask Claude to run the evaluation
 
-Inside Claude Code, for each scenario, dispatch a `general-purpose` subagent with **only** the scenario prompt. Do not paste the SKILL.md, do not summarize it. Multiple scenarios go in a single message for parallelism.
+Open Claude Code in the repo and say:
 
-### 5. Score two-sided
+> Use the `empirical-prompt-tuning` skill to evaluate the `review` skill for one iteration. Read `evals/review/scenarios.yaml`, dispatch one fresh subagent per scenario via the Task tool (in parallel), and fill in `evals/review/runs/<the new file>.md`. Do not paste the skill body to the subagents — they must read it cold.
 
-Fill the run file with:
+Claude will:
 
-- **Executor self-report**: phase-tagged unclear points, discretionary fill-ins.
-- **Instruction-side metrics**: pass/fail (only if all `[critical]` items pass), accuracy %, tool-use steps (`tool_uses`), duration ms (`duration_ms`), retry count.
-- **Structured reflection**: `Issue / Cause / General Fix Rule` per unclear point.
+1. Read `scenarios.yaml`.
+2. Spawn one `general-purpose` subagent **per scenario** in a single message (parallel).
+3. Pass each subagent **only** the scenario `prompt` field. Not the SKILL.md content.
+4. Collect the subagents' returns plus `tool_uses` / `duration_ms` from the Task usage meta.
+5. Score two-sided into the run file:
+   - **Executor self-report** (phase-tagged: Understanding / Planning / Execution / Formatting)
+   - **Instruction-side metrics**: pass/fail (only if all `[critical]` items pass), accuracy %, tool steps, duration ms, retry count
+   - **Structured reflection** per unclear point: `Issue / Cause / General Fix Rule`
 
-### 6. Apply the minimum fix
+### Step 5 — apply the minimum fix
 
-Before editing the SKILL.md, state which checklist item the fix is meant to satisfy. Consult the ledger first — recurring patterns mean the existing fix is in the wrong place.
+Read the filled-in run file. Before editing the SKILL.md, write down **which checklist item the fix is meant to satisfy**. Then make the smallest change to `skills/review/SKILL.md` that addresses it. One theme per iteration; unrelated cleanups go to the next iteration.
 
-### 7. Re-run
+Consult `evals/review/ledger.md` first. If the same `General Fix Rule` keeps appearing, the existing fix is in the wrong place — move it before adding a new ledger entry.
 
-Always with a **new** subagent. Old subagents have already learned the prior text.
-
-### 8. Stop conditions
-
-- Two consecutive iterations with zero new unclear points,
-- AND accuracy / step / duration improvements below 5%.
-
-For high-importance skills, require three consecutive plateau iterations.
-
-### 9. Record and gate
-
-Append a one-line entry to `evals/<skill>/ledger.md`:
-
-```
-- 2026-05-09: iter 3, 3/3 scenarios pass, accuracy 92%, plateau confirmed
-```
-
-The CI workflow `eval-quality-gate.yml` reads this ledger on every PR that touches `skills/<name>/SKILL.md`. PRs without a recent passing ledger entry fail the gate. Trivial changes can opt out with `[skip-eval]` in the PR description.
-
-## CI configuration
-
-`.github/workflows/eval-quality-gate.yml` runs `scripts/check-eval-coverage.py` against `origin/<base ref>`. The script:
-
-1. Lists `skills/<name>/SKILL.md` files changed in the PR.
-2. For each, requires `evals/<name>/ledger.md` to contain a dated entry within the last 14 days **and** mention `pass` / `plateau` / `converged`.
-3. Bypasses with `[skip-eval]` in the PR body.
-
-## Status check
+### Step 6 — re-run with a NEW subagent
 
 ```sh
-bash scripts/eval-skill.sh status            # all skills
-bash scripts/eval-skill.sh status review     # one skill
+bash scripts/eval-skill.sh new-run review
 ```
+
+Then ask Claude again, the same prompt as Step 4. **Do not reuse the previous subagent** — it has already read the prior text and the eval becomes a reading-comprehension test of the previous version.
+
+### Step 7 — converge
+
+Stop when:
+
+- **Two consecutive iterations** produce zero new unclear points, AND
+- Accuracy / step count / duration improvements drop below 5%.
+
+For high-importance skills (e.g. anything in `safety-pack` or `verification-pack`), require **three** consecutive plateau iterations.
+
+### Step 8 — record in the ledger
+
+Append one line to `evals/review/ledger.md`:
+
+```
+- 2026-05-09: iter 3, 2/2 scenarios pass, accuracy 100%, plateau confirmed (2 consecutive)
+```
+
+The CI gate looks for an entry like this.
+
+## CI quality gate
+
+Every PR that modifies `skills/<name>/SKILL.md` is checked by `.github/workflows/eval-quality-gate.yml`. The gate runs `scripts/check-eval-coverage.py`, which:
+
+1. Lists changed `SKILL.md` files via `git diff` against the base ref.
+2. For each, requires `evals/<name>/ledger.md` to contain a dated entry **within the last 14 days** that mentions `pass`, `plateau`, or `converged`.
+3. Bypasses cleanly when `[skip-eval]` appears in the PR body (use only for trivial changes — typos, link fixes — with a one-line justification).
+
+If the gate fails, run another iteration, append a fresh ledger entry, and push.
+
+## Status overview
+
+```sh
+bash scripts/eval-skill.sh status            # all skills with eval dirs
+bash scripts/eval-skill.sh status review     # one specific skill
+```
+
+Output shows the run count and the most recent dated ledger entry.
+
+## Prompt template for Claude
+
+Drop this into a Claude Code session whenever you start an iteration. Replace `<skill>` with the skill under evaluation.
+
+> Use the `empirical-prompt-tuning` skill to run iteration N of evaluating `<skill>`.
+> 1. Read `evals/<skill>/scenarios.yaml`.
+> 2. Use `bash scripts/eval-skill.sh new-run <skill>` to create the run file (or use the latest empty one if I already created it).
+> 3. Dispatch one `general-purpose` subagent **per scenario in parallel** via the Task tool. Pass each subagent ONLY the scenario `prompt` field — do not paste or summarize the SKILL.md.
+> 4. Capture from each return: full subagent response, `tool_uses`, `duration_ms`.
+> 5. Fill the run file with two-sided scoring (executor self-report phase-tagged, instruction-side metrics, structured reflection per unclear point).
+> 6. Propose the minimum fix to `skills/<skill>/SKILL.md`, citing the checklist item it addresses. Do not apply yet.
+> 7. End with the proposed diff and ask me to approve before writing.
 
 ## Anti-patterns
 
-- **Re-reading your own draft and "deciding it's clear."** Dispatch a fresh subagent.
-- **Editing the requirements checklist after seeing the run.** Defeats the metric.
+- **Re-reading your own draft and "deciding it's clear."** Your head has the missing context already. Dispatch a fresh subagent.
+- **Editing the requirements checklist after seeing the run.** Converts the eval to a vibes check.
 - **Reusing the same subagent across iterations.** It has learned the prior text.
-- **Adding new ledger entries for recurring patterns.** Move the existing fix to a more prominent position before recording another instance.
+- **Adding a new ledger entry for a recurring class of failure.** That just multiplies notes. Move the existing fix to a more prominent position first.
+- **Pasting the SKILL.md into the subagent's prompt.** It must read the skill the way a future user would — cold.
 
 ## Attribution
 

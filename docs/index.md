@@ -7,11 +7,12 @@ Claude Code should not be expected to succeed by intelligence alone. This reposi
 ## What it ships
 
 - **8 plugin packs** (safety, verification, review, tdd, pr-guardian, long-running, mcp, full) — installable in one command via Claude Code's plugin marketplace.
-- **14 skills** with universal `SKILL.md` frontmatter — installable individually via `gh skill install` or `npx skills add`.
+- **15 skills** with universal `SKILL.md` frontmatter — installable individually via `gh skill install` or `npx skills add`.
 - **13 hooks** wired into `PreToolUse` / `PostToolUse` / `Stop` / `SessionStart` / `SessionEnd` events.
 - **Curated `.mcp.json` recipes** for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry.
 - **Settings presets** (strict / default / experimental) and **CLAUDE.md templates** (strict / frontend / library / nextjs).
 - A **task ledger** pattern for sessions that span multiple compactions or runs.
+- A **skill evaluation harness** (`empirical-prompt-tuning` + `evals/` + CI quality gate) that keeps every skill held to a frozen requirements checklist before merge.
 
 ## Four ways to install
 
@@ -35,5 +36,13 @@ bash scripts/install.sh --target /path --pack pr-guardian --pack safety
 ## Why harnesses?
 
 Long-running agent work fails when context drifts, verification is skipped, safety rules are vague, or project conventions live only in chat history. Harnesses move the important parts into durable files and deterministic checks.
+
+## Keeping skill quality high
+
+Skills are prompts, and the author of a prompt cannot judge its quality. Every skill in this repository goes through an empirical evaluation loop — fresh subagents execute the skill against frozen scenarios, results are scored two-sidedly, and the skill is iterated until improvements plateau. A CI gate enforces a recent passing run before any skill change merges.
+
+See [Skill Evaluation](skill-evaluation.md) for the practical how-to, and the [empirical-prompt-tuning skill](skills/empirical-prompt-tuning.md) for the method itself.
+
+## Sister project
 
 This repository is a sister project to [`codex-harnesses`](https://github.com/s-hiraoku/codex-harnesses), translated and re-engineered for Claude Code's native primitives (plugins, hooks, skills, agents, slash commands, MCP).

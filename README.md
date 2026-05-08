@@ -74,13 +74,27 @@ See [docs/installation.md](docs/installation.md) for the full comparison.
 | Category | Items |
 |---|---|
 | **Plugin packs** | safety, verification, review, tdd, pr-guardian, long-running, mcp, full |
-| **Skills** (14) | bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator |
+| **Skills** (15) | bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning |
 | **Hooks** (13) | secret-guard, dangerous-command-guard, branch-protection-guard, prompt-injection-detector, mcp-tool-allowlist, stop-verify, format-on-edit, typecheck-on-edit, test-on-edit, session-context-injector, cost-ceiling-guard, plan-required-on-large-change, session-end-summary |
 | **MCP recipes** | GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry |
 | **Slash commands** | `/verify`, `/review`, `/security-review`, `/tdd`, `/fix-ci`, `/pr-guardian`, `/checkpoint` |
 | **Subagents** | code-reviewer, security-auditor, tdd-test-writer, tdd-implementer, tdd-refactorer, ci-fixer |
 | **Settings presets** | strict, default, experimental |
 | **CLAUDE.md templates** | strict, frontend, library, nextjs |
+
+## Skill evaluation (quality gate)
+
+Skills are prompts, and the author of a prompt can't judge its quality. Every skill in this repo goes through an empirical evaluation loop:
+
+1. Freeze 2–3 realistic scenarios with `[critical]`-tagged requirements in `evals/<skill>/scenarios.yaml`.
+2. Dispatch fresh subagents (one per scenario, in parallel) via the Task tool.
+3. Score two-sided: executor self-report + frozen requirements checklist (pass/fail, accuracy, tool steps, duration).
+4. Apply the minimum fix; loop with a NEW subagent until improvements plateau.
+5. Append a passing entry to `evals/<skill>/ledger.md`.
+
+CI (`eval-quality-gate.yml`) blocks any PR that modifies `skills/<name>/SKILL.md` without a recent passing ledger entry. Trivial fixes can opt out with `[skip-eval]` in the PR description.
+
+The method is published as the [`empirical-prompt-tuning` skill](skills/empirical-prompt-tuning/SKILL.md). Full how-to and copy-paste prompt template: [docs/skill-evaluation.md](docs/skill-evaluation.md).
 
 ## Why harnesses
 
