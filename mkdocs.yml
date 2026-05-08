@@ -1,0 +1,101 @@
+site_name: Claude Harnesses
+site_description: Curated hooks, skills, MCP recipes, and slash commands for long-running, safe, high-quality Claude Code-driven development.
+repo_url: https://github.com/s-hiraoku/claude-harnesses
+repo_name: s-hiraoku/claude-harnesses
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - navigation.expand
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Get Started:
+      - Quickstart: quickstart.md
+      - Installation: installation.md
+      - Adoption Checklist: adoption-checklist.md
+      - Migrating from codex-harnesses: migrating-from-codex-harnesses.md
+  - Concepts:
+      - Philosophy: philosophy.md
+      - Harness Model: harness-model.md
+      - Safety Model: safety-model.md
+      - Permissions Model: permissions-model.md
+      - Hook Hardening: hook-hardening.md
+      - Long-Running Claude Code: long-running-claude.md
+      - Task Ledger Patterns: task-ledger-patterns.md
+      - MCP Strategy: mcp-strategy.md
+      - Claude Code Configuration: claude-config.md
+      - Release Readiness: release-readiness.md
+  - Packs:
+      - Safety: packs/safety-pack.md
+      - Verification: packs/verification-pack.md
+      - Review: packs/review-pack.md
+      - TDD: packs/tdd-pack.md
+      - PR Guardian: packs/pr-guardian-pack.md
+      - Long-Running: packs/long-running-pack.md
+      - MCP: packs/mcp-pack.md
+      - Full: packs/full.md
+  - Skills:
+      - Index: skills/index.md
+      - bug-fix: skills/bug-fix.md
+      - feature-implementation: skills/feature-implementation.md
+      - refactor-safely: skills/refactor-safely.md
+      - review: skills/review.md
+      - release-check: skills/release-check.md
+      - docs-updater: skills/docs-updater.md
+      - goal-manager: skills/goal-manager.md
+      - pr-guardian: skills/pr-guardian.md
+      - tdd: skills/tdd.md
+      - security-review: skills/security-review.md
+      - simplify: skills/simplify.md
+      - fix-ci: skills/fix-ci.md
+      - deslop: skills/deslop.md
+      - long-running-orchestrator: skills/long-running-orchestrator.md
+  - Hooks:
+      - Index: hooks/index.md
+      - secret-guard: hooks/secret-guard.md
+      - dangerous-command-guard: hooks/dangerous-command-guard.md
+      - branch-protection-guard: hooks/branch-protection-guard.md
+      - prompt-injection-detector: hooks/prompt-injection-detector.md
+      - mcp-tool-allowlist: hooks/mcp-tool-allowlist.md
+      - format-on-edit: hooks/format-on-edit.md
+      - typecheck-on-edit: hooks/typecheck-on-edit.md
+      - test-on-edit: hooks/test-on-edit.md
+      - stop-verify: hooks/stop-verify.md
+      - session-context-injector: hooks/session-context-injector.md
+      - cost-ceiling-guard: hooks/cost-ceiling-guard.md
+      - plan-required-on-large-change: hooks/plan-required-on-large-change.md
+      - session-end-summary: hooks/session-end-summary.md
+  - Help:
+      - Troubleshooting: troubleshooting.md
+      - FAQ: faq.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
