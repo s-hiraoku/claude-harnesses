@@ -1,0 +1,44 @@
+{
+  "PreToolUse": [
+    {
+      "matcher": "Bash|Edit|Write|MultiEdit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/secret-guard.py"
+        }
+      ]
+    },
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/dangerous-command-guard.py"
+        },
+        {
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/branch-protection-guard.py"
+        }
+      ]
+    },
+    {
+      "matcher": "WebFetch|WebSearch|Read",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/prompt-injection-detector.py"
+        }
+      ]
+    },
+    {
+      "matcher": "mcp__.*__.*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/mcp-tool-allowlist.py"
+        }
+      ]
+    }
+  ]
+}

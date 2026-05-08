@@ -1,0 +1,16 @@
+{
+  "name": "verification-pack",
+  "version": "0.1.0",
+  "description": "Verification feedback loop: format/typecheck/test on every edit, and block premature Stop until scripts/verify.sh passes.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/verification-pack/",
+  "license": "MIT",
+  "keywords": ["verification", "tests", "hooks"],
+  "components": {
+    "commands": ["./commands/verify.md"]
+  },
+  "hooks": "./hooks.json"
+}

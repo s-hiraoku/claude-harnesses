@@ -1,0 +1,14 @@
+{
+  "name": "safety-pack",
+  "version": "0.1.0",
+  "description": "Deterministic PreToolUse guards: secret detection, dangerous command blocking, branch protection, prompt-injection detection, and MCP tool allowlisting.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/safety-pack/",
+  "license": "MIT",
+  "keywords": ["security", "hooks", "guardrails"],
+  "components": {},
+  "hooks": "./hooks.json"
+}
