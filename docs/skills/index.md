@@ -16,5 +16,6 @@
 | [fix-ci](fix-ci.md) | Repairing failing CI checks |
 | [deslop](deslop.md) | Removing AI-generated boilerplate |
 | [long-running-orchestrator](long-running-orchestrator.md) | Multi-session work with the ledger |
+| [empirical-prompt-tuning](empirical-prompt-tuning.md) | Empirically tune a skill or prompt against frozen scenarios |
 
 Each skill is installable via `gh skill install s-hiraoku/claude-harnesses <name>` or `npx skills add s-hiraoku/claude-harnesses --skill <name>`.

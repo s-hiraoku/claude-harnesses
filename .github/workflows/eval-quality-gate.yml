@@ -1,0 +1,33 @@
+name: Eval quality gate
+
+on:
+  pull_request:
+    paths:
+      - "skills/**/SKILL.md"
+      - "evals/**"
+      - "scripts/check-eval-coverage.py"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Persist PR body for skip-eval check
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          mkdir -p .ci
+          printf '%s' "${PR_BODY}" > .ci/pr-body.txt
+
+      - name: Run eval coverage check
+        run: |
+          python3 scripts/check-eval-coverage.py \
+            --base "origin/${{ github.base_ref }}" \
+            --pr-body-file .ci/pr-body.txt
