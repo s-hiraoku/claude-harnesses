@@ -1,0 +1,26 @@
+{
+  "name": "long-running-pack",
+  "version": "0.1.0",
+  "description": "Survive context loss across sessions: SessionStart context injection, cost-ceiling, large-edit gate, session-end summary, ledger templates, and goal-manager workflow.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/long-running-pack/",
+  "license": "MIT",
+  "keywords": ["long-running", "ledger", "checkpoint", "cost"],
+  "components": {
+    "skills": [
+      "../../skills/goal-manager",
+      "../../skills/long-running-orchestrator",
+      "../../skills/feature-implementation",
+      "../../skills/bug-fix",
+      "../../skills/refactor-safely",
+      "../../skills/release-check",
+      "../../skills/docs-updater",
+      "../../skills/deslop"
+    ],
+    "commands": ["./commands/checkpoint.md"]
+  },
+  "hooks": "./hooks.json"
+}
