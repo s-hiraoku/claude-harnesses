@@ -1,0 +1,25 @@
+{
+  "name": "pr-guardian-pack",
+  "version": "0.1.0",
+  "description": "Watch PRs after creation: monitor CI, dispatch fixes via subagents, address review feedback, and report.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/pr-guardian-pack/",
+  "license": "MIT",
+  "keywords": ["pr", "ci", "automation"],
+  "components": {
+    "skills": [
+      "../../skills/pr-guardian",
+      "../../skills/fix-ci"
+    ],
+    "agents": [
+      "./agents/ci-fixer.md"
+    ],
+    "commands": [
+      "./commands/pr-guardian.md",
+      "./commands/fix-ci.md"
+    ]
+  }
+}

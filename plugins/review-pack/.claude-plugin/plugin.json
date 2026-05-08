@@ -1,0 +1,27 @@
+{
+  "name": "review-pack",
+  "version": "0.1.0",
+  "description": "Severity-ranked code review and multi-pass security review with parallel specialist subagents.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/review-pack/",
+  "license": "MIT",
+  "keywords": ["code-review", "security-review", "subagents"],
+  "components": {
+    "skills": [
+      "../../skills/review",
+      "../../skills/security-review",
+      "../../skills/simplify"
+    ],
+    "agents": [
+      "./agents/code-reviewer.md",
+      "./agents/security-auditor.md"
+    ],
+    "commands": [
+      "./commands/review.md",
+      "./commands/security-review.md"
+    ]
+  }
+}

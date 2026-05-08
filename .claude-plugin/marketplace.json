@@ -1,0 +1,66 @@
+{
+  "name": "claude-harnesses",
+  "owner": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "description": "Curated hooks, skills, MCP recipes, and slash commands for long-running, safe, high-quality Claude Code-driven development.",
+  "plugins": [
+    {
+      "name": "review-pack",
+      "source": "./plugins/review-pack",
+      "description": "Severity-ranked code review and multi-pass security review with parallel specialist subagents.",
+      "category": "review",
+      "tags": ["code-review", "security-review"]
+    },
+    {
+      "name": "pr-guardian-pack",
+      "source": "./plugins/pr-guardian-pack",
+      "description": "Watch PRs after creation: monitor CI, dispatch fixes via subagents, address review feedback.",
+      "category": "ci",
+      "tags": ["pr", "ci", "automation"]
+    },
+    {
+      "name": "tdd-pack",
+      "source": "./plugins/tdd-pack",
+      "description": "Red-Green-Refactor TDD with subagent context isolation between phases.",
+      "category": "testing",
+      "tags": ["tdd", "testing"]
+    },
+    {
+      "name": "safety-pack",
+      "source": "./plugins/safety-pack",
+      "description": "Deterministic PreToolUse guards: secret detection, dangerous commands, branch protection, prompt injection, MCP allowlisting.",
+      "category": "safety",
+      "tags": ["security", "hooks", "guardrails"]
+    },
+    {
+      "name": "verification-pack",
+      "source": "./plugins/verification-pack",
+      "description": "Verification feedback loop: format/typecheck/test on every edit, and block premature Stop until verify.sh passes.",
+      "category": "verification",
+      "tags": ["tests", "hooks", "verification"]
+    },
+    {
+      "name": "long-running-pack",
+      "source": "./plugins/long-running-pack",
+      "description": "Survive context loss across sessions: SessionStart context injection, cost-ceiling guard, large-edit gate, ledger templates, goal-manager workflow.",
+      "category": "long-running",
+      "tags": ["ledger", "checkpoint", "cost", "long-running"]
+    },
+    {
+      "name": "mcp-pack",
+      "source": "./plugins/mcp-pack",
+      "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry. All servers ship disabled.",
+      "category": "mcp",
+      "tags": ["mcp", "github", "playwright", "context7", "serena"]
+    },
+    {
+      "name": "full",
+      "source": "./plugins/full",
+      "description": "Umbrella plugin pulling in every functional pack at once.",
+      "category": "umbrella",
+      "tags": ["full", "umbrella"]
+    }
+  ]
+}

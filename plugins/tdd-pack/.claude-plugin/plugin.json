@@ -1,0 +1,21 @@
+{
+  "name": "tdd-pack",
+  "version": "0.1.0",
+  "description": "Red-Green-Refactor TDD with subagent context isolation between test writer, implementer, and refactorer.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/tdd-pack/",
+  "license": "MIT",
+  "keywords": ["tdd", "testing", "subagents"],
+  "components": {
+    "skills": ["../../skills/tdd"],
+    "agents": [
+      "./agents/tdd-test-writer.md",
+      "./agents/tdd-implementer.md",
+      "./agents/tdd-refactorer.md"
+    ],
+    "commands": ["./commands/tdd.md"]
+  }
+}
