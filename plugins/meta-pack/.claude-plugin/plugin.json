@@ -1,0 +1,20 @@
+{
+  "name": "meta-pack",
+  "version": "0.1.0",
+  "description": "Inspect recent Claude Code activity and promote repeated patterns into the smallest useful Skill, subagent, or hook — gated by user approval.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/meta-pack/",
+  "license": "MIT",
+  "keywords": ["meta", "skill-creation", "patterns", "automation"],
+  "components": {
+    "skills": [
+      "../../skills/meta-promote"
+    ],
+    "commands": [
+      "./commands/meta-promote.md"
+    ]
+  }
+}

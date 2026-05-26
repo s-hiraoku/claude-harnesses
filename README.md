@@ -37,7 +37,7 @@ claude plugin marketplace add s-hiraoku/claude-harnesses
 claude plugin install full@claude-harnesses
 ```
 
-Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `full`.
+Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `meta-pack`, `full`.
 
 ### 2) APM (Agent Package Manager)
 

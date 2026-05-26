@@ -1,7 +1,7 @@
 {
   "name": "full",
   "version": "0.1.0",
-  "description": "Umbrella plugin pulling in safety, verification, review, tdd, pr-guardian, long-running, and mcp packs.",
+  "description": "Umbrella plugin pulling in safety, verification, review, tdd, pr-guardian, long-running, mcp, and meta packs.",
   "author": {
     "name": "s-hiraoku",
     "url": "https://github.com/s-hiraoku"
@@ -17,6 +17,7 @@
     "tdd-pack",
     "pr-guardian-pack",
     "long-running-pack",
-    "mcp-pack"
+    "mcp-pack",
+    "meta-pack"
   ]
 }

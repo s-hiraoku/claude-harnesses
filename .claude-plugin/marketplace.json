@@ -56,6 +56,13 @@
       "tags": ["mcp", "github", "playwright", "context7", "serena"]
     },
     {
+      "name": "meta-pack",
+      "source": "./plugins/meta-pack",
+      "description": "Inspect recent Claude Code activity and promote repeated patterns into the smallest useful Skill, subagent, or hook. Read-only investigation; creation gated by user approval.",
+      "category": "meta",
+      "tags": ["meta", "skill-creation", "patterns"]
+    },
+    {
       "name": "full",
       "source": "./plugins/full",
       "description": "Umbrella plugin pulling in every functional pack at once.",
