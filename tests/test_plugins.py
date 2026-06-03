@@ -158,7 +158,9 @@ def test_hooks_scripts_resolve_inside_plugin() -> None:
                     if not script.exists():
                         failures.append(f"{plugin_dir.name}: hook script missing: {rel}")
                     if _escapes_plugin_root(plugin_dir, Path(os.path.abspath(script))):
-                        failures.append(f"{plugin_dir.name}: hook script escapes plugin root: {rel}")
+                        failures.append(
+                            f"{plugin_dir.name}: hook script escapes plugin root: {rel}"
+                        )
     assert not failures, "\n".join(failures)
 
 
