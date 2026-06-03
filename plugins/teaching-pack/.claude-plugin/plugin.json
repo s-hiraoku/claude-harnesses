@@ -1,0 +1,12 @@
+{
+  "name": "teaching-pack",
+  "version": "0.1.0",
+  "description": "Teach the human everything that happened in a session until they can demonstrably explain it, via an incremental checklist and AskUserQuestion quizzes.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/teaching-pack/",
+  "license": "MIT",
+  "keywords": ["teaching", "learning", "onboarding", "understanding"]
+}

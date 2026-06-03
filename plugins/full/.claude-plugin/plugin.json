@@ -8,10 +8,7 @@
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/full/",
   "license": "MIT",
-  "keywords": [
-    "umbrella",
-    "claude-harnesses"
-  ],
+  "keywords": ["umbrella", "claude-harnesses"],
   "dependencies": [
     "safety-pack",
     "verification-pack",
@@ -20,6 +17,7 @@
     "pr-guardian-pack",
     "long-running-pack",
     "mcp-pack",
-    "meta-pack"
+    "meta-pack",
+    "teaching-pack"
   ]
 }

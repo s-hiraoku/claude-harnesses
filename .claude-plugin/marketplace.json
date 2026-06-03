@@ -63,6 +63,13 @@
       "tags": ["meta", "skill-creation", "patterns"]
     },
     {
+      "name": "teaching-pack",
+      "source": "./plugins/teaching-pack",
+      "description": "Teach the human everything that happened in a session until they can demonstrably explain it, via an incremental checklist and AskUserQuestion quizzes.",
+      "category": "teaching",
+      "tags": ["teaching", "learning", "onboarding"]
+    },
+    {
       "name": "full",
       "source": "./plugins/full",
       "description": "Umbrella plugin pulling in every functional pack at once.",
