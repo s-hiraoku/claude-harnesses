@@ -9,18 +9,5 @@
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/long-running-pack/",
   "license": "MIT",
   "keywords": ["long-running", "ledger", "checkpoint", "cost"],
-  "components": {
-    "skills": [
-      "../../skills/goal-manager",
-      "../../skills/long-running-orchestrator",
-      "../../skills/feature-implementation",
-      "../../skills/bug-fix",
-      "../../skills/refactor-safely",
-      "../../skills/release-check",
-      "../../skills/docs-updater",
-      "../../skills/deslop"
-    ],
-    "commands": ["./commands/checkpoint.md"]
-  },
   "hooks": "./hooks.json"
 }

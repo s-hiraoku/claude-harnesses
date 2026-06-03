@@ -13,7 +13,7 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "_shared"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "_shared"))
 
 from envelope import emit_block, is_disabled, read_event  # noqa: E402
 

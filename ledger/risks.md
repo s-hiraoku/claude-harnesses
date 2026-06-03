@@ -24,11 +24,11 @@ Use this file to track known risks during long-running work.
 
 ### 2026-05-08: Symlinks on Windows
 
-- Risk: Skill symlinks from `plugins/*/skills/<name>` to `skills/<name>` become text files on Windows + Git without `core.symlinks=true`.
-- Impact: Plugin install on Windows leaves skills broken.
+- Risk: Skill symlinks from `plugins/*/skills/<name>` to `skills/<name>` (and `plugins/*/_shared`) become text files on Windows + Git without `core.symlinks=true`.
+- Impact: Plugin install on Windows leaves skills broken and safety/verification/long-running hooks unable to import `_shared/envelope.py` / source `_shared/hook-prelude.sh`.
 - Likelihood: Low for primary developer; possible for contributors.
-- Mitigation: CI runs on ubuntu only; provide `scripts/dereference-skills.sh` for Windows; document in CONTRIBUTING.
-- Status: Open.
+- Mitigation: CI runs on ubuntu only; `scripts/validate-plugins.sh` + `tests/test_plugins.py` fail loud if any link is dangling. Note: `scripts/dereference-skills.sh` is referenced as a future mitigation but not yet implemented.
+- Status: Open (link-resolution now CI-enforced 2026-06-04; Windows dereference helper still TODO).
 
 ## Closed Risks
 

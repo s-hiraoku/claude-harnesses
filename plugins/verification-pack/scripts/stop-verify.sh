@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # shellcheck source=/dev/null
-source "$(dirname "${BASH_SOURCE[0]}")/../../_shared/hook-prelude.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../_shared/hook-prelude.sh"
 
 # Reentrancy guard: if Claude is already inside a previously-blocked Stop, let
 # it finish.

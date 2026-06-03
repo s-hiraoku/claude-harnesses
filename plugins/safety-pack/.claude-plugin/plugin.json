@@ -9,6 +9,5 @@
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/safety-pack/",
   "license": "MIT",
   "keywords": ["security", "hooks", "guardrails"],
-  "components": {},
   "hooks": "./hooks.json"
 }

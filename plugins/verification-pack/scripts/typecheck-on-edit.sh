@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # shellcheck source=/dev/null
-source "$(dirname "${BASH_SOURCE[0]}")/../../_shared/hook-prelude.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../_shared/hook-prelude.sh"
 
 if [[ -z "${HOOK_FILE_PATH}" || ! -f "${HOOK_FILE_PATH}" ]]; then
   exit 0

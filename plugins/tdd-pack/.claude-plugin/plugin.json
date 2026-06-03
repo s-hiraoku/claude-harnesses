@@ -8,14 +8,5 @@
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/tdd-pack/",
   "license": "MIT",
-  "keywords": ["tdd", "testing", "subagents"],
-  "components": {
-    "skills": ["../../skills/tdd"],
-    "agents": [
-      "./agents/tdd-test-writer.md",
-      "./agents/tdd-implementer.md",
-      "./agents/tdd-refactorer.md"
-    ],
-    "commands": ["./commands/tdd.md"]
-  }
+  "keywords": ["tdd", "testing", "subagents"]
 }
