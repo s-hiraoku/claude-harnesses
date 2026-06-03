@@ -151,9 +151,10 @@ def test_hooks_scripts_resolve_inside_plugin() -> None:
             for entry in event_entries:
                 for hook in entry.get("hooks", []):
                     cmd = hook.get("command", "")
-                    if "${CLAUDE_PLUGIN_ROOT}" not in cmd:
+                    marker = "${CLAUDE_PLUGIN_ROOT}/"
+                    if marker not in cmd:
                         continue
-                    rel = cmd.split("${CLAUDE_PLUGIN_ROOT}/", 1)[1].split()[0]
+                    rel = cmd.split(marker, 1)[1].split()[0]
                     script = plugin_dir / rel
                     if not script.exists():
                         failures.append(f"{plugin_dir.name}: hook script missing: {rel}")

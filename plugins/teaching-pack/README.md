@@ -17,7 +17,7 @@ claude /plugin install teaching-pack@claude-harnesses
 
 ## Usage
 
-```
+```text
 /teach-session                # teach the human what changed this session
 ```
 
