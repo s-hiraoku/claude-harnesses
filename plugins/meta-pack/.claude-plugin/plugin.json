@@ -8,13 +8,5 @@
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/meta-pack/",
   "license": "MIT",
-  "keywords": ["meta", "skill-creation", "patterns", "automation"],
-  "components": {
-    "skills": [
-      "../../skills/meta-promote"
-    ],
-    "commands": [
-      "./commands/meta-promote.md"
-    ]
-  }
+  "keywords": ["meta", "skill-creation", "patterns", "automation"]
 }

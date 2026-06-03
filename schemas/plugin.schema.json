@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/s-hiraoku/claude-harnesses/schemas/plugin.schema.json",
   "title": "Claude Code plugin manifest",
-  "description": "Schema for .claude-plugin/plugin.json. Tracks the documented Claude Code plugin shape.",
+  "description": "Schema for .claude-plugin/plugin.json. Tracks the documented Claude Code plugin shape: skills/agents/commands are auto-discovered from conventional directories at the plugin root; hooks and mcpServers may be declared explicitly. Component paths must stay inside the plugin root so the plugin remains installable from a marketplace.",
   "type": "object",
   "required": ["name", "version", "description"],
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
     "name": {
       "type": "string",
@@ -35,36 +35,27 @@
       "type": "array",
       "items": { "type": "string" }
     },
-    "components": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "skills": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "agents": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "commands": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "hooks": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "mcp": {
-          "type": "array",
-          "items": { "type": "string" }
-        }
-      }
-    },
+    "skills": { "type": "string" },
+    "agents": { "type": "string" },
+    "commands": { "type": "string" },
     "hooks": { "type": "string" },
-    "dependsOn": {
+    "mcpServers": { "type": "string" },
+    "dependencies": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "marketplace": { "type": "string" }
+            }
+          }
+        ]
+      }
     }
   }
 }

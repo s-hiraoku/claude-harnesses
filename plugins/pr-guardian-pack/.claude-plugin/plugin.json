@@ -8,18 +8,5 @@
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/pr-guardian-pack/",
   "license": "MIT",
-  "keywords": ["pr", "ci", "automation"],
-  "components": {
-    "skills": [
-      "../../skills/pr-guardian",
-      "../../skills/fix-ci"
-    ],
-    "agents": [
-      "./agents/ci-fixer.md"
-    ],
-    "commands": [
-      "./commands/pr-guardian.md",
-      "./commands/fix-ci.md"
-    ]
-  }
+  "keywords": ["pr", "ci", "automation"]
 }

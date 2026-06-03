@@ -9,8 +9,5 @@
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/verification-pack/",
   "license": "MIT",
   "keywords": ["verification", "tests", "hooks"],
-  "components": {
-    "commands": ["./commands/verify.md"]
-  },
   "hooks": "./hooks.json"
 }

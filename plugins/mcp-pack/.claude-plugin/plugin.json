@@ -8,6 +8,5 @@
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/mcp-pack/",
   "license": "MIT",
-  "keywords": ["mcp", "playwright", "github", "serena", "context7"],
-  "components": {}
+  "keywords": ["mcp", "playwright", "github", "serena", "context7"]
 }
