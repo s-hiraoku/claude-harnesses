@@ -51,9 +51,9 @@
     {
       "name": "mcp-pack",
       "source": "./plugins/mcp-pack",
-      "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry. All servers ship disabled.",
+      "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, and Excalidraw. All servers ship disabled.",
       "category": "mcp",
-      "tags": ["mcp", "github", "playwright", "context7", "serena"]
+      "tags": ["mcp", "github", "playwright", "context7", "serena", "excalidraw"]
     },
     {
       "name": "meta-pack",

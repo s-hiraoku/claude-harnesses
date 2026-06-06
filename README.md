@@ -76,7 +76,7 @@ See [docs/installation.md](docs/installation.md) for the full comparison.
 | **Plugin packs** | safety, verification, review, tdd, pr-guardian, long-running, mcp, full |
 | **Skills** (15) | bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning |
 | **Hooks** (13) | secret-guard, dangerous-command-guard, branch-protection-guard, prompt-injection-detector, mcp-tool-allowlist, stop-verify, format-on-edit, typecheck-on-edit, test-on-edit, session-context-injector, cost-ceiling-guard, plan-required-on-large-change, session-end-summary |
-| **MCP recipes** | GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry |
+| **MCP recipes** | GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, Excalidraw |
 | **Slash commands** | `/verify`, `/review`, `/security-review`, `/tdd`, `/fix-ci`, `/pr-guardian`, `/checkpoint` |
 | **Subagents** | code-reviewer, security-auditor, tdd-test-writer, tdd-implementer, tdd-refactorer, ci-fixer |
 | **Settings presets** | strict, default, experimental |

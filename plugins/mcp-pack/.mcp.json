@@ -33,6 +33,11 @@
       "args": ["-y", "@sentry/mcp-server@latest"],
       "env": { "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}" },
       "_doc": "plugins/mcp-pack/docs/sentry.md"
+    },
+    "excalidraw": {
+      "command": "npx",
+      "args": ["-y", "@scofieldfree/excalidraw-mcp"],
+      "_doc": "plugins/mcp-pack/docs/excalidraw.md"
     }
   }
 }
