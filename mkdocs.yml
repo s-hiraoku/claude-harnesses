@@ -65,6 +65,7 @@ nav:
       - review: skills/review.md
       - release-check: skills/release-check.md
       - docs-updater: skills/docs-updater.md
+      - jina-reader: skills/jina-reader.md
       - goal-manager: skills/goal-manager.md
       - pr-guardian: skills/pr-guardian.md
       - tdd: skills/tdd.md

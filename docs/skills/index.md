@@ -8,6 +8,7 @@
 | [review](review.md) | Reviewing a diff, PR, or branch |
 | [release-check](release-check.md) | Pre-release readiness pass |
 | [docs-updater](docs-updater.md) | Keeping docs in sync with code |
+| [jina-reader](jina-reader.md) | Reading difficult public URLs with Jina Reader |
 | [goal-manager](goal-manager.md) | Tracking a durable objective in the ledger |
 | [pr-guardian](pr-guardian.md) | Watching a PR until it's mergeable |
 | [tdd](tdd.md) | Red-Green-Refactor with subagent isolation |
