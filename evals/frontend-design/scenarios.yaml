@@ -1,0 +1,45 @@
+# Evaluation scenarios for frontend-design
+#
+# Edit this file to define 2–3 realistic scenarios with a frozen requirements
+# checklist per scenario. Tag at least one item per scenario as `[critical]`.
+# Once a run has been recorded against this file, treat the checklists as
+# immutable — moving them after the fact destroys the metric.
+#
+# Schema:
+#   skill: string                     # name of the skill under evaluation
+#   scenarios:
+#     - id: string                    # short slug
+#       kind: typical | edge
+#       prompt: string                # what to hand the subagent verbatim
+#       requirements:
+#         - text: string              # one human-readable requirement
+#           critical: bool            # default false; >=1 must be true
+# ---
+
+skill: frontend-design
+
+scenarios:
+  - id: typical
+    kind: typical
+    prompt: |
+      Replace this with a realistic prompt that exercises the skill's
+      common path. The subagent receives this exactly.
+    requirements:
+      - text: The deliverable matches the skill's documented output shape.
+        critical: true
+      - text: The subagent runs the skill's intended workflow without inventing extra steps.
+        critical: false
+      - text: All explicit constraints in the skill body are honored.
+        critical: false
+
+  - id: edge
+    kind: edge
+    prompt: |
+      Replace this with an edge-case prompt — ambiguous input, missing
+      precondition, or a request that should trigger the skill's
+      "do not use when" guidance.
+    requirements:
+      - text: The subagent recognizes the edge and reports it instead of guessing.
+        critical: true
+      - text: No silent fallback to the typical path.
+        critical: false

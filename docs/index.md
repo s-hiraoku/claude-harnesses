@@ -6,10 +6,10 @@ Claude Code should not be expected to succeed by intelligence alone. This reposi
 
 ## What it ships
 
-- **8 plugin packs** (safety, verification, review, tdd, pr-guardian, long-running, mcp, full) — installable in one command via Claude Code's plugin marketplace.
-- **15 skills** with universal `SKILL.md` frontmatter — installable individually via `gh skill install` or `npx skills add`.
+- **12 plugin packs** (safety, verification, review, tdd, pr-guardian, long-running, mcp, product, research, meta, teaching, full) — installable in one command via Claude Code's plugin marketplace.
+- **23 skills** with universal `SKILL.md` frontmatter — installable individually via `gh skill install` or `npx skills add`.
 - **13 hooks** wired into `PreToolUse` / `PostToolUse` / `Stop` / `SessionStart` / `SessionEnd` events.
-- **Curated `.mcp.json` recipes** for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry.
+- **Curated `.mcp.json` recipes** for GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, and Excalidraw.
 - **Settings presets** (strict / default / experimental) and **CLAUDE.md templates** (strict / frontend / library / nextjs).
 - A **task ledger** pattern for sessions that span multiple compactions or runs.
 - A **skill evaluation harness** (`empirical-prompt-tuning` + `evals/` + CI quality gate) that keeps every skill held to a frozen requirements checklist before merge.

@@ -21,6 +21,10 @@ Use `/plugin` (no arguments) to browse the marketplace interactively, or install
 /plugin install pr-guardian-pack@claude-harnesses
 /plugin install long-running-pack@claude-harnesses
 /plugin install mcp-pack@claude-harnesses
+/plugin install product-pack@claude-harnesses
+/plugin install research-pack@claude-harnesses
+/plugin install meta-pack@claude-harnesses
+/plugin install teaching-pack@claude-harnesses
 ```
 
 You can run the same flow non-interactively from the shell:
@@ -32,7 +36,7 @@ claude plugin install pr-guardian-pack@claude-harnesses
 
 Add `--scope project` to commit the install to `.claude/`, or `--scope local` to keep it private to your machine.
 
-Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `full`.
+Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`, `full`.
 
 Useful follow-ups:
 
@@ -66,6 +70,7 @@ plugins:
   - s-hiraoku/claude-harnesses/verification-pack
   - s-hiraoku/claude-harnesses/pr-guardian-pack
   - s-hiraoku/claude-harnesses/long-running-pack
+  - s-hiraoku/claude-harnesses/product-pack
 ```
 
 ```sh
@@ -94,7 +99,7 @@ gh skill install s-hiraoku/claude-harnesses tdd@v0.1.0 --scope project
 | `--scope project` | `.claude/skills/<name>/` | Yes (commit it) |
 | `--scope user` | `~/.claude/skills/<name>/` | No |
 
-Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`.
+Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`, `empirical-prompt-tuning`, `teach-session`, `meta-promote`, `meta-packager`, `frontend-design`, `ui-imagegen-director`, `implement-to-merge-ready`, `kaizen-loop`, `jina-reader`.
 
 ## 4. `npx skills add` — single skill or all of them
 

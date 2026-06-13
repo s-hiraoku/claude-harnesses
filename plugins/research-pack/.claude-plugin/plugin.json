@@ -1,0 +1,12 @@
+{
+  "name": "research-pack",
+  "version": "0.1.0",
+  "description": "Research helpers for reading public web pages that normal browsing, scraping, snippets, or direct fetch tools cannot read cleanly.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/research-pack/",
+  "license": "MIT",
+  "keywords": ["research", "jina", "reader", "web"]
+}

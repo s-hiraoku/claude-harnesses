@@ -35,9 +35,7 @@ def parse_header(value: str) -> tuple[str, str]:
 
 
 def build_request(target_url: str, extra_headers: list[tuple[str, str]]) -> urllib.request.Request:
-    headers = {
-        "User-Agent": "jina-reader-skill/1.0",
-    }
+    headers = {"User-Agent": "claude-harnesses-jina-reader/1.0"}
     api_key = os.environ.get("JINA_API_KEY")
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"

@@ -60,4 +60,4 @@ User request:
 
 Objective:
 
-> Implement the requested change, update tests and documentation where needed, run repository verification, commit and push a focused branch, open a draft PR, and summarize the PR URL with validation results and risks.
+> Implement the requested change, update tests and documentation where needed, run repository verification, commit and push a focused branch, open a regular ready-for-review PR, and summarize the PR URL with validation results and risks.

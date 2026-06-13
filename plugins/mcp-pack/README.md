@@ -12,6 +12,7 @@ Curated `.mcp.json` recipe for the MCP servers most worth running with Claude Co
 | `serena` | Semantic code retrieval over the local repo | 2026-05-08 |
 | `sequential-thinking` | Step-by-step reasoning scaffolding | 2026-05-08 |
 | `sentry` | Production error triage | 2026-05-08 |
+| `excalidraw` | Excalidraw diagram creation with live local browser preview | 2026-06-06 |
 
 See `docs/<server>.md` in this directory for per-server auth, scopes, and known limits.
 

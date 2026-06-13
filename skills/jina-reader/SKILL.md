@@ -5,13 +5,21 @@ description: Fetch public web pages with Jina AI Reader API and convert them int
 
 # Jina Reader
 
+Use this workflow when a public URL is hard to read through normal tools: JavaScript-heavy pages, reader-hostile articles, X/Twitter posts and threads, GitHub pages, PDFs, or pages that return incomplete snippets.
+
 ## Quick Start
 
-Use the bundled script when a public URL is hard to read through normal tools:
+Use the bundled script when a public URL is hard to read through normal tools. The helper lives with the installed skill:
 
 ```bash
-python3 scripts/read_url.py "https://x.com/user/status/1234567890"
+# project-scope skill install
+python3 .claude/skills/jina-reader/scripts/read_url.py "https://x.com/user/status/1234567890"
+
+# user-scope skill install
+python3 ~/.claude/skills/jina-reader/scripts/read_url.py "https://x.com/user/status/1234567890"
 ```
+
+In this source repository, use `python3 skills/jina-reader/scripts/read_url.py ...` instead. If the skill is loaded from a plugin cache, run the helper at `<plugin-root>/skills/jina-reader/scripts/read_url.py`.
 
 The script prints Markdown from `https://r.jina.ai/`. If `JINA_API_KEY` is set, it sends it as a bearer token; otherwise it uses public unauthenticated access.
 
@@ -24,7 +32,7 @@ curl "https://r.jina.ai/https://example.com/page"
 ## Workflow
 
 1. Try ordinary browsing, web search, or direct fetch first when those tools are already suitable.
-2. Use `scripts/read_url.py` when the page is public but normal tools return a blank page, script shell, paywall/login-like wrapper, poor snippets, blocked parsing, or incomplete text.
+2. Use the installed helper at `.claude/skills/jina-reader/scripts/read_url.py`, `~/.claude/skills/jina-reader/scripts/read_url.py`, or `<plugin-root>/skills/jina-reader/scripts/read_url.py` when the page is public but normal tools return a blank page, script shell, paywall/login-like wrapper, poor snippets, blocked parsing, or incomplete text.
 3. Also prefer the script for X/Twitter, long URLs, URLs containing `#`, or repeated use.
 4. Summarize or extract only the relevant content requested by the user.
 5. Mention uncertainty when Reader returns sparse output, a login wall, deleted content, rate-limit text, or an obviously incomplete page.
@@ -45,10 +53,10 @@ curl "https://r.jina.ai/https://example.com/page"
 
 ## Script
 
-`scripts/read_url.py` accepts:
+The installed helper accepts the same arguments in project, user, and plugin installs:
 
 ```bash
-python3 scripts/read_url.py URL [--output path] [--timeout seconds] [--header "Name: value"]
+python3 .claude/skills/jina-reader/scripts/read_url.py URL [--output path] [--timeout seconds] [--header "Name: value"]
 ```
 
 Use `--output` when the fetched Markdown is large or the user asked for a saved artifact.

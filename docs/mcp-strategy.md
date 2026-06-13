@@ -10,6 +10,7 @@ MCP servers extend Claude Code's tool surface. They are extremely useful and als
 - **Serena** — semantic code retrieval.
 - **Sequential-Thinking** — step-by-step reasoning scaffolding.
 - **Sentry** — production error triage.
+- **Excalidraw** — hand-drawn diagrams with live local browser preview.
 
 See per-server pages under `plugins/mcp-pack/docs/` for auth, scopes, and last-verified dates.
 
@@ -35,6 +36,7 @@ export CLAUDE_HARNESSES_MCP_ALLOW="mcp__github__list_*,mcp__github__get_*,mcp__g
 - GitHub read: `mcp__github__list_*,mcp__github__get_*,mcp__github__search_*`
 - Playwright: `mcp__playwright__*`
 - Serena read: `mcp__serena__find_*,mcp__serena__get_*`
+- Excalidraw: `mcp__excalidraw__*`
 
 ## Auth
 

@@ -73,6 +73,23 @@ def test_install_pack_merges_hooks(target: Path) -> None:
     assert any("secret-guard.py" in c for c in flat_commands), flat_commands
 
 
+def test_install_product_and_research_packs(target: Path) -> None:
+    result = _run_install(
+        target,
+        "--pack",
+        "product",
+        "--pack",
+        "research",
+        "--no-verify",
+    )
+    assert result.returncode == 0, result.stderr
+    assert (target / ".claude" / "skills" / "frontend-design" / "SKILL.md").is_file()
+    assert (target / ".claude" / "skills" / "jina-reader" / "SKILL.md").is_file()
+    assert (target / ".claude" / "skills" / "jina-reader" / "scripts" / "read_url.py").is_file()
+    assert (target / ".claude" / "commands" / "kaizen-loop.md").is_file()
+    assert (target / ".claude" / "commands" / "jina-reader.md").is_file()
+
+
 def test_install_dry_run_does_not_write(target: Path) -> None:
     result = _run_install(
         target,

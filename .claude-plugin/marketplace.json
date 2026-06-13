@@ -51,9 +51,23 @@
     {
       "name": "mcp-pack",
       "source": "./plugins/mcp-pack",
-      "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, and Sentry. All servers ship disabled.",
+      "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, and Excalidraw. All servers ship disabled.",
       "category": "mcp",
-      "tags": ["mcp", "github", "playwright", "context7", "serena"]
+      "tags": ["mcp", "github", "playwright", "context7", "serena", "excalidraw"]
+    },
+    {
+      "name": "product-pack",
+      "source": "./plugins/product-pack",
+      "description": "Product-quality workflows for frontend design, image-guided UI direction, kaizen evaluation loops, and merge-ready implementation delivery.",
+      "category": "product",
+      "tags": ["product", "frontend", "ui", "delivery", "kaizen"]
+    },
+    {
+      "name": "research-pack",
+      "source": "./plugins/research-pack",
+      "description": "Research helpers for reading public web pages that normal browsing, scraping, snippets, or direct fetch tools cannot read cleanly.",
+      "category": "research",
+      "tags": ["research", "jina", "reader", "web"]
     },
     {
       "name": "meta-pack",

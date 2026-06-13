@@ -1,6 +1,6 @@
 # mcp-pack
 
-Curated `.mcp.json` recipe. Six servers ship disabled by default; opt in per project. See [MCP Strategy](../mcp-strategy.md).
+Curated `.mcp.json` recipe. Seven servers ship disabled by default; opt in per project. See [MCP Strategy](../mcp-strategy.md).
 
 ## Servers
 
@@ -10,6 +10,7 @@ Curated `.mcp.json` recipe. Six servers ship disabled by default; opt in per pro
 - Serena
 - Sequential-Thinking
 - Sentry
+- Excalidraw
 
 Each server has a per-server doc with auth, scopes, and last-verified date in `plugins/mcp-pack/docs/`.
 
