@@ -5,6 +5,8 @@ description: Fetch public web pages with Jina AI Reader API and convert them int
 
 # Jina Reader
 
+Use this workflow when a public URL is hard to read through normal tools: JavaScript-heavy pages, reader-hostile articles, X/Twitter posts and threads, GitHub pages, PDFs, or pages that return incomplete snippets.
+
 ## Quick Start
 
 Use the bundled script when a public URL is hard to read through normal tools:

@@ -1,7 +1,7 @@
 {
   "name": "full",
   "version": "0.1.0",
-  "description": "Umbrella plugin pulling in safety, verification, review, tdd, pr-guardian, long-running, mcp, meta, and teaching packs.",
+  "description": "Umbrella plugin pulling in safety, verification, review, tdd, pr-guardian, long-running, mcp, product, research, meta, and teaching packs.",
   "author": {
     "name": "s-hiraoku",
     "url": "https://github.com/s-hiraoku"
@@ -17,6 +17,8 @@
     "pr-guardian-pack",
     "long-running-pack",
     "mcp-pack",
+    "product-pack",
+    "research-pack",
     "meta-pack",
     "teaching-pack"
   ]

@@ -15,5 +15,9 @@ claude /plugin install full@claude-harnesses
 - pr-guardian-pack
 - long-running-pack
 - mcp-pack
+- product-pack
+- research-pack
+- meta-pack
+- teaching-pack
 
 If `dependsOn` is not yet resolved by your Claude Code version, install each pack individually (see the per-pack pages).

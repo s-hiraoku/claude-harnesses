@@ -1,0 +1,12 @@
+{
+  "name": "product-pack",
+  "version": "0.1.0",
+  "description": "Product-quality workflows for frontend design, image-guided UI direction, kaizen evaluation loops, and merge-ready implementation delivery.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/product-pack/",
+  "license": "MIT",
+  "keywords": ["product", "frontend", "ui", "delivery", "kaizen"]
+}

@@ -37,7 +37,7 @@ claude plugin marketplace add s-hiraoku/claude-harnesses
 claude plugin install full@claude-harnesses
 ```
 
-Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `meta-pack`, `teaching-pack`, `full`.
+Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`, `full`.
 
 ### 2) APM (Agent Package Manager)
 
@@ -73,11 +73,11 @@ See [docs/installation.md](docs/installation.md) for the full comparison.
 
 | Category | Items |
 |---|---|
-| **Plugin packs** | safety, verification, review, tdd, pr-guardian, long-running, mcp, full |
-| **Skills** (15) | bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning |
+| **Plugin packs** | safety, verification, review, tdd, pr-guardian, long-running, mcp, product, research, meta, teaching, full |
+| **Skills** (23) | bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning, teach-session, meta-promote, meta-packager, frontend-design, ui-imagegen-director, implement-to-merge-ready, kaizen-loop, jina-reader |
 | **Hooks** (13) | secret-guard, dangerous-command-guard, branch-protection-guard, prompt-injection-detector, mcp-tool-allowlist, stop-verify, format-on-edit, typecheck-on-edit, test-on-edit, session-context-injector, cost-ceiling-guard, plan-required-on-large-change, session-end-summary |
 | **MCP recipes** | GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, Excalidraw |
-| **Slash commands** | `/verify`, `/review`, `/security-review`, `/tdd`, `/fix-ci`, `/pr-guardian`, `/checkpoint` |
+| **Slash commands** | `/verify`, `/review`, `/security-review`, `/tdd`, `/fix-ci`, `/pr-guardian`, `/checkpoint`, `/frontend-design`, `/ui-imagegen-director`, `/implement-to-merge-ready`, `/kaizen-loop`, `/jina-reader`, `/meta-promote`, `/meta-packager`, `/teach-session` |
 | **Subagents** | code-reviewer, security-auditor, tdd-test-writer, tdd-implementer, tdd-refactorer, ci-fixer |
 | **Settings presets** | strict, default, experimental |
 | **CLAUDE.md templates** | strict, frontend, library, nextjs |

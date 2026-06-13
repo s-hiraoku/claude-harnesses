@@ -56,6 +56,10 @@ nav:
       - PR Guardian: packs/pr-guardian-pack.md
       - Long-Running: packs/long-running-pack.md
       - MCP: packs/mcp-pack.md
+      - Product: packs/product-pack.md
+      - Research: packs/research-pack.md
+      - Meta: packs/meta-pack.md
+      - Teaching: packs/teaching-pack.md
       - Full: packs/full.md
   - Skills:
       - Index: skills/index.md
@@ -75,6 +79,14 @@ nav:
       - deslop: skills/deslop.md
       - long-running-orchestrator: skills/long-running-orchestrator.md
       - empirical-prompt-tuning: skills/empirical-prompt-tuning.md
+      - teach-session: skills/teach-session.md
+      - meta-promote: skills/meta-promote.md
+      - meta-packager: skills/meta-packager.md
+      - frontend-design: skills/frontend-design.md
+      - ui-imagegen-director: skills/ui-imagegen-director.md
+      - implement-to-merge-ready: skills/implement-to-merge-ready.md
+      - kaizen-loop: skills/kaizen-loop.md
+      - jina-reader: skills/jina-reader.md
   - Hooks:
       - Index: hooks/index.md
       - secret-guard: hooks/secret-guard.md

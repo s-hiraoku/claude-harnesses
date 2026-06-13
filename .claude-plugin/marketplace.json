@@ -56,6 +56,20 @@
       "tags": ["mcp", "github", "playwright", "context7", "serena", "excalidraw"]
     },
     {
+      "name": "product-pack",
+      "source": "./plugins/product-pack",
+      "description": "Product-quality workflows for frontend design, image-guided UI direction, kaizen evaluation loops, and merge-ready implementation delivery.",
+      "category": "product",
+      "tags": ["product", "frontend", "ui", "delivery", "kaizen"]
+    },
+    {
+      "name": "research-pack",
+      "source": "./plugins/research-pack",
+      "description": "Research helpers for reading public web pages that normal browsing, scraping, snippets, or direct fetch tools cannot read cleanly.",
+      "category": "research",
+      "tags": ["research", "jina", "reader", "web"]
+    },
+    {
       "name": "meta-pack",
       "source": "./plugins/meta-pack",
       "description": "Inspect recent Claude Code activity and promote repeated patterns into the smallest useful Skill, subagent, or hook. Read-only investigation; creation gated by user approval.",

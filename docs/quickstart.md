@@ -40,6 +40,7 @@ plugins:
   - s-hiraoku/claude-harnesses/verification-pack
   - s-hiraoku/claude-harnesses/pr-guardian-pack
   - s-hiraoku/claude-harnesses/long-running-pack
+  - s-hiraoku/claude-harnesses/product-pack
 ```
 
 ```sh
