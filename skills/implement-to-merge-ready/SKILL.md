@@ -48,6 +48,8 @@ Use this orchestration workflow when an implementation task should not stop at l
    - Check required checks, CI runs, review requests, bot comments, and unresolved review threads.
    - On CI failure, inspect logs, reproduce locally when possible, make the smallest fix, push, and re-check.
    - Address actionable human, bot, and agent feedback. Explain feedback intentionally not applied.
+   - Do not treat a PR as merge-ready while any required check, bot review, or review status is still pending. Wait and re-check at least once after the PR checks/reviews appear; if a bot such as CodeRabbit is still pending after a reasonable watch window, report the PR as "CI passed, bot review pending" rather than complete/merge-ready.
+   - Before finalizing, perform a thread-aware review check when available, and report the count of unresolved current review threads. If the count is nonzero, continue addressing comments or clearly mark the PR as blocked, not merge-ready.
    - Do not merge unless the user explicitly asks and repo policy permits it.
 
 ## Skill Composition
@@ -60,4 +62,4 @@ Keep the user informed after repository/context inspection, before edits, after 
 
 ## Final Report
 
-Include goal status when used, changed behavior and key files, local checks, PR URL/branch, CI/review status, fixes after PR creation, and remaining blockers or risks.
+Include goal status when used, changed behavior and key files, local checks, PR URL/branch, CI/review status, fixes after PR creation, unresolved current review-thread count, and remaining blockers or risks. If any check or bot review is pending, say so explicitly and do not call the PR merge-ready.
