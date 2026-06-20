@@ -113,6 +113,17 @@ npx skills add s-hiraoku/claude-harnesses --all
 
 Use `--global` to install user-wide instead of project-local.
 
+### Companion Skills for Vercel Frontends
+
+For React, Next.js, and Vercel-hosted frontend work, install Vercel's official skills alongside the local harness skills:
+
+```sh
+npx skills add vercel-labs/agent-skills --global --skill vercel-react-best-practices vercel-composition-patterns vercel-react-view-transitions web-design-guidelines
+npx skills add vercel-labs/next-skills --global --skill next-best-practices
+```
+
+Use `vercel-react-best-practices` for React and Next.js performance patterns, `vercel-composition-patterns` for component APIs, `vercel-react-view-transitions` for React view transition work, and `web-design-guidelines` for UI, accessibility, and UX review. Add `next-cache-components` or `next-upgrade` from `vercel-labs/next-skills` only for projects that need those specific Next.js workflows.
+
 ## Optional: vendor with `scripts/install.sh`
 
 When you want to commit the harness files directly into your repo (no plugin runtime, no per-skill CLI), clone this repo and run:

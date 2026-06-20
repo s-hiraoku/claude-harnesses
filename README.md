@@ -65,6 +65,13 @@ npx skills add s-hiraoku/claude-harnesses --skill review
 npx skills add s-hiraoku/claude-harnesses --all
 ```
 
+For Vercel or Next.js frontend projects, pair this harness with Vercel's official frontend skills:
+
+```sh
+npx skills add vercel-labs/agent-skills --global --skill vercel-react-best-practices vercel-composition-patterns vercel-react-view-transitions web-design-guidelines
+npx skills add vercel-labs/next-skills --global --skill next-best-practices
+```
+
 For vendoring harness files directly into your repo without a plugin runtime, see [`scripts/install.sh`](docs/installation.md#optional-vendor-with-scriptsinstallsh).
 
 See [docs/installation.md](docs/installation.md) for the full comparison.
