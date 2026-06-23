@@ -13,6 +13,27 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-06-23 21:03 JST
+
+- Command: `bash scripts/verify.sh`
+- Scope: Consolidated `meta-promote` into `meta-packager` and removed the duplicate skill/command/docs entry.
+- Result: Failed after `ruff check .` passed.
+- Notes: `pytest` failed during collection because the system Python loaded an incompatible `rpds` wheel (`x86_64` instead of `arm64e` or `arm64`).
+
+### 2026-06-23 21:03 JST
+
+- Command: `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest`
+- Scope: Test suite after consolidating `meta-promote` into `meta-packager`.
+- Result: Passed. 35 tests passed.
+- Notes: Used an isolated `uvx` environment with architecture-compatible dependencies.
+
+### 2026-06-23 21:03 JST
+
+- Command: `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`
+- Scope: Documentation build after removing `meta-promote` docs and nav entries.
+- Result: Passed.
+- Notes: MkDocs strict build completed; Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
 ### 2026-06-06 09:07 JST
 
 - Command: `PATH="/Volumes/SSD/ghq/github.com/s-hiraoku/claude-harnesses/.venv/bin:$PATH" bash scripts/verify.sh`

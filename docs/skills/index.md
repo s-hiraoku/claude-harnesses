@@ -19,7 +19,6 @@
 | [long-running-orchestrator](long-running-orchestrator.md) | Multi-session work with the ledger |
 | [empirical-prompt-tuning](empirical-prompt-tuning.md) | Empirically tune a skill or prompt against frozen scenarios |
 | [teach-session](teach-session.md) | Teaching the human what changed in a session |
-| [meta-promote](meta-promote.md) | Promoting repeated activity into reusable assets with approval |
 | [meta-packager](meta-packager.md) | Packaging repeated Claude Code work into the smallest reusable asset |
 | [frontend-design](frontend-design.md) | Purpose-fit frontend design and browser verification |
 | [ui-imagegen-director](ui-imagegen-director.md) | Image-guided UI direction followed by code implementation |

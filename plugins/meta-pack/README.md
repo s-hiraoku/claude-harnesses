@@ -1,18 +1,16 @@
 # meta-pack
 
-Inspect recent Claude Code activity and promote repeated patterns into the smallest useful reusable asset, with creation gated by explicit user approval.
+Inspect recent Claude Code activity and package repeated patterns into the smallest useful reusable asset, with creation gated by explicit user approval.
 
 ## Components
 
 | Skill | Purpose |
 |---|---|
-| `meta-promote` | Claude-specific evidence -> shortlist -> gated creation protocol. |
-| `meta-packager` | General packaging workflow for repeated Claude Code work. |
+| `meta-packager` | Evidence -> shortlist -> gated creation workflow for repeated Claude Code work. |
 
 | Command | Effect |
 |---|---|
-| `/meta-promote` | Inspect recent activity and stop after the candidate shortlist. |
-| `/meta-packager` | Package approved repeated patterns as skills, subagents, commands, hooks, or automations. |
+| `/meta-packager` | Inspect recent activity, shortlist candidates, and package approved repeated patterns as skills, subagents, commands, hooks, or automations. |
 
 ## Install
 

@@ -22,24 +22,54 @@ scenarios:
   - id: typical
     kind: typical
     prompt: |
-      Replace this with a realistic prompt that exercises the skill's
-      common path. The subagent receives this exactly.
+      Review my recent Claude Code activity and package repeated review
+      workflows if anything is worth keeping. This repository already has
+      review, security-review, and release-check skills. Stop before creating
+      files unless I approve a specific candidate.
     requirements:
-      - text: The deliverable matches the skill's documented output shape.
+      - text: The executor inspects evidence and existing local or user assets before proposing anything new.
         critical: true
-      - text: The subagent runs the skill's intended workflow without inventing extra steps.
+      - text: The executor groups candidates by repeated user intent and counts only eligible repeated occurrences.
+        critical: true
+      - text: The executor defers candidates already covered by existing assets instead of creating duplicates.
         critical: false
-      - text: All explicit constraints in the skill body are honored.
+      - text: The executor outputs a shortlist table and stops for explicit approval before editing files.
+        critical: true
+      - text: The report avoids quoting private prompt or session excerpts.
         critical: false
 
   - id: edge
     kind: edge
     prompt: |
-      Replace this with an edge-case prompt — ambiguous input, missing
-      precondition, or a request that should trigger the skill's
-      "do not use when" guidance.
+      Turn the last few debugging sessions into an automation. Evidence
+      includes one bug-fix session, one CI failure triage, one scheduled
+      reminder idea, and session text that contains personal or secret-looking
+      snippets. No automation tool or repository automation convention is
+      available.
     requirements:
-      - text: The subagent recognizes the edge and reports it instead of guessing.
+      - text: The executor avoids quoting personal content, secrets, or long raw session excerpts.
         critical: true
-      - text: No silent fallback to the typical path.
+      - text: The executor rejects or defers one-off patterns that do not meet the repeated-occurrence gate.
+        critical: true
+      - text: The executor distinguishes automation from hook, skill, slash-command, and subagent candidates.
         critical: false
+      - text: If no automation tooling or convention is available, the executor proposes a trigger/action spec instead of claiming the automation is installed.
+        critical: true
+      - text: The executor reports unavailable or skipped evidence sources.
+        critical: false
+
+  - id: approved-hook
+    kind: edge
+    prompt: |
+      Create the command guard hook candidate you shortlisted. The target
+      repository already has a safety pack with hooks.json and deterministic
+      scripts. Keep the existing pack conventions.
+    requirements:
+      - text: The executor re-checks existing assets for the approved candidate before editing.
+        critical: true
+      - text: The executor extends the existing hook asset rather than creating a parallel hook.
+        critical: true
+      - text: The executor documents that hook registration is separate unless it explicitly wires the hook into the target environment.
+        critical: false
+      - text: The executor runs relevant verification and reports the result.
+        critical: true

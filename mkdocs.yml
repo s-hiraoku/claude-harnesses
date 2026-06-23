@@ -80,7 +80,6 @@ nav:
       - long-running-orchestrator: skills/long-running-orchestrator.md
       - empirical-prompt-tuning: skills/empirical-prompt-tuning.md
       - teach-session: skills/teach-session.md
-      - meta-promote: skills/meta-promote.md
       - meta-packager: skills/meta-packager.md
       - frontend-design: skills/frontend-design.md
       - ui-imagegen-director: skills/ui-imagegen-director.md
