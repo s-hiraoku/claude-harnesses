@@ -61,9 +61,11 @@ scenarios:
   - id: approved-hook
     kind: edge
     prompt: |
-      Create the command guard hook candidate you shortlisted. The target
-      repository already has a safety pack with hooks.json and deterministic
-      scripts. Keep the existing pack conventions.
+      Create the approved hook candidate: extend the existing command guard
+      so it blocks `git push --force-with-lease origin main` in addition to
+      the force-push patterns it already blocks. The target repository already
+      has a safety pack with hooks.json, deterministic scripts, and tests.
+      Keep the existing pack conventions.
     requirements:
       - text: The executor re-checks existing assets for the approved candidate before editing.
         critical: true
