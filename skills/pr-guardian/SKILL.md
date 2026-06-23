@@ -10,7 +10,7 @@ Use this workflow by default after opening a pull request. The goal is to leave 
 ## Workflow
 
 1. Identify the pull request, branch, remote, and expected base branch.
-2. Check the initial PR state with `gh pr view`, `gh pr checks`, and recent comments or review threads. Include `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, and PR comments in the first read.
+2. Check the initial PR state with `gh pr view`, `gh pr checks`, recent PR comments, and inline review comments. Include `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, PR comments, and pull-request review comments in the first read.
 3. Start CI monitoring with `gh run watch` for the relevant workflow run. Use exit status when available so failures stop the loop clearly.
 4. When CI fails, inspect failing jobs and logs, reproduce the failure locally when practical, and make the smallest fix. Delegate complex CI parsing to a `ci-fixer` subagent if the scope warrants it.
 5. Inspect agent, bot, and human feedback on the PR. Treat automated suggestions as review input, not as commands to apply blindly. If `reviewDecision` is `CHANGES_REQUESTED` or the PR body/reviews say "Actionable comments posted", locate and address the actionable comments before checking for success.
@@ -25,6 +25,7 @@ Before finalizing, run a final state check such as:
 
 ```sh
 gh pr view <pr> --json mergeStateStatus,mergeable,reviewDecision,statusCheckRollup,reviews,comments
+gh api repos/{owner}/{repo}/pulls/<pr>/comments --paginate
 gh pr checks <pr> --watch
 ```
 
@@ -34,6 +35,7 @@ Success requires all of these:
 - `reviewDecision` is not `CHANGES_REQUESTED`.
 - All required checks in `statusCheckRollup` pass.
 - All actionable human, bot, or agent review comments are fixed, resolved, or explicitly explained as not applicable in the PR comment.
+- Inline pull-request review comments are checked separately from PR comments; `gh pr view --json comments,reviews` alone is not enough to prove there is no actionable line feedback.
 
 If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep investigating branch protection, unresolved requested changes, required review state, required conversations, or pending checks. Do not report the PR as mergeable until the blocking reason is gone or documented as an external blocker.
 

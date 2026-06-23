@@ -30,6 +30,8 @@ Use this file to keep long-running work resumable.
 
 Record dated progress notes here.
 
+- 2026-06-23 22:28 JST: PR #9 guard pass found failing `Eval quality gate / check` because `evals/pr-guardian/ledger.md` was missing. Also found Codex inline review comments requesting eval coverage and explicit pull-request review-comment fetching. Added `evals/pr-guardian/`, updated pr-guardian gate instructions, and verified locally with the eval gate plus repository checks.
+
 ## Blockers
 
 - None recorded.

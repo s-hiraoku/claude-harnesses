@@ -13,6 +13,27 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-06-23 22:25 JST
+
+- Command: `PATH=/tmp/claude-harnesses-pr9-venv/bin:$PATH bash scripts/verify.sh`
+- Scope: PR #9 pr-guardian mergeability gate hardening, inline review comment coverage, and `evals/pr-guardian` ledger coverage.
+- Result: Passed. `ruff check .`, `pytest` (36 passed), and `mkdocs build --strict` completed.
+- Notes: A first plain `bash scripts/verify.sh` attempt failed because the system Python loaded an incompatible `rpds` wheel (`x86_64` instead of `arm64e` or `arm64`); reran through a temporary venv with CI dependencies.
+
+### 2026-06-23 22:25 JST
+
+- Command: `PATH=/tmp/claude-harnesses-pr9-venv/bin:$PATH bash scripts/validate-plugins.sh`
+- Scope: Plugin validation after updating the pr-guardian pack command.
+- Result: Passed. All plugin manifests validated and component paths stayed inside plugin roots.
+- Notes: `jsonschema` emitted its upstream CLI deprecation warning.
+
+### 2026-06-23 22:25 JST
+
+- Command: `PATH=/tmp/claude-harnesses-pr9-venv/bin:$PATH python3 scripts/check-eval-coverage.py --base origin/main`
+- Scope: Eval quality gate after adding `evals/pr-guardian/ledger.md`.
+- Result: Passed. `ok: pr-guardian (ledger 2026-06-23)`.
+- Notes: Also reported existing passing ledgers for `frontend-design`, `implement-to-merge-ready`, and `meta-packager`.
+
 ### 2026-06-23 21:15 JST
 
 - Command: `python3 scripts/check-eval-coverage.py --base origin/main`

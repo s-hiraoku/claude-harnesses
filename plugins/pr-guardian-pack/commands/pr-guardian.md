@@ -7,7 +7,7 @@ Run the `pr-guardian` skill against PR $ARGUMENTS (or the current branch's PR if
 
 Loop:
 
-1. `gh pr checks` and `gh pr view --json mergeStateStatus,mergeable,reviewDecision,statusCheckRollup,reviews,comments`.
+1. `gh pr checks`, `gh pr view --json mergeStateStatus,mergeable,reviewDecision,statusCheckRollup,reviews,comments`, and `gh api repos/{owner}/{repo}/pulls/<pr>/comments --paginate`.
 2. If CI is failing, delegate to the `ci-fixer` subagent with the failing-job log.
 3. Address actionable review feedback.
 4. Push fixes; re-check.

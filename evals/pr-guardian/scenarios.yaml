@@ -1,0 +1,54 @@
+# Evaluation scenarios for pr-guardian
+#
+# Edit this file to define 2–3 realistic scenarios with a frozen requirements
+# checklist per scenario. Tag at least one item per scenario as `[critical]`.
+# Once a run has been recorded against this file, treat the checklists as
+# immutable — moving them after the fact destroys the metric.
+#
+# Schema:
+#   skill: string                     # name of the skill under evaluation
+#   scenarios:
+#     - id: string                    # short slug
+#       kind: typical | edge
+#       prompt: string                # what to hand the subagent verbatim
+#       requirements:
+#         - text: string              # one human-readable requirement
+#           critical: bool            # default false; >=1 must be true
+# ---
+
+skill: pr-guardian
+
+scenarios:
+  - id: failing-ci-and-inline-review
+    kind: typical
+    prompt: |
+      Run pr-guardian on a pull request where one required GitHub Actions job
+      fails and an automated reviewer left an actionable inline review comment.
+      Bring the PR as close to mergeable as possible and report what remains.
+    requirements:
+      - text: The agent identifies the PR branch, base branch, merge state, review decision, checks, PR comments, and inline review comments before declaring status.
+        critical: true
+      - text: The failing job log is inspected, the failure is reproduced locally when practical, and the smallest relevant fix is made.
+        critical: false
+      - text: Actionable inline review feedback is addressed or explicitly explained in the PR comment.
+        critical: true
+      - text: The agent pushes a focused fix and repeats checks before finalizing.
+        critical: false
+      - text: The final report includes PR identifier, branch, CI status, fixes pushed, feedback addressed, PR comment status, and remaining blockers.
+        critical: false
+
+  - id: misleading-mergeable
+    kind: edge
+    prompt: |
+      Run pr-guardian on a pull request where `mergeable` says MERGEABLE but
+      `mergeStateStatus` is BLOCKED and required checks are still pending.
+      Decide whether the PR can be reported as mergeable.
+    requirements:
+      - text: The agent refuses to report success based only on `mergeable: MERGEABLE`.
+        critical: true
+      - text: The agent investigates blocking merge state, requested changes, unresolved feedback, required reviews, pending checks, or branch protection.
+        critical: true
+      - text: The agent keeps monitoring or reports a concrete external blocker instead of stopping early.
+        critical: false
+      - text: The agent records dated progress after a CI failure or unresolved blocker.
+        critical: false
