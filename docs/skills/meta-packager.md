@@ -7,5 +7,6 @@ Analyze recent Claude Code work and package repeated patterns as the smallest us
 - The user asks to turn repeated recent work into a skill, subagent, slash command, hook, or automation.
 - You need an evidence-first workflow with frequency, stable I/O, benefit, and duplicate checks.
 - Creation should be gated by explicit approval.
+- The user invokes `/meta-packager` with an optional focus such as a project, time window, or repeated pattern.
 
 Bundled into `meta-pack`.

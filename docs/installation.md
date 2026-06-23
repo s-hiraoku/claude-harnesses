@@ -99,7 +99,7 @@ gh skill install s-hiraoku/claude-harnesses tdd@v0.1.0 --scope project
 | `--scope project` | `.claude/skills/<name>/` | Yes (commit it) |
 | `--scope user` | `~/.claude/skills/<name>/` | No |
 
-Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`, `empirical-prompt-tuning`, `teach-session`, `meta-promote`, `meta-packager`, `frontend-design`, `ui-imagegen-director`, `implement-to-merge-ready`, `kaizen-loop`, `jina-reader`.
+Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`, `empirical-prompt-tuning`, `teach-session`, `meta-packager`, `frontend-design`, `ui-imagegen-director`, `implement-to-merge-ready`, `kaizen-loop`, `jina-reader`.
 
 ## 4. `npx skills add` — single skill or all of them
 

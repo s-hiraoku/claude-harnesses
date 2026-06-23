@@ -13,3 +13,4 @@ Format: `- YYYY-MM-DD: iter N, P/Q scenarios pass, accuracy R%, <plateau? blocke
 
 ## Iteration log
 - 2026-06-13: iter 0, 2/2 scenarios pass, accuracy 100%, pass Claude-specific adaptation smoke review against upstream codex-harnesses workflow; formal Task-subagent empirical run pending.
+- 2026-06-23: iter 0 structural update pass, scenarios refreshed after consolidating `meta-promote` into `meta-packager`; formal Task-subagent empirical run pending.

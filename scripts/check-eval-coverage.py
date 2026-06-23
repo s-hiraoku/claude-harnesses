@@ -3,7 +3,7 @@
 
 Used by .github/workflows/eval-quality-gate.yml on PRs. The script:
 
-  1. Lists skills/<name>/SKILL.md files changed against the base ref.
+  1. Lists skills/<name>/SKILL.md files added or modified against the base ref.
   2. For each, checks evals/<name>/ledger.md exists and has a dated entry
      newer than (or equal to) the SKILL.md modification date in the diff.
   3. Skips entirely if the PR description (passed via stdin) contains the
@@ -32,10 +32,10 @@ PASS_RE = re.compile(r"\b(?:pass|plateau|converged)\b", re.IGNORECASE)
 
 
 def changed_skills(base_ref: str) -> list[str]:
-    """Skills with SKILL.md changed relative to base_ref."""
+    """Skills with SKILL.md added or modified relative to base_ref."""
     try:
         result = subprocess.run(
-            ["git", "diff", "--name-only", f"{base_ref}...HEAD"],
+            ["git", "diff", "--name-status", f"{base_ref}...HEAD"],
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
@@ -47,7 +47,13 @@ def changed_skills(base_ref: str) -> list[str]:
 
     skills: list[str] = []
     for line in result.stdout.splitlines():
-        parts = line.split("/")
+        fields = line.split(maxsplit=1)
+        if len(fields) != 2:
+            continue
+        status, path = fields
+        if status.startswith("D"):
+            continue
+        parts = path.split("/")
         if len(parts) >= 3 and parts[0] == "skills" and parts[2] == "SKILL.md":
             skills.append(parts[1])
     return sorted(set(skills))
