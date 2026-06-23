@@ -20,6 +20,7 @@ Watch PRs after creation. Loop over CI runs and review feedback, fix in batches,
 
 - Caps at 5 attempts.
 - Each iteration writes a dated note to `ledger/current.md`.
-- Stops when mergeable, when a fix attempt does not change the failure mode, or when a real blocker is identified.
+- Stops only after required checks pass, requested changes are cleared, and `mergeStateStatus` is no longer blocking. `mergeable: MERGEABLE` alone is not sufficient.
+- Also stops when a fix attempt does not change the failure mode or when a real blocker is identified.
 
 Install: `claude /plugin install pr-guardian-pack@claude-harnesses`
