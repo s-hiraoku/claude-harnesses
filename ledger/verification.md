@@ -13,6 +13,27 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-06-23 21:15 JST
+
+- Command: `python3 scripts/check-eval-coverage.py --base origin/main`
+- Scope: Eval quality gate after teaching it to ignore deleted skills and updating the `meta-packager` ledger entry.
+- Result: Passed. `ok: meta-packager (ledger 2026-06-23)`.
+- Notes: Covers the CI failure where deleted `meta-promote` was incorrectly treated as needing an evaluation ledger.
+
+### 2026-06-23 21:15 JST
+
+- Command: `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest`
+- Scope: Test suite after fixing the eval quality gate.
+- Result: Passed. 36 tests passed.
+- Notes: Added a regression test for ignoring deleted skills in the eval quality gate.
+
+### 2026-06-23 21:15 JST
+
+- Command: `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`
+- Scope: Documentation build after fixing the eval quality gate.
+- Result: Passed.
+- Notes: MkDocs strict build completed; Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
 ### 2026-06-23 21:03 JST
 
 - Command: `bash scripts/verify.sh`
