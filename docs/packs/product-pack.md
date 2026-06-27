@@ -8,6 +8,7 @@ Product-quality workflows for frontend design, image-guided UI direction, kaizen
 - `ui-imagegen-director`
 - `kaizen-loop`
 - `implement-to-merge-ready`
+- `pr-guardian`
 
 ## Commands
 
