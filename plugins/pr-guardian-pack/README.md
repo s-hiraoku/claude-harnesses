@@ -1,6 +1,6 @@
 # pr-guardian-pack
 
-Watch PRs after creation. Monitor CI, dispatch fixes via the `ci-fixer` subagent, address review feedback, and post outcome comments.
+Watch PRs after creation or resume stalled PRs. Monitor CI, dispatch fixes via the `ci-fixer` subagent, inventory human/bot/agent review feedback, and post outcome comments.
 
 ## Components
 

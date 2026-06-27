@@ -12,4 +12,4 @@ Format: `- YYYY-MM-DD: iter N, P/Q scenarios pass, accuracy R%, <plateau? blocke
 |---|---|---|---|
 
 ## Iteration log
-- 2026-06-27: iter 0 structural smoke pass, 2/2 scenarios pass, accuracy 100%, validates handoff to `finish-pr-feedback` for actionable CodeRabbit/Codex comments; formal Task-subagent empirical run pending.
+- 2026-06-27: iter 0 structural smoke pass, 2/2 scenarios pass, accuracy 100%, validates integrated handling for actionable CodeRabbit/Codex comments; formal Task-subagent empirical run pending.

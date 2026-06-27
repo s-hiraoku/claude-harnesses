@@ -1,10 +1,10 @@
 # pr-guardian-pack
 
-Watch PRs after creation. Loop over CI runs and review feedback, fix in batches, comment with the outcome.
+Watch PRs after creation or resume stalled PRs. Loop over CI runs and human, bot, CodeRabbit, Codex, or agent review feedback, fix in batches, comment with the outcome.
 
 ## Skills
 
-- `pr-guardian` — orchestrates the watch loop, with a hard cap of 5 retries and ledger updates per iteration.
+- `pr-guardian` — orchestrates CI monitoring and complete feedback recovery, with a hard cap of 5 retries and ledger updates per iteration.
 - `fix-ci` — diagnose and repair failing CI checks by cluster.
 
 ## Subagent
@@ -20,7 +20,7 @@ Watch PRs after creation. Loop over CI runs and review feedback, fix in batches,
 
 - Caps at 5 attempts.
 - Each iteration writes a dated note to `ledger/current.md`.
-- Stops only after required checks pass, requested changes are cleared, and `mergeStateStatus` is no longer blocking. `mergeable: MERGEABLE` alone is not sufficient.
+- Stops only after required checks pass, requested changes are cleared, actionable review threads are handled, and `mergeStateStatus` is no longer blocking. `mergeable: MERGEABLE` alone is not sufficient.
 - Also stops when a fix attempt does not change the failure mode or when a real blocker is identified.
 
 Install: `claude /plugin install pr-guardian-pack@claude-harnesses`

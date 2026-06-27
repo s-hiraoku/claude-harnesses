@@ -47,14 +47,14 @@ Use this orchestration workflow when an implementation task should not stop at l
 9. Bring the PR toward merge-ready.
    - Check required checks, CI runs, review requests, bot comments, and unresolved review threads.
    - On CI failure, inspect logs, reproduce locally when possible, make the smallest fix, push, and re-check.
-   - Address actionable human, bot, CodeRabbit, Codex, and agent feedback. Use `finish-pr-feedback` when review automation posts "Actionable comments posted", requested changes, or inline comments after the PR is opened.
+   - Address actionable human, bot, CodeRabbit, Codex, and agent feedback. Use `pr-guardian` when review automation posts "Actionable comments posted", requested changes, or inline comments after the PR is opened.
    - Do not treat a PR as merge-ready while any required check, bot review, or review status is still pending. Wait and re-check at least once after the PR checks/reviews appear; if a bot such as CodeRabbit is still pending after a reasonable watch window, report the PR as "CI passed, bot review pending" rather than complete/merge-ready.
    - Before finalizing, perform a thread-aware review check when available, and report the count of unresolved current review threads. If the count is nonzero, continue addressing comments or clearly mark the PR as blocked, not merge-ready.
    - Do not merge unless the user explicitly asks and repo policy permits it.
 
 ## Skill Composition
 
-Use narrower skills when relevant: `goal-manager`, `feature-implementation`, `bug-fix`, `refactor-safely`, `docs-updater`, `frontend-design`, `ui-imagegen-director`, `review`, `fix-ci`, `pr-guardian`, and `finish-pr-feedback`.
+Use narrower skills when relevant: `goal-manager`, `feature-implementation`, `bug-fix`, `refactor-safely`, `docs-updater`, `frontend-design`, `ui-imagegen-director`, `review`, `fix-ci`, and `pr-guardian`.
 
 ## Progress Updates
 
