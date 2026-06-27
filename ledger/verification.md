@@ -13,6 +13,27 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-06-28 08:14 JST
+
+- Command: `ruff check .`; `pytest tests/test_plugins.py tests/test_skills.py`; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest tests/test_plugins.py tests/test_skills.py`; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`; `git diff --check`
+- Scope: PR #11 `pr-guardian` follow-up after Codex review requested bundling `pr-guardian` with `product-pack`.
+- Result: Passed with isolated verification. Ruff passed, targeted plugin/skill tests passed with 10 tests, full pytest passed with 36 tests, MkDocs strict build completed, and diff whitespace check passed.
+- Notes: Plain `pytest tests/test_plugins.py tests/test_skills.py` failed during collection because the system Python loaded an incompatible `rpds` wheel (`x86_64` instead of `arm64e` or `arm64`). The equivalent isolated `uvx` run passed. Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
+### 2026-06-27 16:12 JST
+
+- Command: `bash scripts/verify.sh`
+- Scope: Consolidated PR feedback recovery into `pr-guardian`.
+- Result: Failed after `ruff check .` passed.
+- Notes: `pytest` failed during collection because the system Python loaded an incompatible `rpds` wheel (`x86_64` instead of `arm64e` or `arm64`).
+
+### 2026-06-27 16:12 JST
+
+- Command: `ruff check .`; `git diff --cached --check`; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`
+- Scope: Consolidated PR feedback recovery into `pr-guardian`, retained `finish-pr-feedback` as a compatibility alias, and updated related docs/commands.
+- Result: Passed. Ruff passed, staged diff whitespace check passed, pytest passed with 36 tests, and MkDocs strict build completed.
+- Notes: Used isolated `uvx` environments for pytest and MkDocs to avoid the system `rpds` architecture mismatch. Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
 ### 2026-06-23 21:15 JST
 
 - Command: `python3 scripts/check-eval-coverage.py --base origin/main`

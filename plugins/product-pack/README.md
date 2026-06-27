@@ -10,6 +10,7 @@ Product-quality workflows for frontend design, image-guided UI direction, kaizen
 | `ui-imagegen-director` | Use image-generated mockups when they improve visual direction, then implement and verify the real UI. |
 | `kaizen-loop` | Evaluate a product/codebase, propose prioritized improvements, and implement only approved items. |
 | `implement-to-merge-ready` | Drive implementation from intake through tests, self-review, ready-for-review PR, and CI/review follow-up. |
+| `pr-guardian` | Monitor PR checks and review feedback during merge-ready follow-up. |
 
 | Command | Effect |
 |---|---|
