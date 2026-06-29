@@ -26,7 +26,7 @@ Use this workflow by default after opening a pull request or when resuming a sta
    - Resolve each addressed GitHub review thread when permissions allow. If GitHub does not allow replying or resolving, report the thread URL as `blocked: unresolved required conversation`.
    - Do not rely on an aggregate PR comment as a substitute for per-thread disposition; repositories with required conversation resolution stay blocked until each current thread is resolved.
 9. Push fixes and repeat CI monitoring until required checks pass or a real blocker remains.
-10. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, or while any current non-outdated review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
+10. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
 11. Comment on the PR with what changed, which checks were verified, which feedback items were addressed, and which suggestions were intentionally not applied. Link to per-thread replies when suggestions are not applied.
 
 ## Mergeability gate
@@ -47,7 +47,7 @@ Success requires all of these:
 - `reviewDecision` is not `CHANGES_REQUESTED`.
 - All required checks in `statusCheckRollup` pass.
 - All actionable human, bot, CodeRabbit, Codex, or agent review comments are fixed, answered, or explicitly explained as not applicable in the relevant review thread.
-- Thread-aware review data shows zero unresolved current, non-outdated review threads. If unresolved threads remain because GitHub permissions prevent replying or resolving, report `blocked: unresolved required conversations` with the thread URLs.
+- Thread-aware review data shows zero unresolved review threads, including outdated threads. If unresolved threads remain because GitHub permissions prevent replying or resolving, report `blocked: unresolved required conversations` with the thread URLs.
 - Bot reviews have had enough time to update after the last push. If checks passed but a bot review is still pending, report "checks passed, bot review pending" instead of merge-ready.
 
 If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep investigating branch protection, unresolved requested changes, required review state, required conversations, or pending checks. Do not report the PR as mergeable until the blocking reason is gone or documented as an external blocker.
