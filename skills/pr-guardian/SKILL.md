@@ -68,6 +68,6 @@ Include:
 - CI runs watched and final status
 - fixes pushed
 - comments or review feedback addressed, including per-thread replies and resolved thread count
-- unresolved current review-thread count
+- unresolved review-thread count, including outdated threads
 - PR comment posted or drafted
 - remaining blockers, risks, or checks still pending
