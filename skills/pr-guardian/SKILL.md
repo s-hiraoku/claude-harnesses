@@ -21,9 +21,11 @@ Use this workflow by default after opening a pull request or when resuming a sta
    - `blocked`: needs credentials, product decision, external service, or maintainer action.
 7. Address all `fix` items with focused commits. Do not rewrite unrelated user changes or broaden the PR scope. Add or update tests when the feedback identifies behavior risk.
 8. Handle every current review thread explicitly.
-   - For `fix` items, reply in the same review thread or directly to the review comment with the fix made and validation run.
-   - For `respond` and `ignore` items, reply in the same review thread or directly to the review comment with the clarification or reason the suggestion is not applicable.
-   - Resolve each addressed GitHub review thread when permissions allow. If GitHub does not allow replying or resolving, report the thread URL as `blocked: unresolved required conversation`.
+   - For every unresolved GitHub review thread, including outdated threads, post a per-thread reply before resolving it. Required conversation resolution is per thread, not per PR.
+   - For `fix` items, reply in the same review thread or directly to the thread's top-level review comment with the fix made, commit if available, and validation run.
+   - For `respond` and `ignore` items, reply in the same review thread or directly to the thread's top-level review comment with the clarification or reason the suggestion is not applicable.
+   - Resolve each addressed GitHub review thread after replying when permissions allow. If GitHub does not allow replying or resolving, report the thread URL as `blocked: unresolved required conversation`.
+   - For top-level PR comments that cannot be resolved as review threads, add a direct reply or follow-up PR comment with a clear disposition when the comment asks a question, requests a change, or reports a blocker.
    - Do not rely on an aggregate PR comment as a substitute for per-thread disposition; repositories with required conversation resolution stay blocked until each current thread is resolved.
 9. Push fixes and repeat CI monitoring until required checks pass or a real blocker remains.
 10. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
@@ -46,7 +48,7 @@ Success requires all of these:
 - `mergeStateStatus` is clean enough for the repository to merge, usually `CLEAN`, `HAS_HOOKS`, or `UNSTABLE` with only non-required failures explicitly documented.
 - `reviewDecision` is not `CHANGES_REQUESTED`.
 - All required checks in `statusCheckRollup` pass.
-- All actionable human, bot, CodeRabbit, Codex, or agent review comments are fixed, answered, or explicitly explained as not applicable in the relevant review thread.
+- All actionable human, bot, CodeRabbit, Codex, or agent review comments are fixed, answered, or explicitly explained as not applicable in the relevant review thread or top-level PR conversation.
 - Thread-aware review data shows zero unresolved review threads, including outdated threads. If unresolved threads remain because GitHub permissions prevent replying or resolving, report `blocked: unresolved required conversations` with the thread URLs.
 - Bot reviews have had enough time to update after the last push. If checks passed but a bot review is still pending, report "checks passed, bot review pending" instead of merge-ready.
 
