@@ -29,8 +29,10 @@ Use this workflow by default after opening a pull request or when resuming a sta
    - For top-level PR comments that cannot be resolved as review threads, add a direct reply or follow-up PR comment with a clear disposition when the comment asks a question, requests a change, or reports a blocker.
    - Do not rely on an aggregate PR comment as a substitute for per-thread disposition; repositories with required conversation resolution stay blocked until each current thread is resolved.
 9. Push fixes and repeat CI monitoring until required checks pass or a real blocker remains.
-10. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
-11. Comment on the PR with what changed, which checks were verified, which feedback items were addressed, and which suggestions were intentionally not applied. Link to per-thread replies when suggestions are not applied.
+10. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. If CodeRabbit, Codex, or another expected review bot is `pending`, `in_progress`, or says it is still processing changes, keep waiting within the review wait window. Any unresolved-thread count gathered while a review bot is still processing is provisional and must not be reported as the final conversation state.
+11. After every expected review bot reaches a terminal state, re-fetch thread-aware review data before replying, resolving, posting a final PR update, or reporting success. New bot comments can appear after CI is already green.
+12. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, while any expected review bot is still processing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
+13. Comment on the PR with what changed, which checks were verified, which feedback items were addressed, and which suggestions were intentionally not applied. Link to per-thread replies when suggestions are not applied.
 
 ## Mergeability gate
 
@@ -103,13 +105,14 @@ Success requires all of these:
 - All required checks in `statusCheckRollup` pass.
 - All actionable human, bot, CodeRabbit, Codex, or agent review comments are fixed, answered, or explicitly explained as not applicable in the relevant review thread or top-level PR conversation.
 - Thread-aware review data shows zero unresolved review threads, including outdated threads. If any thread remains unresolved, do not report merge-ready even when `mergeable` is `MERGEABLE`; report `blocked: unresolved required conversations` with the thread URLs unless the only remaining step is a pending external reviewer action.
-- Bot reviews have had enough time to update after the last push. If checks passed but a bot review is still pending, report "checks passed, bot review pending" instead of merge-ready.
+- Expected CodeRabbit, Codex, or other bot reviews have completed, and thread-aware review data has been re-fetched after they completed. If checks pass but an expected bot review is still pending, report "checks passed, bot review pending" only after the wait window is exhausted, and make clear that the unresolved-thread count is not final while the bot is still processing.
 
 If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep investigating branch protection, unresolved requested changes, required review state, required conversations, or pending checks. Do not report the PR as mergeable until the blocking reason is gone or documented as an external blocker.
 
 ## Loop control
 
 - Do not loop indefinitely. Cap retries at 5 unless the user explicitly asks for more.
+- Cap each CI or review wait window at 30 minutes, or 30 polling checks at 60-second intervals. If checks or review bots are still pending after that, do one fresh PR-state and review-thread fetch, then report pending external review instead of waiting indefinitely. Do not claim conversations are resolved when the latest bot review is still pending.
 - If the same failure or review comment returns after two fixes, stop broad changes and inspect the underlying assumption before trying again.
 - After each CI failure, record a dated note in `ledger/current.md` so the next session can resume.
 - Stop and surface to the human when a failure looks like an environmental or infrastructure issue that automated fixes cannot address.
