@@ -10,7 +10,9 @@ Use this workflow by default after opening a pull request or when resuming a sta
 ## Workflow
 
 1. Identify the pull request, branch, remote, and expected base branch.
+   - If the user says a PR is still blocked, still remains, or points at a repository PR list, enumerate the open PRs in the relevant repositories and process every PR that is `BLOCKED`, has unresolved review threads, or has actionable bot/human feedback. Do not stop after fixing only the current checkout's branch.
 2. Check the initial PR state with `gh pr view`, `gh pr checks`, recent PR comments, reviews, and inline review comments. Include `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, `latestReviews`, PR comments, pull-request review comments, and thread-aware review data in the first read.
+   - Do not treat an earlier PR Guardian summary comment as current evidence. A bot review can arrive after that comment, so every resume must re-fetch PR state, comments, reviews, latest reviews, and review threads from GitHub.
 3. Start CI monitoring with `gh run watch` for the relevant workflow run. Use exit status when available so failures stop the loop clearly.
 4. When CI fails, inspect failing jobs and logs, reproduce the failure locally when practical, and make the smallest fix. Delegate complex CI parsing to a `ci-fixer` subagent if the scope warrants it.
 5. Build a complete feedback inventory across human reviews, PR comments, inline review comments, CodeRabbit, Codex, other agent comments, and CI failures. Treat top-level bot summaries such as "Actionable comments posted" as pointers, not proof that all inline comments were fetched. Read `references/pr-feedback-audit.md` for concrete `gh` and GraphQL commands when thread state, bot comments, or cross-repo scanning matters.
@@ -116,6 +118,7 @@ If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep inv
 - If the same failure or review comment returns after two fixes, stop broad changes and inspect the underlying assumption before trying again.
 - After each CI failure, record a dated note in `ledger/current.md` so the next session can resume.
 - Stop and surface to the human when a failure looks like an environmental or infrastructure issue that automated fixes cannot address.
+- For multi-PR or "still blocked" requests, do a final `gh pr list --state open` scan across the target repositories before reporting success. If any target PR remains `BLOCKED` or has unresolved threads, keep processing it instead of stopping.
 
 ## Final Report
 
