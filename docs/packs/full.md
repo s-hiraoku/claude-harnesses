@@ -8,6 +8,7 @@ claude /plugin install full@claude-harnesses
 
 ## Composes
 
+- adviser-pack
 - safety-pack
 - verification-pack
 - review-pack

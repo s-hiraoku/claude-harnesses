@@ -15,6 +15,7 @@ Use `/plugin` (no arguments) to browse the marketplace interactively, or install
 
 ```text
 /plugin install safety-pack@claude-harnesses
+/plugin install adviser-pack@claude-harnesses
 /plugin install verification-pack@claude-harnesses
 /plugin install review-pack@claude-harnesses
 /plugin install tdd-pack@claude-harnesses
@@ -36,7 +37,7 @@ claude plugin install pr-guardian-pack@claude-harnesses
 
 Add `--scope project` to commit the install to `.claude/`, or `--scope local` to keep it private to your machine.
 
-Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`, `full`.
+Available packs: `adviser-pack`, `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`, `full`.
 
 Useful follow-ups:
 
@@ -86,6 +87,7 @@ For installing individual skills without the full plugin machinery. Skills are p
 ```sh
 gh skill install s-hiraoku/claude-harnesses tdd --scope project
 gh skill install s-hiraoku/claude-harnesses review --scope user
+gh skill install s-hiraoku/claude-harnesses adviser --scope user
 ```
 
 Pin to a tag or branch:
@@ -99,7 +101,7 @@ gh skill install s-hiraoku/claude-harnesses tdd@v0.1.0 --scope project
 | `--scope project` | `.claude/skills/<name>/` | Yes (commit it) |
 | `--scope user` | `~/.claude/skills/<name>/` | No |
 
-Available skills: `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`, `empirical-prompt-tuning`, `teach-session`, `meta-packager`, `frontend-design`, `ui-imagegen-director`, `implement-to-merge-ready`, `kaizen-loop`, `jina-reader`.
+Available skills: `adviser`, `bug-fix`, `feature-implementation`, `refactor-safely`, `review`, `release-check`, `docs-updater`, `goal-manager`, `pr-guardian`, `finish-pr-feedback`, `tdd`, `security-review`, `simplify`, `fix-ci`, `deslop`, `long-running-orchestrator`, `empirical-prompt-tuning`, `teach-session`, `meta-packager`, `frontend-design`, `ui-imagegen-director`, `implement-to-merge-ready`, `kaizen-loop`, `jina-reader`.
 
 ## 4. `npx skills add` — single skill or all of them
 

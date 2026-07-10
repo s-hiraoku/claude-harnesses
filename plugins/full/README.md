@@ -2,6 +2,7 @@
 
 Umbrella plugin that pulls in every functional pack:
 
+- `adviser-pack` — fallback `/adviser` consultations when native Advisor is unavailable
 - `safety-pack` — PreToolUse guards
 - `verification-pack` — format/typecheck/test on edit + Stop verification
 - `review-pack` — code review + security review with parallel subagents
@@ -23,7 +24,7 @@ claude /plugin install full@claude-harnesses
 If `dependsOn` is not yet supported by your Claude Code version, install each pack individually:
 
 ```sh
-for pack in safety-pack verification-pack review-pack tdd-pack pr-guardian-pack long-running-pack mcp-pack product-pack research-pack meta-pack teaching-pack; do
+for pack in adviser-pack safety-pack verification-pack review-pack tdd-pack pr-guardian-pack long-running-pack mcp-pack product-pack research-pack meta-pack teaching-pack; do
   claude /plugin install "${pack}@claude-harnesses"
 done
 ```
