@@ -1,5 +1,5 @@
 ---
-description: Consult a read-only Opus adviser when Claude Code's native Advisor tool is unavailable.
+description: Consult a review-only Opus adviser when Claude Code's native Advisor tool is unavailable.
 argument-hint: "[decision, plan, failure, or result to review]"
 ---
 

@@ -1,6 +1,6 @@
 # adviser
 
-Use `adviser` as a fallback for Claude Code's native Advisor tool. It sends a bounded consultation brief to a fresh, read-only Opus Task subagent while the main agent remains responsible for execution.
+Use `adviser` as a fallback for Claude Code's native Advisor tool. It sends a bounded consultation brief to a fresh, review-only Opus Task subagent while the main agent remains responsible for execution. The review-only role is prompt-enforced unless the runtime supplies separate tool restrictions.
 
 The default consultation gates are:
 

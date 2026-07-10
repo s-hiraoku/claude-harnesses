@@ -9,7 +9,7 @@
     {
       "name": "adviser-pack",
       "source": "./plugins/adviser-pack",
-      "description": "Fallback Adviser consultations using a read-only Opus subagent when the native Advisor tool is unavailable.",
+      "description": "Fallback Adviser consultations using a review-only Opus subagent when the native Advisor tool is unavailable.",
       "category": "workflow",
       "tags": ["adviser", "advisor", "review", "fallback"]
     },
