@@ -17,4 +17,4 @@ Format: `- YYYY-MM-DD: iter N, P/Q scenarios pass, accuracy R%, <plateau? blocke
 ## Iteration log
 
 - 2026-07-10: iter 1, 2/2 scenarios pass, accuracy 100%, two wording ambiguities fixed; no critical failures
-- 2026-07-10: review hardening, replaced unenforced “read-only” claims with an explicit instruction-level review-only role
+- 2026-07-10: review hardening pass, replaced unenforced “read-only” claims with an explicit instruction-level review-only role
