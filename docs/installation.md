@@ -90,6 +90,8 @@ gh skill install s-hiraoku/claude-harnesses review --scope user
 gh skill install s-hiraoku/claude-harnesses adviser --scope user
 ```
 
+For native Advisor-style automatic consultation timing, also add the user-global instruction in the [`adviser` skill guide](skills/adviser.md#enable-automatic-timing).
+
 Pin to a tag or branch:
 
 ```sh
