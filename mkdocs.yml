@@ -49,6 +49,7 @@ nav:
       - Claude Code Configuration: claude-config.md
       - Release Readiness: release-readiness.md
   - Packs:
+      - Adviser: packs/adviser-pack.md
       - Safety: packs/safety-pack.md
       - Verification: packs/verification-pack.md
       - Review: packs/review-pack.md
@@ -63,6 +64,7 @@ nav:
       - Full: packs/full.md
   - Skills:
       - Index: skills/index.md
+      - adviser: skills/adviser.md
       - bug-fix: skills/bug-fix.md
       - feature-implementation: skills/feature-implementation.md
       - refactor-safely: skills/refactor-safely.md

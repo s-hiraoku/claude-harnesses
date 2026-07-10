@@ -1,0 +1,12 @@
+{
+  "name": "adviser-pack",
+  "version": "0.1.0",
+  "description": "Fallback Adviser consultations for Claude Code environments without the native Advisor tool.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/adviser-pack/",
+  "license": "MIT",
+  "keywords": ["adviser", "advisor", "review", "fallback"]
+}

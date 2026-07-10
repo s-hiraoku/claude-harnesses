@@ -90,6 +90,13 @@ def test_install_product_and_research_packs(target: Path) -> None:
     assert (target / ".claude" / "commands" / "jina-reader.md").is_file()
 
 
+def test_install_full_includes_adviser(target: Path) -> None:
+    result = _run_install(target, "--pack", "full", "--no-verify")
+    assert result.returncode == 0, result.stderr
+    assert (target / ".claude" / "skills" / "adviser" / "SKILL.md").is_file()
+    assert (target / ".claude" / "commands" / "adviser.md").is_file()
+
+
 def test_install_dry_run_does_not_write(target: Path) -> None:
     result = _run_install(
         target,

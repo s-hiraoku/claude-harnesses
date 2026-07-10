@@ -7,6 +7,13 @@
   "description": "Curated hooks, skills, MCP recipes, and slash commands for long-running, safe, high-quality Claude Code-driven development.",
   "plugins": [
     {
+      "name": "adviser-pack",
+      "source": "./plugins/adviser-pack",
+      "description": "Fallback Adviser consultations using a review-only Opus subagent when the native Advisor tool is unavailable.",
+      "category": "workflow",
+      "tags": ["adviser", "advisor", "review", "fallback"]
+    },
+    {
       "name": "review-pack",
       "source": "./plugins/review-pack",
       "description": "Severity-ranked code review and multi-pass security review with parallel specialist subagents.",
