@@ -23,7 +23,7 @@ Selectively copy claude-harnesses files into a target project.
 
 Options:
   --target DIR              Target project directory. Defaults to current directory.
-  --pack NAME               Install a plugin pack: safety, verification, review, tdd,
+  --pack NAME               Install a plugin pack: adviser, safety, verification, review, tdd,
                             pr-guardian, long-running, mcp, product, research,
                             meta, teaching, full. Repeatable.
   --claude-md NAME          Install templates/claude-md/NAME/CLAUDE.md as ./CLAUDE.md.
@@ -128,6 +128,7 @@ merge_hooks_json() {
 }
 
 FUNCTIONAL_PACKS=(
+  adviser
   safety
   verification
   review
