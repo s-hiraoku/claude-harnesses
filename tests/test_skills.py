@@ -58,3 +58,12 @@ def test_each_skill_has_skill_md_with_valid_frontmatter() -> None:
             failures.append(f"{skill_dir.name}: description must be a single line")
 
     assert not failures, "\n".join(failures)
+
+
+def test_pr_guardian_waits_for_current_head_review_stabilization() -> None:
+    text = (SKILLS_ROOT / "pr-guardian" / "SKILL.md").read_text()
+
+    assert "review `commit.oid` equals the pinned head SHA" in text
+    assert "discard all earlier review-completion and quiet-period evidence" in text
+    assert "fetch the head SHA, checks, merge state, review decision, comments, reviews, and all review threads twice" in text
+    assert "Treat bot rate limits, timeouts, and missing current-head terminal evidence as `pending external review`" in text
