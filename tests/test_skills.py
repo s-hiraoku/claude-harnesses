@@ -73,3 +73,6 @@ def test_pr_guardian_waits_for_current_head_review_stabilization() -> None:
         "Treat bot rate limits, timeouts, and missing current-head terminal evidence as "
         "`pending external review`"
     ) in text
+    audit = (SKILLS_ROOT / "pr-guardian" / "references" / "pr-feedback-audit.md").read_text()
+    assert "--json headRefOid,mergeStateStatus" in audit
+    assert "      headRefOid" in audit
