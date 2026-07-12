@@ -65,5 +65,11 @@ def test_pr_guardian_waits_for_current_head_review_stabilization() -> None:
 
     assert "review `commit.oid` equals the pinned head SHA" in text
     assert "discard all earlier review-completion and quiet-period evidence" in text
-    assert "fetch the head SHA, checks, merge state, review decision, comments, reviews, and all review threads twice" in text
-    assert "Treat bot rate limits, timeouts, and missing current-head terminal evidence as `pending external review`" in text
+    assert (
+        "fetch the head SHA, checks, merge state, review decision, comments, reviews, "
+        "and all review threads twice"
+    ) in text
+    assert (
+        "Treat bot rate limits, timeouts, and missing current-head terminal evidence as "
+        "`pending external review`"
+    ) in text
