@@ -13,3 +13,4 @@ Format: `- YYYY-MM-DD: iter N, P/Q scenarios pass, accuracy R%, <plateau? blocke
 
 ## Iteration log
 - 2026-06-27: iter 0 structural smoke pass, 2/2 scenarios pass, accuracy 100%, validates integrated handling for actionable CodeRabbit/Codex comments; formal Task-subagent empirical run pending.
+- 2026-07-12: iter 1 fresh-agent pass, 1/1 scenario pass, accuracy 100%, validates Nix CLI discovery, thread-aware pagination, and refusal to finish with an unresolved review thread.
