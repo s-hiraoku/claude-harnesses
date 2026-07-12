@@ -26,7 +26,7 @@ scenarios:
     requirements:
       - text: It selects the fallback only because native Advisor is unavailable and prefers an Opus general-purpose Task reviewer.
         critical: true
-      - text: It consults after orientation and before committing to the approach using a bounded, secret-free consultation brief.
+      - text: It consults after orientation and before committing to the approach using a bounded, secret-free consultation packet.
         critical: true
       - text: It keeps all execution, edits, evidence checks, and decisions in the main agent.
         critical: false
