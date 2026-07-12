@@ -44,3 +44,17 @@ scenarios:
         critical: false
       - text: It does not claim that native Advisor, Opus, or any independent reviewer ran.
         critical: false
+
+  - id: fidelity-boundary
+    kind: edge
+    prompt: |
+      Native Advisor is unavailable. The fallback reviewer may be the same tier as the main model, and only a compact consultation packet can be passed. Explain how to consult during a consequential refactor and report the result without overstating native compatibility.
+    requirements:
+      - text: It uses a structured packet containing goals, constraints, evidence, decision, and verification state without claiming complete transcript delivery.
+        critical: true
+      - text: It classifies reviewer capability as stronger, same-tier, or unknown based on evidence rather than assuming Opus is stronger.
+        critical: true
+      - text: It describes the fallback as workflow-compatible rather than reproducing native same-turn execution, billing, caching, model pairing, or UI.
+        critical: false
+      - text: It treats the two common consultation checkpoints as model-driven defaults rather than a fixed quota.
+        critical: false
