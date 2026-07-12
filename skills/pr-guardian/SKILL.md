@@ -14,19 +14,26 @@ Use this workflow by default after opening a pull request or when resuming a sta
 2. Identify the pull request, branch, remote, and expected base branch.
    - If the user says a PR is still blocked, still remains, or points at a repository PR list, enumerate the open PRs in the relevant repositories and process every PR that is `BLOCKED`, has unresolved review threads, or has actionable bot/human feedback. Do not stop after fixing only the current checkout's branch.
    - Derive the target host and repository from the resolved PR URL or remote. Run `"$GH_BIN" auth status --active --hostname <host>` and a read-only `"$GH_BIN" api --hostname <host> repos/<owner>/<repo> --jq .full_name`. An authentication failure on an unrelated host or inactive account is not a blocker. A missing executable, failed target-host authentication, or insufficient target-repository access is a concrete blocker; report the exact failed command and stderr.
-3. Check the initial PR state with `gh pr view`, `gh pr checks`, recent PR comments, reviews, and inline review comments. Include `isDraft`, `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, `latestReviews`, review requests, PR comments, pull-request review comments, and thread-aware review data in the first read.
+3. Prefer the durable guardian runner over ad-hoc polling after resolving the target PR.
+   - When the resolved repository is registered with kaizen-loop, its project slug is known, and `kaizen-loop guardian run --help` succeeds, run `kaizen-loop guardian run <pr-number> --project <project-slug> --json` in a unified exec session. Use the PR number and repository registration resolved above; do not attempt to invoke the runner before those arguments are available.
+   - A guardian process that is already running this workflow must continue its current run instead of launching another guardian child.
+   - `gh pr checks --watch` is only a CI watcher and never satisfies review/thread monitoring by itself.
+   - If the durable runner is unavailable, perform the loop below in the current turn through the full wait window. A progress update saying `pending external review` is not a terminal result before that window expires.
+   - Never leave a guardian child process running while returning a final answer. Either keep polling it, or explicitly terminate it and report the concrete timeout/blocker after the configured wait window.
+
+4. Check the initial PR state with `gh pr view`, `gh pr checks`, recent PR comments, reviews, and inline review comments. Include `isDraft`, `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, `latestReviews`, review requests, PR comments, pull-request review comments, and thread-aware review data in the first read.
    - Do not treat an earlier PR Guardian summary comment as current evidence. A bot review can arrive after that comment, so every resume must re-fetch PR state, comments, reviews, latest reviews, and review threads from GitHub.
    - Read `references/pr-feedback-audit.md` and execute its thread-aware GraphQL query on every target PR before deciding that no feedback remains. Paginate `reviewThreads`, REST review comments, issue comments, check runs, and check-run annotations until every `hasNextPage`/`Link: rel="next"` is exhausted. Summaries and the first 100 nodes are not a complete audit.
-4. Start CI monitoring with `gh run watch` for the relevant workflow run. Use exit status when available so failures stop the loop clearly.
-5. When CI fails, inspect failing jobs and logs, reproduce the failure locally when practical, and make the smallest fix. Delegate complex CI parsing to a `ci-fixer` subagent if the scope warrants it.
-6. Build a complete feedback inventory across human reviews, PR comments, inline review comments, CodeRabbit, Codex, other agent comments, and CI failures. Treat top-level bot summaries such as "Actionable comments posted" as pointers, not proof that all inline comments were fetched. Read `references/pr-feedback-audit.md` for concrete `gh` and GraphQL commands when thread state, bot comments, or cross-repo scanning matters.
-7. Classify every feedback item before editing:
+5. Start CI monitoring with `gh run watch` for the relevant workflow run. Use exit status when available so failures stop the loop clearly.
+6. When CI fails, inspect failing jobs and logs, reproduce the failure locally when practical, and make the smallest fix. Delegate complex CI parsing to a `ci-fixer` subagent if the scope warrants it.
+7. Build a complete feedback inventory across human reviews, PR comments, inline review comments, CodeRabbit, Codex, other agent comments, and CI failures. Treat top-level bot summaries such as "Actionable comments posted" as pointers, not proof that all inline comments were fetched. Read `references/pr-feedback-audit.md` for concrete `gh` and GraphQL commands when thread state, bot comments, or cross-repo scanning matters.
+8. Classify every feedback item before editing:
    - `fix`: code, docs, tests, CI, or config change is needed.
    - `respond`: clarification is needed and no code change is appropriate.
    - `ignore`: duplicate, outdated, already resolved, or demonstrably wrong.
    - `blocked`: needs credentials, product decision, external service, or maintainer action.
-8. Address all `fix` items with focused commits. Do not rewrite unrelated user changes or broaden the PR scope. Add or update tests when the feedback identifies behavior risk.
-9. Handle every current review thread explicitly.
+9. Address all `fix` items with focused commits. Do not rewrite unrelated user changes or broaden the PR scope. Add or update tests when the feedback identifies behavior risk.
+10. Handle every current review thread explicitly.
    - For every unresolved GitHub review thread, including outdated threads, post a per-thread reply before resolving it. Required conversation resolution is per GitHub review thread, not per PR. The merge gate "all comments must be resolved" is satisfied only when every unresolved `reviewThreads` node has been replied to or intentionally handled and then resolved.
    - For `fix` items, reply in the same review thread or directly to the thread's top-level review comment with the fix made, commit if available, and validation run.
    - For `respond` and `ignore` items, reply in the same review thread or directly to the thread's top-level review comment with the clarification or reason the suggestion is not applicable.
@@ -34,14 +41,14 @@ Use this workflow by default after opening a pull request or when resuming a sta
    - Resolve each addressed GitHub review thread after replying when permissions allow. If GitHub does not allow replying or resolving, report the thread URL as `blocked: unresolved required conversation`.
    - For top-level PR comments that cannot be resolved as review threads, add a direct reply or follow-up PR comment with a clear disposition when the comment asks a question, requests a change, or reports a blocker.
    - Do not rely on an aggregate PR comment as a substitute for per-thread disposition; repositories with required conversation resolution stay blocked until each current thread is resolved.
-10. Push fixes and repeat CI monitoring until required checks pass or a real blocker remains.
-11. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. If CodeRabbit, Codex, or another expected review bot is `pending`, `in_progress`, or says it is still processing changes, keep waiting within the review wait window. Any unresolved-thread count gathered while a review bot is still processing is provisional and must not be reported as the final conversation state.
-12. After every expected review bot reaches a terminal state, re-fetch thread-aware review data before replying, resolving, posting a final PR update, or reporting success. New bot comments can appear after CI is already green.
-13. Pin the current PR head SHA for each monitoring cycle. After every push, discard all earlier review-completion and quiet-period evidence. Count an expected bot as complete only when its review `commit.oid` equals the pinned head SHA, or a bot-specific terminal API result explicitly names that SHA; missing or older SHA evidence remains pending.
-14. Once every expected bot has terminal evidence for the pinned head, wait at least 60 seconds, then fetch the head SHA, checks, merge state, review decision, comments, reviews, and all review threads twice at least 30 seconds apart. Require identical head SHAs and no new review/thread activity in both passing snapshots. Any push, check transition, comment, review, or thread resets this stabilization window.
-15. Treat bot rate limits, timeouts, and missing current-head terminal evidence as `pending external review`, never merge-ready. A transient `CLEAN` state or zero-thread snapshot cannot shorten the stabilization window.
-16. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, while any expected review bot is still processing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
-14. Comment on the PR with what changed, which checks were verified, which feedback items were addressed, and which suggestions were intentionally not applied. Link to per-thread replies when suggestions are not applied. If no fixes were needed, claim merge-readiness only after the same final gate below passes; otherwise name the remaining blocker.
+11. Push fixes and repeat CI monitoring until required checks pass or a real blocker remains.
+12. Re-read PR state and thread-aware review data after every push and after review automation has had time to update. If CodeRabbit, Codex, or another expected review bot is `pending`, `in_progress`, or says it is still processing changes, keep waiting within the review wait window. Any unresolved-thread count gathered while a review bot is still processing is provisional and must not be reported as the final conversation state.
+13. After every expected review bot reaches a terminal state, re-fetch thread-aware review data before replying, resolving, posting a final PR update, or reporting success. New bot comments can appear after CI is already green.
+14. Pin the current PR head SHA for each monitoring cycle. After every push, discard all earlier review-completion and quiet-period evidence. Count an expected bot as complete only when its review `commit.oid` equals the pinned head SHA, or a bot-specific terminal API result explicitly names that SHA; missing or older SHA evidence remains pending.
+15. Once every expected bot has terminal evidence for the pinned head, wait at least 60 seconds, then fetch the head SHA, checks, merge state, review decision, comments, reviews, and all review threads twice at least 30 seconds apart. Require identical head SHAs and no new review/thread activity in both passing snapshots. Any push, check transition, comment, review, or thread resets this stabilization window.
+16. Treat bot rate limits, timeouts, and missing current-head terminal evidence as `pending external review`, never merge-ready. A transient `CLEAN` state or zero-thread snapshot cannot shorten the stabilization window.
+17. The PR is not done while `mergeStateStatus` is `BLOCKED`, `DIRTY`, `UNKNOWN`, or `BEHIND`, while `reviewDecision` is `CHANGES_REQUESTED`, while required checks are pending or failing, while any expected review bot is still processing, or while any review thread remains unresolved, even if `mergeable` says `MERGEABLE`.
+18. Comment on the PR with what changed, which checks were verified, which feedback items were addressed, and which suggestions were intentionally not applied. Link to per-thread replies when suggestions are not applied. If no fixes were needed, claim merge-readiness only after the same final gate below passes; otherwise name the remaining blocker.
 
 ## Mergeability gate
 
@@ -122,6 +129,8 @@ Success requires all of these:
 If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep investigating branch protection, unresolved requested changes, required review state, required conversations, or pending checks. Do not report the PR as mergeable until the blocking reason is gone or documented as an external blocker.
 
 ## Loop control
+
+- Do not stop between attempts. Every push resets review evidence and immediately starts the next monitor/review cycle in the same guardian run.
 
 - Do not loop indefinitely. Cap retries at 5 unless the user explicitly asks for more.
 - If the same failure or review comment returns after two fixes, stop broad changes and inspect the underlying assumption before trying again.

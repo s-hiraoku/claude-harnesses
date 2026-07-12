@@ -13,6 +13,13 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-12 23:30 JST
+
+- Command: `python -m pytest tests/test_skills.py -q`; `PATH=/tmp/pr20-verify-venv/bin:$PATH bash scripts/verify.sh`; `git diff --check`
+- Scope: PR #20 follow-up to resolve the target PR and project before starting the durable PR Guardian runner.
+- Result: Passed. Targeted skill tests passed with 4 tests, the repository verification suite passed with 39 tests, and the diff whitespace check passed.
+- Notes: The plain repository verification initially hit the known system `rpds` architecture mismatch. The passing run used an isolated arm64-compatible environment; MkDocs was unavailable and was skipped by the non-strict verification script.
+
 ### 2026-06-28 08:14 JST
 
 - Command: `ruff check .`; `pytest tests/test_plugins.py tests/test_skills.py`; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest tests/test_plugins.py tests/test_skills.py`; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`; `git diff --check`
