@@ -9,6 +9,12 @@ Use this workflow by default after opening a pull request or when resuming a sta
 
 ## Workflow
 
+0. Prefer the durable guardian runner over ad-hoc polling.
+   - When the repository is registered with kaizen-loop and `kaizen-loop guardian run --help` succeeds, run `kaizen-loop guardian run <pr-number> --project <project-slug> --json` in a unified exec session. Keep that session open and poll it until the guardian exits; do not return a final answer merely because CI is green or an external review is pending.
+   - `gh pr checks --watch` is only a CI watcher and never satisfies review/thread monitoring by itself.
+   - If the durable runner is unavailable, perform the loop below in the current turn through the full wait window. A progress update saying `pending external review` is not a terminal result before that window expires.
+   - Never leave a guardian child process running while returning a final answer. Either keep polling it, or explicitly terminate it and report the concrete timeout/blocker after the configured wait window.
+
 1. Resolve the GitHub CLI before doing any PR work.
    - Resolve a usable GitHub CLI as `GH_BIN`: try `command -v gh`, the active Nix user profiles (`$HOME/.nix-profile/bin/gh` and `$HOME/.local/state/nix/profiles/profile/bin/gh`), `/run/current-system/sw/bin/gh`, then platform fallbacks such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`. Use the resolved absolute path for every command in this workflow; desktop and sandboxed agent shells may intentionally sanitize the user's interactive `PATH`.
 2. Identify the pull request, branch, remote, and expected base branch.
@@ -122,6 +128,8 @@ Success requires all of these:
 If `mergeable` is `MERGEABLE` but `mergeStateStatus` remains `BLOCKED`, keep investigating branch protection, unresolved requested changes, required review state, required conversations, or pending checks. Do not report the PR as mergeable until the blocking reason is gone or documented as an external blocker.
 
 ## Loop control
+
+- Do not stop between attempts. Every push resets review evidence and immediately starts the next monitor/review cycle in the same guardian run.
 
 - Do not loop indefinitely. Cap retries at 5 unless the user explicitly asks for more.
 - If the same failure or review comment returns after two fixes, stop broad changes and inspect the underlying assumption before trying again.
