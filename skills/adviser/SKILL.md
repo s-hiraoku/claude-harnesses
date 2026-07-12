@@ -7,25 +7,28 @@ description: Consult a fresh, review-only Claude subagent as a fallback for envi
 
 Use a fresh `Task` subagent as an independent strategic reviewer when Claude Code's native Advisor tool is unavailable. Prefer `model: opus`; if Opus is unavailable, use the strongest permitted model and disclose the downgrade. “Fresh” means a newly spawned reviewer that has taken no prior task actions. “Review-only” is an instruction-level role, not a sandbox boundary, unless the runtime separately restricts the subagent's tools. The main agent remains the executor and owns all tools, edits, decisions, and final reporting.
 
+This fallback emulates native Advisor's decision pattern, not its server implementation. It cannot guarantee complete transcript delivery, same-turn sub-inference, native model-pair validation, usage accounting, prompt-cache behavior, or Advisor UI. Report the reviewer as `stronger`, `same-tier`, or `unknown` only when the runtime exposes enough evidence; selecting Opus does not by itself prove an upgrade over the main model. Unknown model strength does not make the reviewer unavailable: if a Task subagent returns advice, count the consultation and label its capability `unknown`.
+
 ## Workflow
 
 1. Check for native Advisor availability. If the native `advisor` tool is active, use it instead of this fallback. Do not run both for ceremony.
 2. Orient before consulting. Gather the minimum repository evidence needed for a useful review. File discovery, source retrieval, and current-state inspection are orientation; editing, settling an interpretation, and declaring completion are substantive work.
-3. Before substantive work on a multi-step or consequential task, build a consultation brief containing the user goal, relevant constraints, evidence already inspected, assumptions, proposed approach, open decisions, risks, and verification plan. Never include secrets or irrelevant transcript content.
-4. Spawn one fresh `general-purpose` Task subagent with `model: opus` and the prompt contract below. Instruct it to return review text only: no file edits, commands, delegation, or task ownership. If the runtime supports per-agent tool restrictions, disable mutating tools as defense in depth. If Opus is rejected or unavailable, retry once with the strongest permitted model and record the downgrade.
-5. Weigh the advice. Adopt supported recommendations, but prefer repository evidence, primary sources, and empirical results over unsupported conflicting advice. Record material approach changes in the normal plan or commentary.
-6. Reconcile conflicts. When evidence contradicts the adviser, continue the same Task conversation if the runtime supports follow-ups so it can defend or revise its exact claim. Otherwise spawn one fresh adviser with the original advice and conflicting evidence. Do not silently switch directions.
-7. Reconsult when material ambiguity blocks a decision, the same failure recurs, the approach stops converging, or a materially different approach is under consideration.
-8. Before declaring substantial work complete, save the deliverable and run relevant verification. Spawn a fresh completion adviser with the outcome, diff or artifact summary, verification evidence, and known risks. Fix actionable findings and rerun only checks affected by those fixes.
+3. Decide whether consultation adds value at the current decision point. Favor long multi-step work, consequential or ambiguous choices, recurring failures, and independent completion checks. Skip short mechanical tasks and work where every step genuinely requires the strongest available main model.
+4. Build a consultation packet containing the user goal, relevant constraints, inspected facts and tool results, assumptions, proposed decision, unresolved questions, verification plan, and—at completion—changed artifacts, diff summary, test results, and known risks. Never include secrets or irrelevant transcript content. Do not claim the reviewer receives the complete parent transcript.
+5. Spawn one fresh `general-purpose` Task subagent with `model: opus` and the prompt contract below. Instruct it to return review text only: no file edits, commands, delegation, or task ownership. If the runtime supports per-agent tool restrictions, disable mutating tools as defense in depth. If Opus is rejected or unavailable, retry once with the strongest permitted model and record the downgrade. Continue with capability `unknown` when model metadata is absent; use the self-review fallback only when no Task subagent can launch and return advice.
+6. Weigh the advice. Adopt supported recommendations, but prefer repository evidence, primary sources, and empirical results over unsupported conflicting advice. Record material approach changes in the normal plan or commentary.
+7. Reconcile material conflicts. When evidence contradicts the adviser, continue the same Task conversation if the runtime supports follow-ups so it can defend or revise its exact claim. Otherwise spawn one fresh adviser with the original advice and conflicting evidence. Do not silently switch directions or loop over minor disagreements.
+8. Reconsult when material ambiguity blocks a decision, the same failure recurs, the approach stops converging, or a materially different approach is under consideration.
+9. Before declaring substantial work complete, save the deliverable and run relevant verification. Consult again when an independent completion check is valuable. Fix actionable findings and rerun only checks affected by those fixes.
 
-For work longer than a few steps, target two consultations: one after orientation and before choosing the approach, and one after verification and before completion. Skip ritual consultations for short reactive work whose next action is dictated by fresh tool output.
+Typical high-value checkpoints are after orientation but before choosing an approach, and after verification but before completion. These are model-driven defaults, not a fixed quota or mandatory two-call rule. Honor an explicit user request to consult before continuing or to skip Adviser for the task.
 
 ## Prompt Contract
 
-Use this bounded Task prompt, followed by the consultation brief:
+Use this bounded Task prompt, followed by the consultation packet:
 
 ```text
-Act as the Adviser: an independent, review-only strategic reviewer. Return review text only. Do not edit files, run commands, delegate, or take over execution. Review only the supplied consultation brief. Identify incorrect assumptions, missed constraints, likely failure modes, and the best next approach. Distinguish evidence-backed findings from uncertainty. Be concise. End with exactly three sections: Recommendation, Critical risks, Completion checks.
+Act as the Adviser: an independent, review-only strategic reviewer. Return review text only. Do not edit files, run commands, delegate, or take over execution. Review only the supplied consultation packet. Identify incorrect assumptions, missed constraints, evidence conflicts, likely failure modes, and the best next approach. Distinguish evidence-backed findings from uncertainty. Be concise. End with exactly four sections: Recommendation, Critical risks, Evidence conflicts, Completion checks.
 ```
 
 At the completion gate, ask whether the result is ready to report complete and request only actionable gaps.
@@ -36,4 +39,4 @@ If no Task subagent can be launched, perform a clearly separated second-pass rev
 
 ## Final Report
 
-Include whether native Advisor was unavailable, the number and timing of fallback consultations, the model used or downgrade, material advice followed or rejected, verification status and checks rerun after adviser-driven changes, and residual risk. Do not expose hidden reasoning or paste the full consultation transcript.
+Include whether native Advisor was unavailable, the number and timing of fallback consultations, capability class (`stronger`, `same-tier`, or `unknown`), model used or downgrade, material advice followed or rejected, context-delivery limitations, verification status and checks rerun after adviser-driven changes, and residual risk. Do not expose hidden reasoning or paste the full consultation transcript.
