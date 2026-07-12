@@ -9,11 +9,11 @@ Use this workflow by default after opening a pull request or when resuming a sta
 
 ## Workflow
 
-1. Bootstrap GitHub access before doing any PR work.
+1. Resolve the GitHub CLI before doing any PR work.
    - Resolve a usable GitHub CLI as `GH_BIN`: try `command -v gh`, the active Nix user profiles (`$HOME/.nix-profile/bin/gh` and `$HOME/.local/state/nix/profiles/profile/bin/gh`), `/run/current-system/sw/bin/gh`, then platform fallbacks such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`. Use the resolved absolute path for every command in this workflow; desktop and sandboxed agent shells may intentionally sanitize the user's interactive `PATH`.
-   - Run `"$GH_BIN" auth status` and a read-only `"$GH_BIN" api user --jq .login`. A missing executable, failed authentication, or insufficient repository access is a concrete blocker. Report the exact failed command and stderr; never silently skip the audit or claim merge-readiness.
 2. Identify the pull request, branch, remote, and expected base branch.
    - If the user says a PR is still blocked, still remains, or points at a repository PR list, enumerate the open PRs in the relevant repositories and process every PR that is `BLOCKED`, has unresolved review threads, or has actionable bot/human feedback. Do not stop after fixing only the current checkout's branch.
+   - Derive the target host and repository from the resolved PR URL or remote. Run `"$GH_BIN" auth status --active --hostname <host>` and a read-only `"$GH_BIN" api --hostname <host> repos/<owner>/<repo> --jq .full_name`. An authentication failure on an unrelated host or inactive account is not a blocker. A missing executable, failed target-host authentication, or insufficient target-repository access is a concrete blocker; report the exact failed command and stderr.
 3. Check the initial PR state with `gh pr view`, `gh pr checks`, recent PR comments, reviews, and inline review comments. Include `isDraft`, `mergeStateStatus`, `mergeable`, `reviewDecision`, `statusCheckRollup`, `reviews`, `latestReviews`, review requests, PR comments, pull-request review comments, and thread-aware review data in the first read.
    - Do not treat an earlier PR Guardian summary comment as current evidence. A bot review can arrive after that comment, so every resume must re-fetch PR state, comments, reviews, latest reviews, and review threads from GitHub.
    - Read `references/pr-feedback-audit.md` and execute its thread-aware GraphQL query on every target PR before deciding that no feedback remains. Paginate `reviewThreads`, REST review comments, issue comments, check runs, and check-run annotations until every `hasNextPage`/`Link: rel="next"` is exhausted. Summaries and the first 100 nodes are not a complete audit.
@@ -106,7 +106,7 @@ mutation($threadId:ID!) {
 
 Success requires all of these:
 
-- `isDraft` is false. When the user owns the PR and requested merge-readiness, convert a draft with `"$GH_BIN" pr ready`; otherwise report the permission or author decision as a blocker.
+- `isDraft` is false. When the user owns the PR and requested merge-readiness, convert a draft with `"$GH_BIN" pr ready <pr-number-or-url> --repo <host/owner/repo>`; otherwise report the permission or author decision as a blocker. Never rely on the current branch to select the target PR.
 - `mergeable` is exactly `MERGEABLE`, after retrying transient `UNKNOWN` while GitHub recomputes it.
 - `mergeStateStatus` is clean enough for the repository to merge, usually `CLEAN`, `HAS_HOOKS`, or `UNSTABLE` with only non-required failures explicitly documented.
 - `reviewDecision` is not `CHANGES_REQUESTED`.
