@@ -13,6 +13,13 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-16 08:12 JST
+
+- Command: `ruff check skills/adviser/scripts tests/test_adviser_routing.py tests/test_install_sh.py`; `pytest -q tests/test_adviser_routing.py tests/test_install_sh.py`; live `run_adviser.py` smoke test with a simulated nested Claude environment; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest -q`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`; isolated `scripts/validate-plugins.sh`; `quick_validate.py skills/adviser`; `git diff --check`
+- Scope: Deterministic Claude Adviser model and effort routing, fail-closed runner isolation, packaging, and documentation.
+- Result: Passed. Targeted tests passed with 44 tests, the isolated full suite passed with 77 tests, and live runner checks resolved Sonnet/medium to `claude-fable-5`/medium and Fable/high to `claude-fable-5`/xhigh with zero tools. Plugin manifests and paths validated, the skill validator passed, MkDocs strict build completed, and the diff whitespace check passed.
+- Notes: Plain `bash scripts/verify.sh` reached pytest after Ruff passed but collection hit the known system `rpds` architecture mismatch (`x86_64` wheel on arm64). The equivalent isolated arm64 run passed. Claude Code 2.1.210 exposes the effective model but not effective effort in stream JSON, so the runner records effort as requested but not independently verified.
+
 ### 2026-07-12 23:30 JST
 
 - Command: `python -m pytest tests/test_skills.py -q`; `PATH=/tmp/pr20-verify-venv/bin:$PATH bash scripts/verify.sh`; `git diff --check`
