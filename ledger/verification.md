@@ -90,6 +90,13 @@ Use this file to record meaningful verification runs.
 - Result: Passed. `ruff check .`, `pytest` (34 passed), and `mkdocs build --strict` completed.
 - Notes: A first plain `bash scripts/verify.sh` attempt failed because the global Python imported an x86_64 `rpds` extension under arm64 Python; rerunning through the repository `.venv` used the correct architecture.
 
+### 2026-07-18 10:05 JST
+
+- Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
+- Scope: executable PR Guardian GraphQL/REST pagination audit, adjacent-reference contract checks, plugin command, skill/pack docs, and tests.
+- Result: passed
+- Notes: `ruff check .`, 39 pytest tests, and `mkdocs build --strict` passed. A preceding plain `bash scripts/verify.sh` run stopped during collection because the system Python loaded an incompatible x86_64 `rpds` wheel under arm64e; the isolated requirements environment removed that host-only failure.
+
 ### 2026-06-04
 
 - Command: `.venv/bin/python -m pytest -q` and `bash scripts/validate-plugins.sh`
