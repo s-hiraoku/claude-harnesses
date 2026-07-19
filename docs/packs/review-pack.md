@@ -5,6 +5,7 @@ Severity-ranked code review and multi-pass security review with parallel special
 ## Skills
 
 - `review` — bug-first review workflow, optionally parallelized via `code-reviewer` subagents.
+- `review-briefing` — read-only briefing that focuses human review time on judgment calls.
 - `security-review` — multi-pass security review, parallel `security-auditor` subagents per concern.
 - `simplify` — review changed code for reuse and dead complexity.
 

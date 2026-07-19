@@ -14,6 +14,7 @@
 | [tdd](tdd.md) | Red-Green-Refactor with subagent isolation |
 | [security-review](security-review.md) | Multi-pass security review |
 | [simplify](simplify.md) | Removing avoidable complexity |
+| [review-briefing](review-briefing.md) | Preparing a human reviewer with a read-only PR briefing |
 | [fix-ci](fix-ci.md) | Repairing failing CI checks |
 | [deslop](deslop.md) | Removing AI-generated boilerplate |
 | [long-running-orchestrator](long-running-orchestrator.md) | Multi-session work with the ledger |

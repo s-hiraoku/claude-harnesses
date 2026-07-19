@@ -81,7 +81,7 @@ See [docs/installation.md](docs/installation.md) for the full comparison.
 | Category | Items |
 |---|---|
 | **Plugin packs** | adviser, safety, verification, review, tdd, pr-guardian, long-running, mcp, product, research, meta, teaching, full |
-| **Skills** (24) | adviser, bug-fix, feature-implementation, refactor-safely, review, release-check, docs-updater, goal-manager, pr-guardian, finish-pr-feedback, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning, teach-session, meta-packager, frontend-design, ui-imagegen-director, implement-to-merge-ready, kaizen-loop, jina-reader |
+| **Skills** (25) | adviser, bug-fix, feature-implementation, refactor-safely, review, review-briefing, release-check, docs-updater, goal-manager, pr-guardian, finish-pr-feedback, tdd, security-review, simplify, fix-ci, deslop, long-running-orchestrator, empirical-prompt-tuning, teach-session, meta-packager, frontend-design, ui-imagegen-director, implement-to-merge-ready, kaizen-loop, jina-reader |
 | **Hooks** (13) | secret-guard, dangerous-command-guard, branch-protection-guard, prompt-injection-detector, mcp-tool-allowlist, stop-verify, format-on-edit, typecheck-on-edit, test-on-edit, session-context-injector, cost-ceiling-guard, plan-required-on-large-change, session-end-summary |
 | **MCP recipes** | GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, Excalidraw |
 | **Slash commands** | `/adviser`, `/verify`, `/review`, `/security-review`, `/tdd`, `/fix-ci`, `/pr-guardian`, `/checkpoint`, `/frontend-design`, `/ui-imagegen-director`, `/implement-to-merge-ready`, `/kaizen-loop`, `/jina-reader`, `/meta-packager`, `/teach-session` |
