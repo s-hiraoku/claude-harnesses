@@ -11,9 +11,10 @@ Watch a PR after creation or resume a stalled PR. Loop over CI runs and human, b
 5. Build a complete feedback inventory and classify each item as `fix`, `respond`, `ignore`, or `blocked`.
 6. Address all `fix` items with focused commits. Don't broaden scope.
 7. Explain `respond` and `ignore` items in review replies or the outcome comment.
-8. Use paginated REST review `commit_id` values to prove expected bot reviews target the current head; `gh pr view` review objects are not sufficient evidence.
-9. Push fixes from an isolated worktree only while the remote head still matches the pinned SHA; repeat until checks pass, requested changes are cleared, actionable threads are handled, or a real blocker remains.
-10. Keep successful open PRs under durable observation so a same-head late review reactivates the guardian, then comment with the final outcome.
+8. Run the adjacent audit reference's executable GraphQL cursor loops for review threads and nested comments, and exhaust its REST pagination commands for reviews, comments, checks, and annotations.
+9. Use paginated REST review `commit_id` values to prove expected bot reviews target the current head; `gh pr view` review objects are not sufficient evidence.
+10. Push fixes from an isolated worktree only while the remote head still matches the pinned SHA; repeat until checks pass, requested changes are cleared, actionable threads are handled, or a real blocker remains.
+11. Keep successful open PRs under durable observation so a same-head late review reactivates the guardian, then comment with the final outcome.
 
 ## Loop control
 

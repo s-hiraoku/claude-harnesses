@@ -7,7 +7,7 @@ Run the `pr-guardian` skill against PR $ARGUMENTS (or the current branch's PR if
 
 Loop:
 
-1. `gh pr checks` and `gh pr view --json mergeStateStatus,mergeable,reviewDecision,statusCheckRollup,reviews,comments`.
+1. `gh pr checks` and `gh pr view --json mergeStateStatus,mergeable,reviewDecision,statusCheckRollup,reviews,comments`, then run the `pr-guardian` audit reference's cursor loops and REST pagination commands.
 2. If CI is failing, delegate to the `ci-fixer` subagent with the failing-job log.
 3. Inventory human, bot, CodeRabbit, Codex, and agent feedback; classify each item as `fix`, `respond`, `ignore`, or `blocked`.
 4. Address actionable feedback with focused commits and explain items not applied.

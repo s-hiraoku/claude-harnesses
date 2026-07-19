@@ -19,6 +19,19 @@ Use this file to record meaningful verification runs.
 - Scope: PR #24 follow-up for eval coverage, review-pack distribution, and review-briefing contract fixes.
 - Result: Passed with isolated verification. Ruff passed, 39 tests passed, MkDocs strict build completed, eval coverage passed, plugin manifests and component paths validated, and the diff whitespace check passed.
 - Notes: Plain pytest in `scripts/verify.sh` failed during collection because the system Python loaded the known incompatible x86_64 `rpds` wheel under arm64. Isolated architecture-compatible dependencies passed; Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+### 2026-07-19 12:35 JST
+
+- Command: isolated full pytest; isolated MkDocs strict build; `ruff check .`; `python3 scripts/check-eval-coverage.py --base origin/main`; `git diff --check`
+- Scope: PR #22 review follow-up updating the adviser eval harness for deterministic Fable routing and converging the clarified prompt contract.
+- Result: Passed. 77 tests passed, MkDocs strict build completed, Ruff passed, eval coverage passed, and the diff whitespace check passed.
+- Notes: Empirical prompt tuning converged at 3/3 scenarios and 100% accuracy after two fresh post-fix hold-outs. Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
+### 2026-07-16 08:12 JST
+
+- Command: `ruff check skills/adviser/scripts tests/test_adviser_routing.py tests/test_install_sh.py`; `pytest -q tests/test_adviser_routing.py tests/test_install_sh.py`; live `run_adviser.py` smoke test with a simulated nested Claude environment; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest -q`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`; isolated `scripts/validate-plugins.sh`; `quick_validate.py skills/adviser`; `git diff --check`
+- Scope: Deterministic Claude Adviser model and effort routing, fail-closed runner isolation, packaging, and documentation.
+- Result: Passed. Targeted tests passed with 44 tests, the isolated full suite passed with 77 tests, and live runner checks resolved Sonnet/medium to `claude-fable-5`/medium and Fable/high to `claude-fable-5`/xhigh with zero tools. Plugin manifests and paths validated, the skill validator passed, MkDocs strict build completed, and the diff whitespace check passed.
+- Notes: Plain `bash scripts/verify.sh` reached pytest after Ruff passed but collection hit the known system `rpds` architecture mismatch (`x86_64` wheel on arm64). The equivalent isolated arm64 run passed. Claude Code 2.1.210 exposes the effective model but not effective effort in stream JSON, so the runner records effort as requested but not independently verified.
 
 ### 2026-07-12 23:30 JST
 
@@ -96,6 +109,13 @@ Use this file to record meaningful verification runs.
 - Scope: Added the `@scofieldfree/excalidraw-mcp` recipe to `mcp-pack`, plus marketplace and docs references.
 - Result: Passed. `ruff check .`, `pytest` (34 passed), and `mkdocs build --strict` completed.
 - Notes: A first plain `bash scripts/verify.sh` attempt failed because the global Python imported an x86_64 `rpds` extension under arm64 Python; rerunning through the repository `.venv` used the correct architecture.
+
+### 2026-07-18 10:05 JST
+
+- Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
+- Scope: executable PR Guardian GraphQL/REST pagination audit, adjacent-reference contract checks, plugin command, skill/pack docs, and tests.
+- Result: passed
+- Notes: `ruff check .`, 39 pytest tests, and `mkdocs build --strict` passed. A preceding plain `bash scripts/verify.sh` run stopped during collection because the system Python loaded an incompatible x86_64 `rpds` wheel under arm64e; the isolated requirements environment removed that host-only failure.
 
 ### 2026-06-04
 

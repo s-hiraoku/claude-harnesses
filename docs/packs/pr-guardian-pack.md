@@ -4,7 +4,7 @@ Watch PRs after creation or resume stalled PRs. Loop over CI runs and human, bot
 
 ## Skills
 
-- `pr-guardian` — orchestrates CI monitoring and complete feedback recovery, re-observes successful open PRs for late reviews, and verifies current-head bot evidence through REST review `commit_id` values.
+- `pr-guardian` — orchestrates CI monitoring and complete feedback recovery, including executable GraphQL cursor loops and paginated REST audits, re-observes successful open PRs for late reviews, and verifies current-head bot evidence through REST review `commit_id` values.
 - `fix-ci` — diagnose and repair failing CI checks by cluster.
 
 ## Subagent
