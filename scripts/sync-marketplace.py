@@ -122,9 +122,37 @@ def merged_hooks() -> dict:
     return {event: merged[event] for event in HOOK_EVENT_ORDER if event in merged}
 
 
-def referenced_agents(skill: str, agents: dict[str, Path]) -> list[str]:
-    text = (SKILLS / skill / "SKILL.md").read_text(encoding="utf-8")
+def skill_bundle_text(name: str, commands: dict[str, Path]) -> str:
+    """SKILL.md plus its slash command body, since delegation instructions
+    (e.g. "delegate to the ci-fixer subagent") often live in the command,
+    not the skill file."""
+    text = (SKILLS / name / "SKILL.md").read_text(encoding="utf-8")
+    command_file = commands.get(f"{name}.md")
+    if command_file:
+        text += (PLUGINS / command_file.name / "commands" / f"{name}.md").read_text(
+            encoding="utf-8"
+        )
+    return text
+
+
+def referenced_agents(skill: str, agents: dict[str, Path], commands: dict[str, Path]) -> list[str]:
+    text = skill_bundle_text(skill, commands)
     return [name for name in sorted(agents) if name.removesuffix(".md") in text]
+
+
+ALIAS_RE = re.compile(r"\balias for ([a-z][a-z0-9-]*)", re.IGNORECASE)
+
+
+def alias_target(name: str) -> str | None:
+    """If a skill's description declares itself a compatibility alias for
+    another skill (e.g. "Compatibility alias for pr-guardian"), return that
+    target skill's name so standalone installs can bundle what it delegates to.
+    """
+    text = (SKILLS / name / "SKILL.md").read_text(encoding="utf-8")
+    match = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
+    frontmatter = match.group(1) if match else ""
+    found = ALIAS_RE.search(frontmatter)
+    return found.group(1) if found else None
 
 
 def dumps(data: dict) -> str:
@@ -182,18 +210,36 @@ def build_manifest() -> dict[str, tuple[str, str]]:
     # --- plugins/skill-<name> ---
     for name in skills:
         root = f"plugins/skill-{name}"
-        manifest[f"{root}/skills/{name}"] = ("link", f"../../../skills/{name}")
-        command = f"{name}.md"
-        if command in commands:
-            manifest[f"{root}/commands/{command}"] = (
+        # A compatibility alias (e.g. finish-pr-feedback -> pr-guardian) is a
+        # thin pointer that immediately delegates to another skill's workflow;
+        # bundle that target's skill/command/agents too, or a standalone
+        # install of the alias ships a skill with nothing to run.
+        bundled = [name]
+        target = alias_target(name)
+        if target:
+            if target not in skills:
+                fail(
+                    f"skills/{name}/SKILL.md declares alias target {target!r}, "
+                    "which doesn't exist"
+                )
+            bundled.append(target)
+
+        for bundled_name in bundled:
+            manifest[f"{root}/skills/{bundled_name}"] = (
                 "link",
-                f"../../{commands[command].name}/commands/{command}",
+                f"../../../skills/{bundled_name}",
             )
-        for agent in referenced_agents(name, agents):
-            manifest[f"{root}/agents/{agent}"] = (
-                "link",
-                f"../../{agents[agent].name}/agents/{agent}",
-            )
+            command = f"{bundled_name}.md"
+            if command in commands:
+                manifest[f"{root}/commands/{command}"] = (
+                    "link",
+                    f"../../{commands[command].name}/commands/{command}",
+                )
+            for agent in referenced_agents(bundled_name, agents, commands):
+                manifest[f"{root}/agents/{agent}"] = (
+                    "link",
+                    f"../../{agents[agent].name}/agents/{agent}",
+                )
         manifest[f"{root}/.claude-plugin/plugin.json"] = (
             "file",
             dumps(
