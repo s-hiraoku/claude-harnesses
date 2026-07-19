@@ -1,0 +1,1 @@
+../../verification-pack/scripts/stop-verify.sh

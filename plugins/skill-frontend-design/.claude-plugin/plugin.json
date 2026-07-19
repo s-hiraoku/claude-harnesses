@@ -1,0 +1,14 @@
+{
+  "name": "skill-frontend-design",
+  "version": "0.1.0",
+  "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "frontend-design"
+  ]
+}

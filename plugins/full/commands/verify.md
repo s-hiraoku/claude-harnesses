@@ -1,0 +1,1 @@
+../../verification-pack/commands/verify.md

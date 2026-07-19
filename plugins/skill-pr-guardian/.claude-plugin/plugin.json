@@ -1,0 +1,14 @@
+{
+  "name": "skill-pr-guardian",
+  "version": "0.1.0",
+  "description": "Monitor a pull request after opening it or resume a stalled PR, fix CI failures and reviewer feedback, push updates, reply to and resolve review conversations, and comment with the outcome.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "pr-guardian"
+  ]
+}

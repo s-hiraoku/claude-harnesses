@@ -1,0 +1,14 @@
+{
+  "name": "skill-release-check",
+  "version": "0.1.0",
+  "description": "Check whether a change is ready to release by reviewing diff, tests, docs, risks, and migration notes.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "release-check"
+  ]
+}

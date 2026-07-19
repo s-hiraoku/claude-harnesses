@@ -1,0 +1,1 @@
+../../teaching-pack/commands/teach-session.md

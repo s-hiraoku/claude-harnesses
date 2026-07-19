@@ -1,0 +1,1 @@
+../../adviser-pack/commands/adviser.md

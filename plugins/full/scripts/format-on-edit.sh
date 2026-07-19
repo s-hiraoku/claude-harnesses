@@ -1,0 +1,1 @@
+../../verification-pack/scripts/format-on-edit.sh

@@ -1,26 +1,16 @@
 {
   "name": "full",
-  "version": "0.1.0",
-  "description": "Umbrella plugin pulling in adviser, safety, verification, review, tdd, pr-guardian, long-running, mcp, product, research, meta, and teaching packs.",
+  "version": "0.2.0",
+  "description": "Umbrella plugin bundling every skill, command, agent, and hook from all claude-harnesses packs in one install.",
   "author": {
     "name": "s-hiraoku",
     "url": "https://github.com/s-hiraoku"
   },
   "homepage": "https://s-hiraoku.github.io/claude-harnesses/packs/full/",
   "license": "MIT",
-  "keywords": ["umbrella", "claude-harnesses"],
-  "dependencies": [
-    "adviser-pack",
-    "safety-pack",
-    "verification-pack",
-    "review-pack",
-    "tdd-pack",
-    "pr-guardian-pack",
-    "long-running-pack",
-    "mcp-pack",
-    "product-pack",
-    "research-pack",
-    "meta-pack",
-    "teaching-pack"
-  ]
+  "keywords": [
+    "umbrella",
+    "claude-harnesses"
+  ],
+  "hooks": "./hooks.json"
 }

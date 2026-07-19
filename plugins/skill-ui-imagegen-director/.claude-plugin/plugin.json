@@ -1,0 +1,14 @@
+{
+  "name": "skill-ui-imagegen-director",
+  "version": "0.1.0",
+  "description": "Direct high-quality frontend UI work by using image-generated mockups when useful, translating the chosen direction into code, and verifying the rendered UI in a browser.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "ui-imagegen-director"
+  ]
+}

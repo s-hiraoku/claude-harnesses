@@ -68,8 +68,23 @@ run_rust_checks() {
   cargo test
 }
 
+run_marketplace_sync_check() {
+  if ! command -v python3 >/dev/null 2>&1; then
+    mark_missing_check "marketplace.json detected, but python3 was not available for sync check"
+    return
+  fi
+
+  echo "Running scripts/sync-marketplace.py --check"
+  python3 scripts/sync-marketplace.py --check
+}
+
 main() {
   local detected=0
+
+  if [[ -f .claude-plugin/marketplace.json && -f scripts/sync-marketplace.py ]]; then
+    detected=1
+    run_marketplace_sync_check
+  fi
 
   if [[ -f package.json ]]; then
     detected=1

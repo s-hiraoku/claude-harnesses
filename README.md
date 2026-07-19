@@ -15,19 +15,23 @@ Pick whichever fits how you usually adopt tooling.
 
 ### 1) Anthropic plugin marketplace (recommended)
 
+The marketplace offers three granularities. Pick exactly one tier per concern — `full` already contains every pack and skill, so don't combine it with the others.
+
 From inside a Claude Code session:
 
 ```text
 /plugin marketplace add s-hiraoku/claude-harnesses
+
+# Everything at once (all skills, commands, agents, and hooks):
 /plugin install full@claude-harnesses
-```
 
-Or install just the pack you need:
-
-```text
+# A thematic pack (skills + hooks + agents for one concern):
 /plugin install pr-guardian-pack@claude-harnesses
 /plugin install safety-pack@claude-harnesses
-/plugin install tdd-pack@claude-harnesses
+
+# A single skill (plus its slash command and referenced subagents):
+/plugin install skill-tdd@claude-harnesses
+/plugin install skill-review@claude-harnesses
 ```
 
 The same flow works non-interactively from the shell:
@@ -37,7 +41,7 @@ claude plugin marketplace add s-hiraoku/claude-harnesses
 claude plugin install full@claude-harnesses
 ```
 
-Available packs: `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`, `full`.
+Packs: `adviser-pack`, `safety-pack`, `verification-pack`, `review-pack`, `tdd-pack`, `pr-guardian-pack`, `long-running-pack`, `mcp-pack`, `product-pack`, `research-pack`, `meta-pack`, `teaching-pack`. Every skill is also published individually as `skill-<name>` (e.g. `skill-frontend-design`, `skill-security-review`); browse them with `/plugin`.
 
 ### 2) APM (Agent Package Manager)
 

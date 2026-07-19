@@ -1,0 +1,1 @@
+../../verification-pack/scripts/verify.sh

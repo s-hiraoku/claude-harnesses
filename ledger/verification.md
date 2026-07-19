@@ -13,6 +13,13 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-20 (marketplace 3-tier restructure)
+
+- Command: `python3 scripts/sync-marketplace.py --check`; `ruff check .` (via `bash scripts/verify.sh`); isolated `uv run --no-project --with pytest,jsonschema python -m pytest tests/`; isolated `uvx --with mkdocs-material mkdocs build --strict`
+- Scope: New `scripts/sync-marketplace.py` generator producing a real `plugins/full` umbrella (all skills/commands/agents plus merged hooks), 25 `plugins/skill-*` micro-plugins, and a regenerated `.claude-plugin/marketplace.json` (38 entries); drift check wired into `scripts/verify.sh`; docs updated for the full/pack/skill install tiers.
+- Result: Passed. Sync check in sync, Ruff passed, 77 tests passed (including install-safety invariants over the generated plugins), MkDocs strict build completed.
+- Notes: Plain pytest inside `scripts/verify.sh` still fails collection on this machine due to the known x86_64 `rpds` wheel under arm64; the isolated arm64 run passed.
+
 ### 2026-07-19 11:49 JST
 
 - Command: `bash scripts/verify.sh`; isolated `uvx` full pytest; isolated `uvx` MkDocs strict build; `python3 scripts/check-eval-coverage.py --base FETCH_HEAD`; isolated `uv run --no-project` plugin validation; `git diff --check`

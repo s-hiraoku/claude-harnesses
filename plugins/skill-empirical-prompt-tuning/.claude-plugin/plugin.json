@@ -1,0 +1,14 @@
+{
+  "name": "skill-empirical-prompt-tuning",
+  "version": "0.1.0",
+  "description": "Iteratively improve a skill or prompt by having a fresh subagent execute it against fixed scenarios, scoring two-sided (executor self-report + a pre-frozen requirements checklist), and looping until…",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "empirical-prompt-tuning"
+  ]
+}

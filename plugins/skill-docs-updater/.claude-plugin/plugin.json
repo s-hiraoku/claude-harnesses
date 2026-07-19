@@ -1,0 +1,14 @@
+{
+  "name": "skill-docs-updater",
+  "version": "0.1.0",
+  "description": "Update documentation after code or behavior changes while keeping docs concise and relevant.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "docs-updater"
+  ]
+}

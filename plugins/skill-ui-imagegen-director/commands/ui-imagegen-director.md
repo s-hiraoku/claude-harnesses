@@ -1,0 +1,1 @@
+../../product-pack/commands/ui-imagegen-director.md

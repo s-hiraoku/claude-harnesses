@@ -1,0 +1,14 @@
+{
+  "name": "skill-refactor-safely",
+  "version": "0.1.0",
+  "description": "Refactor code without behavior changes using small mechanical steps and verification.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "refactor-safely"
+  ]
+}

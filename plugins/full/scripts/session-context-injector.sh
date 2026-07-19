@@ -1,0 +1,1 @@
+../../long-running-pack/scripts/session-context-injector.sh

@@ -7,95 +7,402 @@
   "description": "Curated hooks, skills, MCP recipes, and slash commands for long-running, safe, high-quality Claude Code-driven development.",
   "plugins": [
     {
+      "name": "full",
+      "source": "./plugins/full",
+      "description": "Everything at once: every skill, command, agent, and hook from all packs. Install this or individual packs, not both.",
+      "category": "umbrella",
+      "tags": [
+        "full",
+        "umbrella"
+      ]
+    },
+    {
       "name": "adviser-pack",
       "source": "./plugins/adviser-pack",
       "description": "Fallback Adviser consultations using a review-only Opus subagent when the native Advisor tool is unavailable.",
       "category": "workflow",
-      "tags": ["adviser", "advisor", "review", "fallback"]
+      "tags": [
+        "adviser",
+        "advisor",
+        "review",
+        "fallback"
+      ]
     },
     {
       "name": "review-pack",
       "source": "./plugins/review-pack",
       "description": "Severity-ranked code review and multi-pass security review with parallel specialist subagents.",
       "category": "review",
-      "tags": ["code-review", "security-review"]
+      "tags": [
+        "code-review",
+        "security-review"
+      ]
     },
     {
       "name": "pr-guardian-pack",
       "source": "./plugins/pr-guardian-pack",
       "description": "Watch PRs after creation: monitor CI, dispatch fixes via subagents, address review feedback.",
       "category": "ci",
-      "tags": ["pr", "ci", "automation"]
+      "tags": [
+        "pr",
+        "ci",
+        "automation"
+      ]
     },
     {
       "name": "tdd-pack",
       "source": "./plugins/tdd-pack",
       "description": "Red-Green-Refactor TDD with subagent context isolation between phases.",
       "category": "testing",
-      "tags": ["tdd", "testing"]
+      "tags": [
+        "tdd",
+        "testing"
+      ]
     },
     {
       "name": "safety-pack",
       "source": "./plugins/safety-pack",
       "description": "Deterministic PreToolUse guards: secret detection, dangerous commands, branch protection, prompt injection, MCP allowlisting.",
       "category": "safety",
-      "tags": ["security", "hooks", "guardrails"]
+      "tags": [
+        "security",
+        "hooks",
+        "guardrails"
+      ]
     },
     {
       "name": "verification-pack",
       "source": "./plugins/verification-pack",
       "description": "Verification feedback loop: format/typecheck/test on every edit, and block premature Stop until verify.sh passes.",
       "category": "verification",
-      "tags": ["tests", "hooks", "verification"]
+      "tags": [
+        "tests",
+        "hooks",
+        "verification"
+      ]
     },
     {
       "name": "long-running-pack",
       "source": "./plugins/long-running-pack",
       "description": "Survive context loss across sessions: SessionStart context injection, cost-ceiling guard, large-edit gate, ledger templates, goal-manager workflow.",
       "category": "long-running",
-      "tags": ["ledger", "checkpoint", "cost", "long-running"]
+      "tags": [
+        "ledger",
+        "checkpoint",
+        "cost",
+        "long-running"
+      ]
     },
     {
       "name": "mcp-pack",
       "source": "./plugins/mcp-pack",
       "description": "Curated .mcp.json recipe for GitHub, Playwright, Context7, Serena, Sequential-Thinking, Sentry, and Excalidraw. All servers ship disabled.",
       "category": "mcp",
-      "tags": ["mcp", "github", "playwright", "context7", "serena", "excalidraw"]
+      "tags": [
+        "mcp",
+        "github",
+        "playwright",
+        "context7",
+        "serena",
+        "excalidraw"
+      ]
     },
     {
       "name": "product-pack",
       "source": "./plugins/product-pack",
       "description": "Product-quality workflows for frontend design, image-guided UI direction, kaizen evaluation loops, and merge-ready implementation delivery.",
       "category": "product",
-      "tags": ["product", "frontend", "ui", "delivery", "kaizen"]
+      "tags": [
+        "product",
+        "frontend",
+        "ui",
+        "delivery",
+        "kaizen"
+      ]
     },
     {
       "name": "research-pack",
       "source": "./plugins/research-pack",
       "description": "Research helpers for reading public web pages that normal browsing, scraping, snippets, or direct fetch tools cannot read cleanly.",
       "category": "research",
-      "tags": ["research", "jina", "reader", "web"]
+      "tags": [
+        "research",
+        "jina",
+        "reader",
+        "web"
+      ]
     },
     {
       "name": "meta-pack",
       "source": "./plugins/meta-pack",
       "description": "Inspect recent Claude Code activity and promote repeated patterns into the smallest useful Skill, subagent, or hook. Read-only investigation; creation gated by user approval.",
       "category": "meta",
-      "tags": ["meta", "skill-creation", "patterns"]
+      "tags": [
+        "meta",
+        "skill-creation",
+        "patterns"
+      ]
     },
     {
       "name": "teaching-pack",
       "source": "./plugins/teaching-pack",
       "description": "Teach the human everything that happened in a session until they can demonstrably explain it, via an incremental checklist and AskUserQuestion quizzes.",
       "category": "teaching",
-      "tags": ["teaching", "learning", "onboarding"]
+      "tags": [
+        "teaching",
+        "learning",
+        "onboarding"
+      ]
     },
     {
-      "name": "full",
-      "source": "./plugins/full",
-      "description": "Umbrella plugin pulling in every functional pack at once.",
-      "category": "umbrella",
-      "tags": ["full", "umbrella"]
+      "name": "skill-adviser",
+      "source": "./plugins/skill-adviser",
+      "description": "Route an independent, review-only Claude process to a deterministically stronger model or effort when native Advisor is unavailable.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "adviser"
+      ]
+    },
+    {
+      "name": "skill-bug-fix",
+      "source": "./plugins/skill-bug-fix",
+      "description": "Fix bugs with reproduction, minimal changes, regression coverage, and targeted verification.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "bug-fix"
+      ]
+    },
+    {
+      "name": "skill-deslop",
+      "source": "./plugins/skill-deslop",
+      "description": "Remove AI-generated boilerplate (vague comments, unused try/except, defensive validation, restated docstrings) from changed code without changing behavior.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "deslop"
+      ]
+    },
+    {
+      "name": "skill-docs-updater",
+      "source": "./plugins/skill-docs-updater",
+      "description": "Update documentation after code or behavior changes while keeping docs concise and relevant.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "docs-updater"
+      ]
+    },
+    {
+      "name": "skill-empirical-prompt-tuning",
+      "source": "./plugins/skill-empirical-prompt-tuning",
+      "description": "Iteratively improve a skill or prompt by having a fresh subagent execute it against fixed scenarios, scoring two-sided (executor self-report + a pre-frozen requirements checklist), and looping until…",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "empirical-prompt-tuning"
+      ]
+    },
+    {
+      "name": "skill-feature-implementation",
+      "source": "./plugins/skill-feature-implementation",
+      "description": "Implement a feature safely with planning, focused edits, tests, docs, and verification.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "feature-implementation"
+      ]
+    },
+    {
+      "name": "skill-finish-pr-feedback",
+      "source": "./plugins/skill-finish-pr-feedback",
+      "description": "Compatibility alias for pr-guardian. Use pr-guardian for stalled pull requests, CodeRabbit/Codex review feedback, CI failures, unresolved review conversations, and merge-ready PR follow-up.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "finish-pr-feedback"
+      ]
+    },
+    {
+      "name": "skill-fix-ci",
+      "source": "./plugins/skill-fix-ci",
+      "description": "Diagnose and repair failing CI checks on the current PR by parsing logs, reproducing locally when possible, and pushing focused fixes in batches.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "fix-ci"
+      ]
+    },
+    {
+      "name": "skill-frontend-design",
+      "source": "./plugins/skill-frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "frontend-design"
+      ]
+    },
+    {
+      "name": "skill-goal-manager",
+      "source": "./plugins/skill-goal-manager",
+      "description": "Manage durable task goals for long-running Claude Code work using the project ledger, including objective writing, success criteria, resumption, and completion decisions.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "goal-manager"
+      ]
+    },
+    {
+      "name": "skill-implement-to-merge-ready",
+      "source": "./plugins/skill-implement-to-merge-ready",
+      "description": "Run an end-to-end Claude Code delivery workflow from user request to merge-ready pull request, including planning, implementation, tests, self-review, ready-for-review PR creation, CI/review follow-u…",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "implement-to-merge-ready"
+      ]
+    },
+    {
+      "name": "skill-jina-reader",
+      "source": "./plugins/skill-jina-reader",
+      "description": "Fetch public web pages with Jina AI Reader API and convert them into LLM-friendly Markdown.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "jina-reader"
+      ]
+    },
+    {
+      "name": "skill-kaizen-loop",
+      "source": "./plugins/skill-kaizen-loop",
+      "description": "\"Run a continuous product improvement loop: evaluate a product or codebase, present prioritized recommendations for approval, then implement only approved improvements through verification and PR fol…",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "kaizen-loop"
+      ]
+    },
+    {
+      "name": "skill-long-running-orchestrator",
+      "source": "./plugins/skill-long-running-orchestrator",
+      "description": "Run multi-hour or multi-session work safely by combining the ledger, checkpoints, cost-ceiling guard, and resumable progress notes so context loss does not erase progress.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "long-running-orchestrator"
+      ]
+    },
+    {
+      "name": "skill-meta-packager",
+      "source": "./plugins/skill-meta-packager",
+      "description": "Analyze recent Claude Code work and package repeated patterns as the smallest useful skill, custom subagent, slash command, hook, or automation.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "meta-packager"
+      ]
+    },
+    {
+      "name": "skill-pr-guardian",
+      "source": "./plugins/skill-pr-guardian",
+      "description": "Monitor a pull request after opening it or resume a stalled PR, fix CI failures and reviewer feedback, push updates, reply to and resolve review conversations, and comment with the outcome.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "pr-guardian"
+      ]
+    },
+    {
+      "name": "skill-refactor-safely",
+      "source": "./plugins/skill-refactor-safely",
+      "description": "Refactor code without behavior changes using small mechanical steps and verification.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "refactor-safely"
+      ]
+    },
+    {
+      "name": "skill-release-check",
+      "source": "./plugins/skill-release-check",
+      "description": "Check whether a change is ready to release by reviewing diff, tests, docs, risks, and migration notes.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "release-check"
+      ]
+    },
+    {
+      "name": "skill-review",
+      "source": "./plugins/skill-review",
+      "description": "Review code changes with a bug-first, risk-focused workflow before merge or release.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "review"
+      ]
+    },
+    {
+      "name": "skill-review-briefing",
+      "source": "./plugins/skill-review-briefing",
+      "description": "Prepare a human reviewer to review a pull request in the least time with the best judgment.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "review-briefing"
+      ]
+    },
+    {
+      "name": "skill-security-review",
+      "source": "./plugins/skill-security-review",
+      "description": "Run a multi-pass security review over the current diff using parallel specialist subagents focused on injection, authn/authz, secrets, supply-chain, and infrastructure-as-code risks.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "security-review"
+      ]
+    },
+    {
+      "name": "skill-simplify",
+      "source": "./plugins/skill-simplify",
+      "description": "Review changed code on the current branch for reuse, clarity, and dead complexity, then propose or apply minimal cleanup without changing behavior.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "simplify"
+      ]
+    },
+    {
+      "name": "skill-tdd",
+      "source": "./plugins/skill-tdd",
+      "description": "Drive development with red-green-refactor using isolated test-writer, implementer, and refactorer subagents so tests reflect intent rather than anticipated implementation.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "tdd"
+      ]
+    },
+    {
+      "name": "skill-teach-session",
+      "source": "./plugins/skill-teach-session",
+      "description": "Teach the human everything that happened in this session until they can demonstrably explain it, using an incremental checklist, restate-first probing, and AskUserQuestion quizzes.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "teach-session"
+      ]
+    },
+    {
+      "name": "skill-ui-imagegen-director",
+      "source": "./plugins/skill-ui-imagegen-director",
+      "description": "Direct high-quality frontend UI work by using image-generated mockups when useful, translating the chosen direction into code, and verifying the rendered UI in a browser.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "ui-imagegen-director"
+      ]
     }
   ]
 }

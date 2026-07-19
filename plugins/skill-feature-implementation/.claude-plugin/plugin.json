@@ -1,0 +1,14 @@
+{
+  "name": "skill-feature-implementation",
+  "version": "0.1.0",
+  "description": "Implement a feature safely with planning, focused edits, tests, docs, and verification.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "feature-implementation"
+  ]
+}

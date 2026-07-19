@@ -1,0 +1,14 @@
+{
+  "name": "skill-teach-session",
+  "version": "0.1.0",
+  "description": "Teach the human everything that happened in this session until they can demonstrably explain it, using an incremental checklist, restate-first probing, and AskUserQuestion quizzes.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "teach-session"
+  ]
+}

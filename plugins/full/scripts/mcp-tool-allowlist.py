@@ -1,0 +1,1 @@
+../../safety-pack/scripts/mcp-tool-allowlist.py

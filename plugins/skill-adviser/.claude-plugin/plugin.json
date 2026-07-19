@@ -1,0 +1,14 @@
+{
+  "name": "skill-adviser",
+  "version": "0.1.0",
+  "description": "Route an independent, review-only Claude process to a deterministically stronger model or effort when native Advisor is unavailable.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "adviser"
+  ]
+}

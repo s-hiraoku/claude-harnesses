@@ -1,0 +1,1 @@
+../../verification-pack/scripts/test-on-edit.sh

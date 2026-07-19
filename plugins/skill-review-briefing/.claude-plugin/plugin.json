@@ -1,0 +1,14 @@
+{
+  "name": "skill-review-briefing",
+  "version": "0.1.0",
+  "description": "Prepare a human reviewer to review a pull request in the least time with the best judgment.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "review-briefing"
+  ]
+}
