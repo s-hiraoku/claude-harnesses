@@ -69,6 +69,7 @@ nav:
       - feature-implementation: skills/feature-implementation.md
       - refactor-safely: skills/refactor-safely.md
       - review: skills/review.md
+      - review-briefing: skills/review-briefing.md
       - release-check: skills/release-check.md
       - docs-updater: skills/docs-updater.md
       - jina-reader: skills/jina-reader.md

@@ -13,6 +13,13 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-19 11:49 JST
+
+- Command: `bash scripts/verify.sh`; isolated `uvx` full pytest; isolated `uvx` MkDocs strict build; `python3 scripts/check-eval-coverage.py --base FETCH_HEAD`; isolated `uv run --no-project` plugin validation; `git diff --check`
+- Scope: PR #24 follow-up for eval coverage, review-pack distribution, and review-briefing contract fixes.
+- Result: Passed with isolated verification. Ruff passed, 39 tests passed, MkDocs strict build completed, eval coverage passed, plugin manifests and component paths validated, and the diff whitespace check passed.
+- Notes: Plain pytest in `scripts/verify.sh` failed during collection because the system Python loaded the known incompatible x86_64 `rpds` wheel under arm64. Isolated architecture-compatible dependencies passed; Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
 ### 2026-07-12 23:30 JST
 
 - Command: `python -m pytest tests/test_skills.py -q`; `PATH=/tmp/pr20-verify-venv/bin:$PATH bash scripts/verify.sh`; `git diff --check`

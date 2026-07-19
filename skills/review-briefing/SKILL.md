@@ -77,7 +77,7 @@ Use the format in [`references/briefing-format.md`](references/briefing-format.m
 4. **✅ Machine-checked — safe to skim** — perspectives that came back clean at high confidence. **Always list which perspectives were applied** (what wasn't checked isn't verified)
 5. **⚠️ Needs human judgment** — the step-4 map. This is where the reviewer should spend time
 6. **❓ Verify — low-confidence findings** — the human decides true/false
-7. **🔴 High-confidence findings** — if any, by severity
+7. **🔴 Findings (high confidence) — ...** — if any, by severity
 8. **Comment drafts** — paste-ready, explicitly marked as **not posted**
 
 ## After the review (must-fire, once)
@@ -91,4 +91,4 @@ This closes the loop the skill is built on: the human's new job is discovering a
 ## Prerequisites
 
 - `gh` CLI authenticated with read access to the target PR
-- A subagent mechanism for the parallel reviewers. Without one, run the three perspectives sequentially in the main agent with the same clean-brief and confidence contract (slower, still valid)
+- A subagent mechanism for the parallel reviewers. Without one, run the perspectives selected in step 3 sequentially in the main agent with the same clean-brief and confidence contract (slower, still valid)
