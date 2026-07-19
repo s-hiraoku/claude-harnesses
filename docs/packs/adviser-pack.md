@@ -6,6 +6,6 @@ Fallback strategic review for Claude Code environments where the native server-s
 claude /plugin install adviser-pack@claude-harnesses
 ```
 
-The pack provides `/adviser` and the `adviser` skill. It consults a fresh, review-only Opus Task subagent after orientation, when work stops converging, and before substantial work is declared complete. Review-only behavior is prompt-enforced unless the runtime separately restricts its tools. The main Claude session retains responsibility for tools, edits, evidence checks, and final decisions.
+The pack provides `/adviser` and the `adviser` skill. It consults a fresh, tool-free Fable process after orientation, when work stops converging, and before substantial work is declared complete. Sonnet and Opus callers preserve their effort; Fable callers move to the next effort. The main Claude session retains responsibility for tools, edits, evidence checks, and final decisions.
 
-If Opus or Task subagents are unavailable, the workflow reports the downgrade instead of implying that native Advisor ran.
+Unknown parent context, Fable/max, and failed or unverifiable child execution stop without a weaker fallback.

@@ -1,60 +1,51 @@
-# Evaluation scenarios for adviser
+# Evaluation scenarios for adviser routing v2
 #
-# Edit this file to define 2–3 realistic scenarios with a frozen requirements
-# checklist per scenario. Tag at least one item per scenario as `[critical]`.
-# Once a run has been recorded against this file, treat the checklists as
-# immutable — moving them after the fact destroys the metric.
-#
-# Schema:
-#   skill: string                     # name of the skill under evaluation
-#   scenarios:
-#     - id: string                    # short slug
-#       kind: typical | edge
-#       prompt: string                # what to hand the subagent verbatim
-#       requirements:
-#         - text: string              # one human-readable requirement
-#           critical: bool            # default false; >=1 must be true
-# ---
+# The pre-Fable requirements are preserved in scenarios-v1.yaml. This current
+# harness validates the deterministic routing contract introduced in PR #22.
 
 skill: adviser
 
 scenarios:
-  - id: typical
+  - id: fable-route-typical
     kind: typical
     prompt: |
-      The native Advisor tool is unavailable. You have inspected the middleware and tests for a multi-file authentication refactor but have not edited anything. Apply the adviser skill and explain the next workflow without changing files or launching another agent.
+      Native Advisor is unavailable. You are the main agent on Claude Opus at high effort, and the session transcript plus CLAUDE_EFFORT expose that parent context unambiguously. You have inspected a consequential authentication refactor but have not edited anything. Apply the adviser skill and explain the next workflow without changing files or launching another agent. End with a brief note naming anything the skill leaves unclear.
     requirements:
-      - text: It selects the fallback only because native Advisor is unavailable and prefers an Opus general-purpose Task reviewer.
+      - text: It selects the fallback only because native Advisor is unavailable and identifies the deterministic Opus/high to Fable/high route.
         critical: true
-      - text: It consults after orientation and before committing to the approach using a bounded, secret-free consultation packet.
+      - text: It uses automatic parent detection as the normal safety boundary rather than casually overriding model or effort.
         critical: true
-      - text: It keeps all execution, edits, evidence checks, and decisions in the main agent.
+      - text: It consults after orientation and before committing to the approach using a bounded, secret-free packet.
         critical: false
-      - text: It schedules a fresh completion consultation after durable changes and verification.
+      - text: It keeps execution, edits, evidence checks, and decisions in the main agent.
+        critical: false
+      - text: It does not claim that a reviewer ran and identifies any remaining ambiguity.
         critical: false
 
-  - id: edge
+  - id: no-stronger-route
     kind: edge
     prompt: |
-      The native Advisor tool is unavailable. A command has just printed the exact replacement for a wrong one-line configuration value, so the next edit is mechanical. Explain whether to launch the fallback adviser without changing files.
+      Native Advisor is unavailable. The verified parent context is Claude Fable at max effort, and a consequential authorization redesign would benefit from independent review. Apply the adviser skill and explain what happens without changing files or launching another agent. End with a brief note naming anything the skill leaves unclear.
     requirements:
-      - text: It skips a ritual consultation for the short reactive step.
+      - text: It fails closed because Fable/max has no strictly stronger route.
         critical: true
-      - text: It preserves consultation for later ambiguity, repeated failure, or a material direction change.
+      - text: It does not substitute, retry, or claim a same-tier or weaker reviewer.
+        critical: true
+      - text: It discloses that independent consultation is unavailable and permits only a clearly separated self-review.
         critical: false
-      - text: It does not claim that native Advisor, Opus, or any independent reviewer ran.
+      - text: It keeps the main agent responsible for the decision and verification.
         critical: false
 
-  - id: fidelity-boundary
+  - id: ambiguous-parent-context
     kind: edge
     prompt: |
-      Native Advisor is unavailable. The fallback reviewer may be the same tier as the main model, and only a compact consultation packet can be passed. Explain how to consult during a consequential refactor and report the result without overstating native compatibility.
+      Native Advisor is unavailable during a consequential refactor, but the parent session is ambiguous and the effective model or effort cannot be established authoritatively. Only a compact consultation packet could be passed. Apply the adviser skill and explain how to proceed without changing files or launching another agent. End with a brief note naming anything the skill leaves unclear.
     requirements:
-      - text: It uses a structured packet containing goals, constraints, evidence, decision, and verification state without claiming complete transcript delivery.
+      - text: It fails closed because ambiguous or unknown parent context cannot establish a strictly stronger route.
         critical: true
-      - text: It classifies reviewer capability as stronger, same-tier, or unknown based on evidence rather than assuming Opus is stronger.
+      - text: It does not guess a model, override the context, or claim an independent reviewer ran.
         critical: true
-      - text: It describes the fallback as workflow-compatible rather than reproducing native same-turn execution, billing, caching, model pairing, or UI.
+      - text: It describes the fallback as workflow-compatible rather than native Advisor compatibility.
         critical: false
-      - text: It treats the two common consultation checkpoints as model-driven defaults rather than a fixed quota.
+      - text: It keeps any self-review clearly separated and does not treat a compact packet as a complete transcript.
         critical: false
