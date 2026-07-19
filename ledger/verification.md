@@ -13,6 +13,13 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-19 12:35 JST
+
+- Command: isolated full pytest; isolated MkDocs strict build; `ruff check .`; `python3 scripts/check-eval-coverage.py --base origin/main`; `git diff --check`
+- Scope: PR #22 review follow-up updating the adviser eval harness for deterministic Fable routing and converging the clarified prompt contract.
+- Result: Passed. 77 tests passed, MkDocs strict build completed, Ruff passed, eval coverage passed, and the diff whitespace check passed.
+- Notes: Empirical prompt tuning converged at 3/3 scenarios and 100% accuracy after two fresh post-fix hold-outs. Material for MkDocs emitted its upstream MkDocs 2.0 warning.
+
 ### 2026-07-16 08:12 JST
 
 - Command: `ruff check skills/adviser/scripts tests/test_adviser_routing.py tests/test_install_sh.py`; `pytest -q tests/test_adviser_routing.py tests/test_install_sh.py`; live `run_adviser.py` smoke test with a simulated nested Claude environment; `uvx --with pytest --with pytest-mock --with pytest-asyncio --with anyio --with jsonschema --with pyyaml pytest -q`; `uvx --with mkdocs --with mkdocs-material mkdocs build --strict`; isolated `scripts/validate-plugins.sh`; `quick_validate.py skills/adviser`; `git diff --check`
