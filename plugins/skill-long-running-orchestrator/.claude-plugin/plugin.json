@@ -1,0 +1,14 @@
+{
+  "name": "skill-long-running-orchestrator",
+  "version": "0.1.0",
+  "description": "Run multi-hour or multi-session work safely by combining the ledger, checkpoints, cost-ceiling guard, and resumable progress notes so context loss does not erase progress.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "long-running-orchestrator"
+  ]
+}

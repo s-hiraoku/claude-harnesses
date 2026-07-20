@@ -1,0 +1,1 @@
+../../verification-pack/scripts/typecheck-on-edit.sh

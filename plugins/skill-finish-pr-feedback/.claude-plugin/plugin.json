@@ -1,0 +1,14 @@
+{
+  "name": "skill-finish-pr-feedback",
+  "version": "0.1.0",
+  "description": "Compatibility alias for pr-guardian. Use pr-guardian for stalled pull requests, CodeRabbit/Codex review feedback, CI failures, unresolved review conversations, and merge-ready PR follow-up.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "finish-pr-feedback"
+  ]
+}

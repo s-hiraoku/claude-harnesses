@@ -1,0 +1,1 @@
+../../safety-pack/scripts/dangerous-command-guard.py

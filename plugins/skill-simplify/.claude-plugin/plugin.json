@@ -1,0 +1,14 @@
+{
+  "name": "skill-simplify",
+  "version": "0.1.0",
+  "description": "Review changed code on the current branch for reuse, clarity, and dead complexity, then propose or apply minimal cleanup without changing behavior.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "simplify"
+  ]
+}

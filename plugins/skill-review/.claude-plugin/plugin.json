@@ -1,0 +1,14 @@
+{
+  "name": "skill-review",
+  "version": "0.1.0",
+  "description": "Review code changes with a bug-first, risk-focused workflow before merge or release.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "review"
+  ]
+}

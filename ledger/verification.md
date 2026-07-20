@@ -13,6 +13,20 @@ Use this file to record meaningful verification runs.
 
 ## Runs
 
+### 2026-07-20 (PR #25 Codex feedback fix)
+
+- Command: `python3 scripts/sync-marketplace.py --check`; `ruff check .`; isolated `uv run --no-project --with pytest,jsonschema python -m pytest tests/`; isolated `uvx --with mkdocs-material mkdocs build --strict`
+- Scope: Fixed two Codex P2 findings on PR #25. (1) `referenced_agents` only scanned `SKILL.md`, missing subagent references that live in the skill's slash command body (e.g. `fix-ci.md` delegates to `ci-fixer`, but `skills/fix-ci/SKILL.md` never mentions it) — now scans SKILL.md + the bundled command file. (2) Compatibility-alias skills (e.g. `finish-pr-feedback`, which immediately delegates to `pr-guardian`) published as standalone `skill-*` plugins shipped only the alias pointer with nothing to run — `alias_target()` now parses "alias for <skill>" from the frontmatter description and bundles the target skill/command/agents alongside the alias.
+- Result: Passed. Sync check in sync, Ruff passed, 77 tests passed, MkDocs strict build completed. `plugins/skill-fix-ci` now includes `agents/ci-fixer.md`; `plugins/skill-finish-pr-feedback` now includes `skills/pr-guardian`, `commands/pr-guardian.md`, and `agents/ci-fixer.md`.
+- Notes: Plain pytest inside `scripts/verify.sh` still fails collection on this machine due to the known x86_64 `rpds` wheel under arm64; the isolated arm64 run passed.
+
+### 2026-07-20 (marketplace 3-tier restructure)
+
+- Command: `python3 scripts/sync-marketplace.py --check`; `ruff check .` (via `bash scripts/verify.sh`); isolated `uv run --no-project --with pytest,jsonschema python -m pytest tests/`; isolated `uvx --with mkdocs-material mkdocs build --strict`
+- Scope: New `scripts/sync-marketplace.py` generator producing a real `plugins/full` umbrella (all skills/commands/agents plus merged hooks), 25 `plugins/skill-*` micro-plugins, and a regenerated `.claude-plugin/marketplace.json` (38 entries); drift check wired into `scripts/verify.sh`; docs updated for the full/pack/skill install tiers.
+- Result: Passed. Sync check in sync, Ruff passed, 77 tests passed (including install-safety invariants over the generated plugins), MkDocs strict build completed.
+- Notes: Plain pytest inside `scripts/verify.sh` still fails collection on this machine due to the known x86_64 `rpds` wheel under arm64; the isolated arm64 run passed.
+
 ### 2026-07-19 11:49 JST
 
 - Command: `bash scripts/verify.sh`; isolated `uvx` full pytest; isolated `uvx` MkDocs strict build; `python3 scripts/check-eval-coverage.py --base FETCH_HEAD`; isolated `uv run --no-project` plugin validation; `git diff --check`

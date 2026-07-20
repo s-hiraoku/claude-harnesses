@@ -1,0 +1,14 @@
+{
+  "name": "skill-jina-reader",
+  "version": "0.1.0",
+  "description": "Fetch public web pages with Jina AI Reader API and convert them into LLM-friendly Markdown.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "jina-reader"
+  ]
+}

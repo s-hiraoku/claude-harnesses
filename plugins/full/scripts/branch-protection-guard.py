@@ -1,0 +1,1 @@
+../../safety-pack/scripts/branch-protection-guard.py

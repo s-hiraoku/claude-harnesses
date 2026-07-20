@@ -1,0 +1,1 @@
+../../safety-pack/scripts/prompt-injection-detector.py

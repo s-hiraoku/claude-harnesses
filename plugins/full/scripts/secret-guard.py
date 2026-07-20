@@ -1,0 +1,1 @@
+../../safety-pack/scripts/secret-guard.py

@@ -1,0 +1,14 @@
+{
+  "name": "skill-implement-to-merge-ready",
+  "version": "0.1.0",
+  "description": "Run an end-to-end Claude Code delivery workflow from user request to merge-ready pull request, including planning, implementation, tests, self-review, ready-for-review PR creation, CI/review follow-u…",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "implement-to-merge-ready"
+  ]
+}

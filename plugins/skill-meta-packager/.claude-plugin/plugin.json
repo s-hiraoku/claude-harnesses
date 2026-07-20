@@ -1,0 +1,14 @@
+{
+  "name": "skill-meta-packager",
+  "version": "0.1.0",
+  "description": "Analyze recent Claude Code work and package repeated patterns as the smallest useful skill, custom subagent, slash command, hook, or automation.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "meta-packager"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "skill-fix-ci",
+  "version": "0.1.0",
+  "description": "Diagnose and repair failing CI checks on the current PR by parsing logs, reproducing locally when possible, and pushing focused fixes in batches.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "fix-ci"
+  ]
+}

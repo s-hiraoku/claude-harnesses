@@ -1,0 +1,14 @@
+{
+  "name": "skill-goal-manager",
+  "version": "0.1.0",
+  "description": "Manage durable task goals for long-running Claude Code work using the project ledger, including objective writing, success criteria, resumption, and completion decisions.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "goal-manager"
+  ]
+}

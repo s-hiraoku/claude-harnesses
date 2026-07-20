@@ -1,0 +1,14 @@
+{
+  "name": "skill-deslop",
+  "version": "0.1.0",
+  "description": "Remove AI-generated boilerplate (vague comments, unused try/except, defensive validation, restated docstrings) from changed code without changing behavior.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "deslop"
+  ]
+}

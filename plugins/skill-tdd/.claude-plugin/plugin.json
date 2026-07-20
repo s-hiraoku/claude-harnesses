@@ -1,0 +1,14 @@
+{
+  "name": "skill-tdd",
+  "version": "0.1.0",
+  "description": "Drive development with red-green-refactor using isolated test-writer, implementer, and refactorer subagents so tests reflect intent rather than anticipated implementation.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "tdd"
+  ]
+}

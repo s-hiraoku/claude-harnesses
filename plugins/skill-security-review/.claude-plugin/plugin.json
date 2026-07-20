@@ -1,0 +1,14 @@
+{
+  "name": "skill-security-review",
+  "version": "0.1.0",
+  "description": "Run a multi-pass security review over the current diff using parallel specialist subagents focused on injection, authn/authz, secrets, supply-chain, and infrastructure-as-code risks.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "security-review"
+  ]
+}

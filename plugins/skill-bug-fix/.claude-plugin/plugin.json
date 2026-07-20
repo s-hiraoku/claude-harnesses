@@ -1,0 +1,14 @@
+{
+  "name": "skill-bug-fix",
+  "version": "0.1.0",
+  "description": "Fix bugs with reproduction, minimal changes, regression coverage, and targeted verification.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "bug-fix"
+  ]
+}

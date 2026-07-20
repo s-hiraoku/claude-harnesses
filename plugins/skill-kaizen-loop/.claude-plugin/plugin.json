@@ -1,0 +1,14 @@
+{
+  "name": "skill-kaizen-loop",
+  "version": "0.1.0",
+  "description": "\"Run a continuous product improvement loop: evaluate a product or codebase, present prioritized recommendations for approval, then implement only approved improvements through verification and PR fol…",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "kaizen-loop"
+  ]
+}
