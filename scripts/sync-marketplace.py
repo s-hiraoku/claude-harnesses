@@ -155,6 +155,37 @@ def alias_target(name: str) -> str | None:
     return found.group(1) if found else None
 
 
+def referenced_skills(
+    name: str, skills: list[str], commands: dict[str, Path]
+) -> list[str]:
+    """Return skills explicitly referenced as code identifiers by a bundle."""
+    text = skill_bundle_text(name, commands)
+    return [
+        candidate
+        for candidate in skills
+        if candidate != name and re.search(rf"`{re.escape(candidate)}`", text)
+    ]
+
+
+def bundled_skills(name: str, skills: list[str], commands: dict[str, Path]) -> list[str]:
+    """Resolve the transitive skill closure needed by a standalone plugin."""
+    bundled: list[str] = []
+    pending = [name]
+    while pending:
+        current = pending.pop(0)
+        if current in bundled:
+            continue
+        if current not in skills:
+            fail(f"skill dependency {name} -> {current} does not exist")
+        bundled.append(current)
+        dependencies = referenced_skills(current, skills, commands)
+        target = alias_target(current)
+        if target:
+            dependencies.append(target)
+        pending.extend(dependency for dependency in dependencies if dependency not in bundled)
+    return bundled
+
+
 def dumps(data: dict) -> str:
     return json.dumps(data, indent=2, ensure_ascii=False) + "\n"
 
@@ -210,21 +241,10 @@ def build_manifest() -> dict[str, tuple[str, str]]:
     # --- plugins/skill-<name> ---
     for name in skills:
         root = f"plugins/skill-{name}"
-        # A compatibility alias (e.g. finish-pr-feedback -> pr-guardian) is a
-        # thin pointer that immediately delegates to another skill's workflow;
-        # bundle that target's skill/command/agents too, or a standalone
-        # install of the alias ships a skill with nothing to run.
-        bundled = [name]
-        target = alias_target(name)
-        if target:
-            if target not in skills:
-                fail(
-                    f"skills/{name}/SKILL.md declares alias target {target!r}, "
-                    "which doesn't exist"
-                )
-            bundled.append(target)
-
-        for bundled_name in bundled:
+        # Bundle explicit skill references transitively so compositional
+        # workflows and compatibility aliases remain usable when installed
+        # as a single skill-* plugin.
+        for bundled_name in bundled_skills(name, skills, commands):
             manifest[f"{root}/skills/{bundled_name}"] = (
                 "link",
                 f"../../../skills/{bundled_name}",

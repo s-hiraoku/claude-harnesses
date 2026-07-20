@@ -106,6 +106,12 @@ def test_autodiscovered_skills_resolve() -> None:
     assert not failures, "\n".join(failures)
 
 
+def test_compositional_standalone_skill_bundles_dependencies() -> None:
+    skills_dir = PLUGINS_DIR / "skill-kaizen-loop" / "skills"
+    assert (skills_dir / "implement-to-merge-ready" / "SKILL.md").is_file()
+    assert (skills_dir / "ui-imagegen-director" / "SKILL.md").is_file()
+
+
 def test_no_component_escapes_plugin_root() -> None:
     """Auto-discovered component dirs and their symlinks stay inside the plugin.
 
