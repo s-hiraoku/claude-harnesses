@@ -137,3 +137,16 @@ Use this file to record meaningful verification runs.
 - Scope: Plugin marketplace install-safety after wiring shared skills + `_shared` hook helpers via in-plugin symlinks and rewriting manifests to the documented spec (no `components` wrapper, `dependencies` not `dependsOn`).
 - Result: 34 passed; all plugin manifests validate; all component paths stay inside their plugin root. Negative test confirmed both gates fail on a dangling skill symlink. Hook smoke test: `secret-guard.py` allows a clean command and blocks an AWS key via the relocated `_shared/envelope.py` import.
 - Notes: System `python3` lacks `jsonschema`; CI installs it (`plugin-validate.yml`). `scripts/verify.sh` runs the plugin tests transitively via pytest (pyproject.toml detected).
+
+### 2026-07-20 12:49 JST
+
+- Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
+- Scope: review-briefing skill — switched step-5 output to a self-contained HTML briefing opened in the browser (new `references/briefing-template.html`, terminal fallback kept), plus docs wording update.
+- Result: Passed. `sync-marketplace --check` in sync, `ruff check .`, 78 pytest tests, and `mkdocs build --strict` completed.
+- Notes: Plain `bash scripts/verify.sh` still hits the host-only x86_64 `rpds` wheel ImportError under arm64; the isolated requirements environment avoids it. Template HTML tag balance verified with a small html.parser script.
+
+### 2026-07-21 08:11 JST
+
+- Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
+- Scope: review-briefing PR #31 — addressed CodeRabbit finding (HTML-escape PR-derived data before templating to prevent local XSS); added escape instructions to SKILL.md step 5 and a reminder comment to briefing-template.html.
+- Result: Passed. sync-marketplace --check in sync, ruff, 78 pytest tests, mkdocs build --strict; template tag balance re-verified.
