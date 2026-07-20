@@ -1,6 +1,6 @@
 ---
 name: review-briefing
-description: Prepare a human reviewer to review a pull request in the least time with the best judgment. Given a PR number or URL, produce a terminal briefing with a reading-order guide, the areas AI has already machine-checked (safe to skim), the design decisions and trade-offs that genuinely need human judgment, low-confidence findings to verify, and ready-to-paste comment drafts. Strictly read-only — never posts to GitHub. Use when the user says things like "help me review this PR", "prep PR 123 for review", "where should I start reading this diff", "review briefing", or whenever the user has been assigned as a reviewer on someone else's PR. For fully automated review (AI produces the findings and finishes), use a code-review skill instead — this skill assumes the human stays in the loop.
+description: Prepare a human reviewer to review a pull request in the least time with the best judgment. Given a PR number or URL, produce an HTML briefing opened in the browser (terminal fallback available) with a reading-order guide, the areas AI has already machine-checked (safe to skim), the design decisions and trade-offs that genuinely need human judgment, low-confidence findings to verify, and ready-to-paste comment drafts. Strictly read-only — never posts to GitHub. Use when the user says things like "help me review this PR", "prep PR 123 for review", "where should I start reading this diff", "review briefing", or whenever the user has been assigned as a reviewer on someone else's PR. For fully automated review (AI produces the findings and finishes), use a code-review skill instead — this skill assumes the human stays in the loop.
 argument-hint: "PR number or URL (e.g. 4228)"
 ---
 
@@ -18,7 +18,7 @@ Put the human reviewer in the best position to review quickly and well. The skil
 
 ## Principles (must-fire)
 
-- **Strictly read-only**: never write to GitHub (no comments, reviews, labels). Comment drafts are terminal output only. The human's judgment is never pre-empted.
+- **Strictly read-only**: never write to GitHub (no comments, reviews, labels). Comment drafts live only in the local briefing (HTML file / terminal). The human's judgment is never pre-empted.
 - **Review subagents get a clean brief**: pass only the diff, the acceptance criteria (from the linked issue, if any), and the perspective to check. Do not pass existing review comments into the reviewers — that creates confirmation bias. Deduplication against existing comments happens afterwards, in the main agent.
 - **Route reviewers to the strongest model tier available** (per your runtime's conventions; disclose a downgrade if one occurs). Consistent judgment quality is the point of the machine-check layer.
 - **If your project maintains a verbalized perspective file** (accumulated review checklists, "missed-finding" perspectives), pass it to the reviewers as the canonical perspective set instead of inventing one — and never fork a second copy of it.
@@ -67,9 +67,18 @@ This is *not* another bug hunt. Ask a separate read-only subagent for three thin
 
 Then the main agent builds a **spec cross-check table** from the step-1 acceptance criteria and the step-3 spec findings: acceptance criterion ↔ implementing location (`file:line`), plus **spec interpretations that are ambiguous and need human confirmation** (include the spec perspective's low-confidence items). Item 2 tells the human *where* to look; item 3 and the cross-check table tell them *how*.
 
-### 5. Output the briefing (terminal only)
+### 5. Output the briefing (HTML in the browser + terminal summary)
 
-Use the format in [`references/briefing-format.md`](references/briefing-format.md). Skeleton:
+Compose the briefing content per [`references/briefing-format.md`](references/briefing-format.md) — its section order and rules are canonical. Then:
+
+1. **Render it as HTML** using [`references/briefing-template.html`](references/briefing-template.html): copy the template, replace every `{{PLACEHOLDER}}`, duplicate list items as needed, and follow the template's comments (risk/CI chip classes, deleting the 🔴 section when empty). Do not add external resources — the file must stay self-contained.
+2. **Write it to a local file outside the repo working tree** (never commit it): `"${TMPDIR:-/tmp}/review-briefing-pr<N>.html"`.
+3. **Open it in the browser**: `open <file>` on macOS, `xdg-open <file>` on Linux.
+4. **Print a terminal summary**: the TL;DR block, any 🔴 high-confidence findings, and the HTML file path.
+
+If no browser can be opened (headless/SSH session) or the user asks for terminal output, print the full markdown briefing to the terminal instead — same sections, same order.
+
+Skeleton (both outputs):
 
 1. **TL;DR** — purpose / size / CI status / overall risk feel / estimated review time
 2. **Reading-order guide** — essential changes first; quarantine mechanical changes (renames, generated files) as "skimmable"
