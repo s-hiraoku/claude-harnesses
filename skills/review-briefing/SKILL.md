@@ -71,7 +71,7 @@ Then the main agent builds a **spec cross-check table** from the step-1 acceptan
 
 Compose the briefing content per [`references/briefing-format.md`](references/briefing-format.md) — its section order and rules are canonical. Then:
 
-1. **Render it as HTML** using [`references/briefing-template.html`](references/briefing-template.html): copy the template, replace every `{{PLACEHOLDER}}`, duplicate list items as needed, and follow the template's comments (risk/CI chip classes, deleting the 🔴 section when empty). Do not add external resources — the file must stay self-contained.
+1. **Render it as HTML** using [`references/briefing-template.html`](references/briefing-template.html): copy the template, replace every `{{PLACEHOLDER}}`, duplicate list items as needed, and follow the template's comments (risk/CI chip classes, deleting the 🔴 section when empty). Do not add external resources — the file must stay self-contained. **HTML-escape every value that originates from the PR or the repo before inserting it** — PR title, body, branch/author names, issue text, file paths, finding text, and comment drafts can all contain `<`, `>`, `&`, or `"`; a malicious PR could otherwise inject markup/script into the local file (local XSS when you open it). Escape those four characters (`&`→`&amp;` first, then `<`→`&lt;`, `>`→`&gt;`, `"`→`&quot;`) in the text you substitute; the template's own literal markup is already safe.
 2. **Write it to a local file outside the repo working tree** (never commit it): `"${TMPDIR:-/tmp}/review-briefing-pr<N>.html"`.
 3. **Open it in the browser**: `open <file>` on macOS, `xdg-open <file>` on Linux.
 4. **Print a terminal summary**: the TL;DR block, any 🔴 high-confidence findings, and the HTML file path.

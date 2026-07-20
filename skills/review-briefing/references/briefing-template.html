@@ -122,6 +122,7 @@
 </style>
 </head>
 <body>
+<!-- HTML-escape every {{PLACEHOLDER}} value that comes from the PR/repo (title, body, branch, author, paths, findings, drafts): &->&amp; first, then <->&lt; >->&gt; "->&quot;. A malicious PR could otherwise inject markup/script (local XSS). -->
 <main>
   <h1><span class="pr-number">PR #{{PR_NUMBER}}</span> {{PR_TITLE}}</h1>
   <p class="meta">{{AUTHOR}} → {{BASE_BRANCH}} · <a href="{{PR_URL}}">{{PR_URL}}</a></p>
