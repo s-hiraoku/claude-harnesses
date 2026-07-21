@@ -11,7 +11,8 @@ Mapping to the older lens vocabulary, so nothing is lost:
 | **Verdict** | TL;DR (purpose / size / CI / risk feel / time) |
 | **Basis** | ✅ Machine-checked — safe to skim (the trust signal, in prose) |
 | **Points** | ⚠️ Needs human judgment + ❓ Verify (low-confidence) + 🔴 Findings (high-confidence) — one list, ordered by importance, each tagged by a badge |
-| **Trade-offs (collapsed)** | 🧭 Design map + the deliberate design choices that are neither bugs nor blockers |
+| **Trade-offs (collapsed)** | 🧭 Design map + the deliberate design choices that are neither bugs nor blockers + per-spot lenses that belong to no point |
+| **Points / Basis** | 🧭 Per-spot lens (as each point's how-to-look line) + spec cross-check (met criteria → basis lines; unmet/ambiguous → `check` points) |
 | **What was verified (collapsed)** | The ✅ "perspectives applied vs. not verified" discipline + existing-review dedup note |
 
 ## Template
