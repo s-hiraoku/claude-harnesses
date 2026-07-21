@@ -8,6 +8,8 @@ argument-hint: "PR number or URL (e.g. 4228)"
 
 Put the human reviewer in the best position to review quickly and well. The skill does not replace review; it splits the work the way it should be split: perspectives that have been verbalized get applied by AI with mechanical consistency, and the human spends their limited attention on judgment — design choices, trade-offs, and product intent that no checklist covers.
 
+**The briefing's job is to lower cognitive load, not add to it.** A briefing that dumps every section at equal weight makes the human do the triage the skill was supposed to do for them. So the output leads with the answer and defers the detail: **conclusion first → what to fix / decide → what to look at and how → supporting detail folded away.** The reviewer should be able to read the top and stop as soon as they have what they need; everything below that is there when they want it, not in their face by default. Every design choice in the output format serves this — the up-front verdict, the short basis, the importance-ordered points, and the collapsed trade-off/verification sections.
+
 ## When to use / not use
 
 | Goal | Use |
@@ -18,6 +20,7 @@ Put the human reviewer in the best position to review quickly and well. The skil
 
 ## Principles (must-fire)
 
+- **Lead with the conclusion; defer the detail.** The output exists to *reduce* the reviewer's cognitive load. Order it so the answer comes first (verdict), then what they must act on (points to fix/decide), then how to look (lens), with reference material (trade-offs, what-was-verified) collapsed. Never present all sections at equal weight — that hands the triage back to the human. If a section would make the reviewer work harder to find the point, it is in the wrong place or too prominent.
 - **Strictly read-only**: never write to GitHub (no comments, reviews, labels). Comment drafts live only in the local briefing (HTML file / terminal). The human's judgment is never pre-empted.
 - **Review subagents get a clean brief**: pass only the diff, the acceptance criteria (from the linked issue, if any), and the perspective to check. Do not pass existing review comments into the reviewers — that creates confirmation bias. Deduplication against existing comments happens afterwards, in the main agent.
 - **Route reviewers to the strongest model tier available** (per your runtime's conventions; disclose a downgrade if one occurs). Consistent judgment quality is the point of the machine-check layer.
@@ -71,23 +74,20 @@ Then the main agent builds a **spec cross-check table** from the step-1 acceptan
 
 Compose the briefing content per [`references/briefing-format.md`](references/briefing-format.md) — its section order and rules are canonical. Then:
 
-1. **Render it as HTML** using [`references/briefing-template.html`](references/briefing-template.html): copy the template, replace every `{{PLACEHOLDER}}`, duplicate list items as needed, and follow the template's comments (risk/CI chip classes, deleting the 🔴 section when empty). Do not add external resources — the file must stay self-contained. **HTML-escape every value that originates from the PR or the repo before inserting it** — PR title, body, branch/author names, issue text, file paths, finding text, and comment drafts can all contain `<`, `>`, `&`, or `"`; a malicious PR could otherwise inject markup/script into the local file (local XSS when you open it). Escape those four characters (`&`→`&amp;` first, then `<`→`&lt;`, `>`→`&gt;`, `"`→`&quot;`) in the text you substitute; the template's own literal markup is already safe.
+1. **Render it as HTML** using [`references/briefing-template.html`](references/briefing-template.html): copy the template verbatim and replace every `{{PLACEHOLDER}}` — **do not redesign it**. The template is the canonical format; do not invent your own layout, CSS classes, or section structure. Follow the template's comments: pick the `.verdict` colour class (`ok`/`caution`/`block`) to match the headline, pick each point's badge (`blocker`/`check`/`design`), duplicate `<li>`/`.point`/`h4`+`ul` blocks as needed, and drop the `.draft` block on points that have no comment draft. Do not add external resources — the file must stay self-contained. **HTML-escape every value that originates from the PR or the repo before inserting it** — PR title, body, branch/author names, issue text, file paths, finding text, and comment drafts can all contain `<`, `>`, `&`, or `"`; a malicious PR could otherwise inject markup/script into the local file (local XSS when you open it). Escape those four characters (`&`→`&amp;` first, then `<`→`&lt;`, `>`→`&gt;`, `"`→`&quot;`) in the text you substitute; the template's own literal markup is already safe.
 2. **Write it to a local file outside the repo working tree** (never commit it): `"${TMPDIR:-/tmp}/review-briefing-pr<N>.html"`.
 3. **Open it in the browser**: `open <file>` on macOS, `xdg-open <file>` on Linux.
-4. **Print a terminal summary**: the TL;DR block, any 🔴 high-confidence findings, and the HTML file path.
+4. **Print a terminal summary**: the verdict headline + caveat, any `blocker`-badged points, and the HTML file path.
 
 If no browser can be opened (headless/SSH session) or the user asks for terminal output, print the full markdown briefing to the terminal instead — same sections, same order.
 
-Skeleton (both outputs):
+Skeleton (both outputs — mirrors `briefing-template.html` one-to-one):
 
-1. **TL;DR** — purpose / size / CI status / overall risk feel / estimated review time
-2. **Reading-order guide** — essential changes first; quarantine mechanical changes (renames, generated files) as "skimmable"
-3. **🧭 Review-lens guide** — the step-4 artifacts: design map / per-spot review lens (how to read each spot) / spec cross-check table (acceptance criteria ↔ implementing locations, ambiguous interpretations to confirm)
-4. **✅ Machine-checked — safe to skim** — perspectives that came back clean at high confidence. **Always list which perspectives were applied** (what wasn't checked isn't verified)
-5. **⚠️ Needs human judgment** — the step-4 map. This is where the reviewer should spend time
-6. **❓ Verify — low-confidence findings** — the human decides true/false
-7. **🔴 Findings (high confidence) — ...** — if any, by severity
-8. **Comment drafts** — paste-ready, explicitly marked as **not posted**
+1. **Verdict** — the one-line conclusion (ok / caution / block), what it rests on, and the caveat that is true despite it (absorbs the old TL;DR: purpose / size / CI / risk feel / time)
+2. **Basis** — ~3 prose lines on why the verdict is trustworthy (the ✅ machine-checked layer; **always name the perspectives that back it** — what wasn't checked isn't verified)
+3. **Points to decide** — one importance-ordered list of ⚠️ judgment calls, ❓ low-confidence items, and 🔴 high-confidence findings, each with a badge (`design`/`check`/`blocker`); attach a paste-ready **draft** only where one helps
+4. **Trade-offs (collapsed)** — the step-4 design map plus the deliberate choices that are neither bugs nor blockers; no evaluations
+5. **What this review checked (collapsed)** — perspectives applied vs. explicitly **not verified**, and how existing review threads were deduped into the basis
 
 ## After the review (must-fire, once)
 
