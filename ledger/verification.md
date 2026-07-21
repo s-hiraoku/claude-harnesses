@@ -150,3 +150,10 @@ Use this file to record meaningful verification runs.
 - Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
 - Scope: review-briefing PR #31 — addressed CodeRabbit finding (HTML-escape PR-derived data before templating to prevent local XSS); added escape instructions to SKILL.md step 5 and a reminder comment to briefing-template.html.
 - Result: Passed. sync-marketplace --check in sync, ruff, 78 pytest tests, mkdocs build --strict; template tag balance re-verified.
+
+### 2026-07-21 (low-cognitive-load briefing format)
+
+- Command: `uv run --no-project --with-requirements requirements-dev.txt bash scripts/verify.sh`
+- Scope: review-briefing — replaced the briefing HTML template and canonical format with a low-cognitive-load layout (verdict → basis → importance-ordered points with badges → collapsed trade-offs/verification), and made "lead with the conclusion, defer the detail" a must-fire principle in SKILL.md so the format is reproducible across environments instead of model-improvised. Reason: an earlier all-sections-equal briefing pushed triage back onto the human, and the good pr275 layout only existed as an ad-hoc render, so it varied by environment.
+- Result: Passed. sync-marketplace --check in sync, ruff, 78 pytest tests, mkdocs build --strict. Template tag balance verified with html.parser (no unclosed tags, no mismatches).
+- Notes: Plain `bash scripts/verify.sh` still hits the host-only x86_64 `rpds` ImportError under arm64; the isolated uv env avoids it. Only HTML/Markdown skill files changed — no Python.
