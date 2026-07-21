@@ -30,12 +30,12 @@ Mapping to the older lens vocabulary, so nothing is lost:
 - (repeat per basis line; keep to ~3)
 
 ## <Points to decide>  ← ordered by importance
+badges (once for the section): blocker = 🔴 high-confidence finding · check = ❓ verify / low-confidence · design = ⚠️ design judgment
 - [badge] <headline> (`<path>` / <location>)
   <body: what was chosen / found and why it matters>
   ask: <the decision the human must make — intent? oversight? acceptable?>
   draft: <paste-ready comment, only for points that warrant one>
-
-  badges: blocker = 🔴 high-confidence finding · check = ❓ verify / low-confidence · design = ⚠️ design judgment
+  <repeat this point block, in importance order, for each point>
 
 ## ▸ Trade-offs (collapsed) — what the author chose, and against what
 <intro: these are choices, not right/wrong; independent of correctness>
