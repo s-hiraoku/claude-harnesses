@@ -98,6 +98,14 @@ copy_dir() {
   cp -R "${src}" "${dest}"
 }
 
+install_all_skills() {
+  while IFS= read -r d; do
+    local name
+    name="$(basename "${d}")"
+    copy_dir "${d}" "${TARGET}/.claude/skills/${name}"
+  done < <(find "${ROOT}/skills" -mindepth 1 -maxdepth 1 -type d | sort)
+}
+
 merge_hooks_json() {
   local src="$1" dest="$2"
   if ! command -v jq >/dev/null 2>&1; then
@@ -148,6 +156,7 @@ install_pack() {
     for sub in "${FUNCTIONAL_PACKS[@]}"; do
       install_pack "${sub}"
     done
+    install_all_skills
     copy_file "${ROOT}/plugins/mcp-pack/.mcp.json" "${TARGET}/.mcp.json"
     return
   fi
@@ -239,10 +248,7 @@ fi
 
 if [[ -n "${SKILLS}" ]]; then
   if [[ "${SKILLS}" == "all" ]]; then
-    while IFS= read -r d; do
-      name="$(basename "${d}")"
-      copy_dir "${d}" "${TARGET}/.claude/skills/${name}"
-    done < <(find "${ROOT}/skills" -mindepth 1 -maxdepth 1 -type d | sort)
+    install_all_skills
   else
     IFS=',' read -ra skill_names <<<"${SKILLS}"
     for name in "${skill_names[@]}"; do

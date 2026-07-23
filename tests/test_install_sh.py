@@ -90,9 +90,15 @@ def test_install_product_and_research_packs(target: Path) -> None:
     assert (target / ".claude" / "commands" / "jina-reader.md").is_file()
 
 
-def test_install_full_includes_adviser(target: Path) -> None:
+def test_install_full_includes_all_skills(target: Path) -> None:
     result = _run_install(target, "--pack", "full", "--no-verify")
     assert result.returncode == 0, result.stderr
+
+    expected_skills = {path.name for path in (REPO_ROOT / "skills").iterdir() if path.is_dir()}
+    installed_skills = {
+        path.name for path in (target / ".claude" / "skills").iterdir() if path.is_dir()
+    }
+    assert installed_skills == expected_skills
     assert (target / ".claude" / "skills" / "adviser" / "SKILL.md").is_file()
     assert (target / ".claude" / "skills" / "adviser" / "scripts" / "run_adviser.py").is_file()
     assert (target / ".claude" / "commands" / "adviser.md").is_file()
