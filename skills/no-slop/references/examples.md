@@ -49,4 +49,4 @@ Why: the after removes reflexive hedges while preserving the measured reason, af
 **After:**
 > Split `processData` (was 120 lines, cyclomatic complexity 14) into `parse`, `validate`, and `persist`; behavior unchanged, covered by the existing 12 tests.
 
-Why: four headings, three bullets, and a conclusion repeat the same point. The after preserves the size, complexity, split, behavior, and test coverage in one sentence.
+Why: three headings, three bullets, and a conclusion repeat the same point. The after preserves the size, complexity, split, behavior, and test coverage in one sentence.
