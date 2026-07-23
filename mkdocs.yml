@@ -80,6 +80,7 @@ nav:
       - simplify: skills/simplify.md
       - fix-ci: skills/fix-ci.md
       - deslop: skills/deslop.md
+      - no-slop: skills/no-slop.md
       - long-running-orchestrator: skills/long-running-orchestrator.md
       - empirical-prompt-tuning: skills/empirical-prompt-tuning.md
       - teach-session: skills/teach-session.md

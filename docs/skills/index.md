@@ -17,6 +17,7 @@
 | [review-briefing](review-briefing.md) | Preparing a human reviewer with a read-only PR briefing |
 | [fix-ci](fix-ci.md) | Repairing failing CI checks |
 | [deslop](deslop.md) | Removing AI-generated boilerplate |
+| [no-slop](no-slop.md) | Removing AI filler from prose while preserving meaning and uncertainty |
 | [long-running-orchestrator](long-running-orchestrator.md) | Multi-session work with the ledger |
 | [empirical-prompt-tuning](empirical-prompt-tuning.md) | Empirically tune a skill or prompt against frozen scenarios |
 | [teach-session](teach-session.md) | Teaching the human what changed in a session |
