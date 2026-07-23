@@ -1,6 +1,6 @@
 ---
 name: no-slop
-description: Strip AI slop from prose output and raise its information density — filler openings/closings, restated questions, contentless emphasis, stacked hedges, repeated points, structure that outweighs substance — while preserving every fact, number, caveat, and reason (compression, never omission). This is a MODIFIER skill; it changes how output is written, not what work is done. Invoke it alongside any other skill or task ("write the report, no-slop", "PR 本文を no-slop で"), on its own to rewrite existing text ("deslop this paragraph"), or as a standing session rule ("no-slop for this whole session"). Use whenever the user asks for concise, dense, non-AI-sounding writing, complains that output is verbose/thin/padded, or invokes any writing-heavy task where quality matters. For removing slop from CODE (comments, defensive try/except), use the deslop skill instead — this one is for prose.
+description: MODIFIER skill that removes AI slop from prose without losing source facts or uncertainty. Use with any writing task or to rewrite text; for code slop, use deslop instead.
 ---
 
 # no-slop — dense prose, nothing lost
@@ -35,8 +35,8 @@ Cut anything that a reader could delete without losing information. The recognit
 
 Deleting filler is not enough — the remaining sentences must carry weight:
 
-- Every claim gets its ground: a fact, number, path, example, or reason. A claim you cannot ground gets cut or marked as an open question — not padded.
-- Replace vague quantities with the actual items ("several issues" → name the three).
+- Ground claims only with support already present in the source or verified task context. Preserve a substantive source claim that lacks support, but mark it explicitly as unverified or open; never invent facts, evidence, names, paths, outcomes, or certainty to make prose denser.
+- Replace vague quantities with the actual items when the source supplies them ("several issues" → name the three). Otherwise preserve the vagueness or mark the quantity unspecified.
 - Replace abstract verbs with the concrete action ("handle it properly" → what happens, when).
 - Prefer one precise sentence over three approximate ones.
 
@@ -56,7 +56,7 @@ When unsure whether something is redundancy or information, keep it. A dense tex
 After drafting any deliverable prose, before presenting it:
 
 1. **Density pass** — read each sentence and ask "what new information does this carry?" Cut or merge any sentence with no answer.
-2. **Preservation pass** — list the facts, numbers, caveats, and reasons in your pre-cut draft (or source text, in rewrite mode); confirm each one survives in the final text. Anything missing goes back in.
+2. **Preservation pass** — list the names, identifiers, facts, numbers, commands, file paths, constraints, ordered steps, prerequisites, failure conditions, caveats, uncertainty, and reasons in your pre-cut draft (or source text, in rewrite mode); confirm each one survives in the final text. Anything missing goes back in.
 
 Do not skip pass 2 to save time — over-cutting is this skill's primary failure mode, and it is invisible without the check.
 
