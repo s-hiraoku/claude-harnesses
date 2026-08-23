@@ -165,6 +165,16 @@
       ]
     },
     {
+      "name": "skill-autopilot",
+      "source": "./plugins/skill-autopilot",
+      "description": "Explicitly keep a GitHub pull request moving until it is merge-ready by delegating to PR Guardian. Invoke manually with /autopilot; Claude must not start it automatically.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "autopilot"
+      ]
+    },
+    {
       "name": "skill-bug-fix",
       "source": "./plugins/skill-bug-fix",
       "description": "Fix bugs with reproduction, minimal changes, regression coverage, and targeted verification.",

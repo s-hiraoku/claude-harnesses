@@ -41,6 +41,12 @@ HOOK_EVENT_ORDER = [
     "SessionEnd",
 ]
 MAX_DESCRIPTION = 200
+GENERATED_SKILL_REFERENCES = {
+    "skills/autopilot/references/pr-guardian.md": "skills/pr-guardian/SKILL.md",
+    "skills/autopilot/references/pr-feedback-audit.md": (
+        "skills/pr-guardian/references/pr-feedback-audit.md"
+    ),
+}
 
 
 def fail(message: str) -> None:
@@ -197,6 +203,14 @@ def build_manifest() -> dict[str, tuple[str, str]]:
     commands = collect_pack_files("commands", suffix=".md")
     agents = collect_pack_files("agents", suffix=".md")
     scripts = collect_pack_files("scripts")
+
+    # Keep explicit-only compositional skills self-contained without exposing
+    # their model-invocable dependencies as additional installed skills.
+    for destination, source in GENERATED_SKILL_REFERENCES.items():
+        manifest[destination] = (
+            "file",
+            (REPO / source).read_text(encoding="utf-8"),
+        )
 
     # --- plugins/full ---
     full = "plugins/full"

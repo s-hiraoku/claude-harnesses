@@ -4,6 +4,7 @@ Watch PRs after creation or resume stalled PRs. Loop over CI runs and human, bot
 
 ## Skills
 
+- `autopilot` — explicit-only entry point that grants bounded PR follow-up and delegates all monitoring and readiness decisions to `pr-guardian`; it never merges.
 - `pr-guardian` — orchestrates CI monitoring and complete feedback recovery, including executable GraphQL cursor loops and paginated REST audits, re-observes successful open PRs for late reviews, and verifies current-head bot evidence through REST review `commit_id` values.
 - `fix-ci` — diagnose and repair failing CI checks by cluster.
 
@@ -13,6 +14,7 @@ Watch PRs after creation or resume stalled PRs. Loop over CI runs and human, bot
 
 ## Commands
 
+- `/autopilot [PR URL or number]`
 - `/pr-guardian [PR#]`
 - `/fix-ci [run-id]`
 

@@ -64,6 +64,7 @@ nav:
       - Full: packs/full.md
   - Skills:
       - Index: skills/index.md
+      - autopilot: skills/autopilot.md
       - adviser: skills/adviser.md
       - bug-fix: skills/bug-fix.md
       - feature-implementation: skills/feature-implementation.md

@@ -112,6 +112,20 @@ def test_compositional_standalone_skill_bundles_dependencies() -> None:
     assert (skills_dir / "ui-imagegen-director" / "SKILL.md").is_file()
 
 
+def test_autopilot_plugin_bundles_guardian_and_explicit_command() -> None:
+    plugin = PLUGINS_DIR / "skill-autopilot"
+    assert (plugin / "skills" / "autopilot" / "SKILL.md").is_file()
+    assert (plugin / "commands" / "autopilot.md").is_file()
+    discovered = sorted(path.name for path in (plugin / "skills").iterdir())
+    assert discovered == ["autopilot"]
+    assert (
+        plugin / "skills" / "autopilot" / "references" / "pr-guardian.md"
+    ).is_file()
+    assert (
+        PLUGINS_DIR / "pr-guardian-pack" / "skills" / "autopilot" / "SKILL.md"
+    ).is_file()
+
+
 def test_no_component_escapes_plugin_root() -> None:
     """Auto-discovered component dirs and their symlinks stay inside the plugin.
 
