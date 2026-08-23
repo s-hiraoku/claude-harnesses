@@ -1,0 +1,33 @@
+skill: autopilot
+
+scenarios:
+  - id: explicit-current-pr
+    kind: typical
+    prompt: |
+      Evaluate how /autopilot would handle synthetic PR #52. GitHub reports
+      headRepository.nameWithOwner=contributor/project,
+      headRefName=fix/review, headRefOid=abc123, base=owner/project:main,
+      one unresolved review thread, and a failing required check. The local
+      origin points to owner/project. Do not access or mutate a real repository;
+      describe the next actions and stopping conditions from the Skill.
+    requirements:
+      - text: The workflow delegates monitoring and readiness decisions to pr-guardian instead of defining a separate polling loop.
+        critical: true
+      - text: The target repository, PR, head repository/ref, and current head SHA are proved before mutation.
+        critical: true
+      - text: The workflow never merges, enables auto-merge, force-pushes, or closes the pull request.
+        critical: true
+      - text: The final result uses exactly one of merge-ready, pending external review, or blocked.
+        critical: false
+
+  - id: ordinary-pr-follow-up
+    kind: edge
+    prompt: |
+      You can see a normal user request: "Check whether the current pull
+      request has review feedback." Decide whether the explicit-only Autopilot
+      Skill should be loaded. Do not access or mutate a real repository.
+    requirements:
+      - text: Autopilot is not invoked because the user did not explicitly request /autopilot.
+        critical: true
+      - text: The skill frontmatter prevents model-initiated invocation.
+        critical: true

@@ -60,6 +60,31 @@ def test_each_skill_has_skill_md_with_valid_frontmatter() -> None:
     assert not failures, "\n".join(failures)
 
 
+def test_autopilot_is_explicit_and_delegates_to_pr_guardian() -> None:
+    skill = SKILLS_ROOT / "autopilot" / "SKILL.md"
+    text = skill.read_text()
+    match = FRONTMATTER_RE.match(text)
+    assert match is not None
+    data = yaml.safe_load(match.group(1))
+
+    assert data["disable-model-invocation"] is True
+    assert data["argument-hint"] == "[PR URL or number]"
+    assert "[bundled PR Guardian workflow](references/pr-guardian.md)" in text
+    assert "sole implementation of monitoring and merge-readiness" in text
+    assert "Do not create a second polling loop" in text
+    assert "`headRepository.nameWithOwner`, `headRefName`, `headRefOid`" in text
+    assert "`HEAD:refs/heads/<headRefName>`" in text
+    assert "instead of pushing to the base repository" in text
+    assert "Never merge" in text
+
+    guardian = skill.parent / "references" / "pr-guardian.md"
+    audit = skill.parent / "references" / "pr-feedback-audit.md"
+    assert guardian.read_bytes() == (SKILLS_ROOT / "pr-guardian" / "SKILL.md").read_bytes()
+    assert audit.read_bytes() == (
+        SKILLS_ROOT / "pr-guardian" / "references" / "pr-feedback-audit.md"
+    ).read_bytes()
+
+
 def assert_pr_guardian_executable_audit(skill_path: Path) -> None:
     audit_path = skill_path.parent / "references" / "pr-feedback-audit.md"
     audit = audit_path.read_text()

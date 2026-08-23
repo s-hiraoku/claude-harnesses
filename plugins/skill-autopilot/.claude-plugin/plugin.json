@@ -1,0 +1,14 @@
+{
+  "name": "skill-autopilot",
+  "version": "0.1.0",
+  "description": "Explicitly keep a GitHub pull request moving until it is merge-ready by delegating to PR Guardian. Invoke manually with /autopilot; Claude must not start it automatically.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "autopilot"
+  ]
+}

@@ -2,6 +2,7 @@
 
 | Skill | Use when |
 |---|---|
+| [autopilot](autopilot.md) | Explicitly keeping a PR moving until merge-ready without merging |
 | [bug-fix](bug-fix.md) | Correcting broken or unexpected behavior |
 | [feature-implementation](feature-implementation.md) | Adding or changing product behavior |
 | [refactor-safely](refactor-safely.md) | Improving structure without changing behavior |
