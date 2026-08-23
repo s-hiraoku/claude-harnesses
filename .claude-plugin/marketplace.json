@@ -305,6 +305,16 @@
       ]
     },
     {
+      "name": "skill-no-slop",
+      "source": "./plugins/skill-no-slop",
+      "description": "MODIFIER skill that removes AI slop from prose without losing source facts or uncertainty. Use with any writing task or to rewrite text; for code slop, use deslop instead.",
+      "category": "skill",
+      "tags": [
+        "skill",
+        "no-slop"
+      ]
+    },
+    {
       "name": "skill-pr-guardian",
       "source": "./plugins/skill-pr-guardian",
       "description": "Monitor a pull request after opening it or resume a stalled PR, fix CI failures and reviewer feedback, push updates, reply to and resolve review conversations, and comment with the outcome.",
@@ -347,7 +357,7 @@
     {
       "name": "skill-review-briefing",
       "source": "./plugins/skill-review-briefing",
-      "description": "Prepare a human reviewer to review a pull request in the least time with the best judgment.",
+      "description": "Prepare a verdict-first, read-only HTML briefing that helps a human review a pull request quickly and well. Use with a PR number or URL; opens in the browser with a terminal fallback.",
       "category": "skill",
       "tags": [
         "skill",

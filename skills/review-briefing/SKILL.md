@@ -1,6 +1,6 @@
 ---
 name: review-briefing
-description: Prepare a human reviewer to review a pull request in the least time with the best judgment. Given a PR number or URL, produce a verdict-first HTML briefing opened in the browser (terminal fallback available): the conclusion up front, the basis for trusting it, an importance-ordered list of points the human must decide (with ready-to-paste comment drafts), and collapsed trade-off / what-was-verified detail. Strictly read-only — never posts to GitHub. Use when the user says things like "help me review this PR", "prep PR 123 for review", "where should I start reading this diff", "review briefing", or whenever the user has been assigned as a reviewer on someone else's PR. For fully automated review (AI produces the findings and finishes), use a code-review skill instead — this skill assumes the human stays in the loop.
+description: Prepare a verdict-first, read-only HTML briefing that helps a human review a pull request quickly and well. Use with a PR number or URL; opens in the browser with a terminal fallback.
 argument-hint: "PR number or URL (e.g. 4228)"
 ---
 

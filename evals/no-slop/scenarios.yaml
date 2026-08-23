@@ -1,0 +1,82 @@
+# Evaluation scenarios for no-slop.
+# Checklists are frozen from the first recorded run onward.
+
+skill: no-slop
+
+scenarios:
+  - id: grounded-compression
+    kind: typical
+    prompt: |
+      Use the repository's no-slop skill to rewrite the text below. Return the
+      rewritten text, then a short evaluator self-report listing anything the
+      skill left unclear and any discretionary choices you made.
+
+      "In this incident report, I want to explain that uploads failed for 17
+      customers between 09:12 and 09:26 UTC. This was caused by worker
+      `media-3` running out of disk space after `/var/cache/transcode` reached
+      100%. It is important to note that retries succeeded after Mina Lee
+      cleared 38 GB and restarted `transcode.service`. We should also mention
+      that no source files were lost, but thumbnail generation was delayed by
+      up to 14 minutes."
+    requirements:
+      - text: The rewrite removes ritual framing and contentless emphasis.
+        critical: false
+      - text: The rewrite preserves the 17-customer count and 09:12–09:26 UTC window.
+        critical: true
+      - text: The rewrite preserves media-3, /var/cache/transcode, 100%, Mina Lee, 38 GB, and transcode.service.
+        critical: true
+      - text: The rewrite preserves both the no-source-file-loss caveat and the 14-minute thumbnail delay.
+        critical: true
+      - text: The rewrite adds no facts, causes, metrics, or certainty absent from the source.
+        critical: true
+
+  - id: unsupported-source-claims
+    kind: edge
+    prompt: |
+      Use the repository's no-slop skill to rewrite the text below. Do not
+      research or assume missing context. Return the rewritten text, then a
+      short evaluator self-report listing anything the skill left unclear and
+      any discretionary choices you made.
+
+      "I think the Acme migration probably reduced checkout latency by around
+      40%, although I do not have the dashboard or benchmark results available.
+      It may also have fixed the duplicate-charge issue, but that has not been
+      verified. Therefore we should definitely roll it out to every region
+      tomorrow."
+    requirements:
+      - text: The rewrite preserves the claimed 40% latency reduction as explicitly unverified.
+        critical: true
+      - text: The rewrite preserves the possible duplicate-charge fix as explicitly unverified.
+        critical: true
+      - text: The rewrite preserves the proposed all-region rollout and tomorrow timing without presenting the recommendation as substantiated.
+        critical: true
+      - text: The rewrite does not invent dashboards, benchmarks, regions, causes, or supporting evidence.
+        critical: true
+      - text: The rewrite distinguishes source claims from known facts.
+        critical: false
+
+  - id: operational-preservation
+    kind: edge
+    prompt: |
+      Use the repository's no-slop skill to rewrite the runbook excerpt below.
+      Return the rewritten text, then a short evaluator self-report listing
+      anything the skill left unclear and any discretionary choices you made.
+
+      "Before doing anything, the on-call engineer must ask Priya Shah for
+      approval in #payments-ops. Then run `./scripts/drain.sh eu-west-1` from
+      `/srv/payments`. Do not continue unless the output says `0 active jobs`.
+      Next, set `PAYMENTS_READ_ONLY=1` and run `./migrate --target v42`. If the
+      command exits 23, leave read-only mode enabled, page Database Operations,
+      and do not retry. Only after the migration reports `schema v42 healthy`
+      may you unset the variable and restore traffic."
+    requirements:
+      - text: The rewrite preserves Priya Shah, #payments-ops, and the approval prerequisite.
+        critical: true
+      - text: The rewrite preserves both commands, /srv/payments, eu-west-1, PAYMENTS_READ_ONLY=1, and target v42.
+        critical: true
+      - text: The rewrite preserves the exact 0 active jobs and schema v42 healthy gates in order.
+        critical: true
+      - text: The rewrite preserves exit code 23, the no-retry rule, read-only requirement, and Database Operations escalation.
+        critical: true
+      - text: The rewrite remains operationally readable and adds no steps.
+        critical: false

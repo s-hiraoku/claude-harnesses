@@ -1,0 +1,14 @@
+{
+  "name": "skill-no-slop",
+  "version": "0.1.0",
+  "description": "MODIFIER skill that removes AI slop from prose without losing source facts or uncertainty. Use with any writing task or to rewrite text; for code slop, use deslop instead.",
+  "author": {
+    "name": "s-hiraoku",
+    "url": "https://github.com/s-hiraoku"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "no-slop"
+  ]
+}
